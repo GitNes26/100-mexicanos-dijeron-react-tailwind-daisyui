@@ -26,6 +26,7 @@ export default function Tablero() {
    useEffect(() => {
       // load simple sounds (these are placeholders, include your own in public/)
       s.load("aJugar", sounds.aJugar);
+      s.load("botonazo", sounds.botonazo);
       s.load("correcto", sounds.correcto);
       s.load("incorrecto", sounds.incorrecto);
       s.load("RE", sounds.RE);
@@ -38,8 +39,14 @@ export default function Tablero() {
    useEffect(() => {
       function handler(e) {
          if (!allowKeyboard) return;
-         if (e.key === "1" || e.code === "Numpad1") activarEquipo(1);
-         if (e.key === "2" || e.code === "Numpad2") activarEquipo(2);
+         if (e.key === "1" || e.code === "Numpad1") {
+            s.play("botonazo");
+            activarEquipo(1);
+         }
+         if (e.key === "2" || e.code === "Numpad2") {
+            s.play("botonazo");
+            activarEquipo(2);
+         }
       }
       window.addEventListener("keydown", handler);
       return () => window.removeEventListener("keydown", handler);
@@ -114,7 +121,6 @@ export default function Tablero() {
    }
 
    function marcarError(slot) {
-      console.log("🚀 ~ marcarError ~ slot:", slot);
       if (!equipoActivo) return;
       if (equipoActivo === 1) {
          setErrores((prev) => {
@@ -155,7 +161,53 @@ export default function Tablero() {
 
    return (
       <>
-         <div className="w-full max-w-6xl bg-yellow-500 rounded-2xl p-6 shadow-lg mx-auto z-10">
+         <EquipoPanel
+            numero={1}
+            nombre={"Los pollitos"}
+            color={"green"}
+            puntos={puntosEquipo.e1}
+            errores={errores.e1}
+            MAX_ERRORES={MAX_ERRORES}
+            activo={equipoActivo === 1}
+            bloqueado={equipoBloqueado === 1}
+         />
+         {equipoActivo === 1 && <BgEquipo numero={1} />}
+
+         <EquipoPanel
+            numero={2}
+            nombre={"Los naranjos"}
+            color={"orange"}
+            puntos={puntosEquipo.e2}
+            errores={errores.e2}
+            MAX_ERRORES={MAX_ERRORES}
+            activo={equipoActivo === 2}
+            bloqueado={equipoBloqueado === 2}
+         />
+         {equipoActivo === 2 && <BgEquipo numero={2} />}
+
+         {/* TABLERO */}
+         <div className="w-full max-w-6xl bg-warning rounded-2xl p-6 shadow-lg mx-auto z-10">
+            <div className="flex flex-col items-center justify-between w-full">
+               <div className="text-center bg-black rounded-2xl w-3/9 mb-3 p-3">
+                  <div className="text-success font-extrabold text-7xl">{totalRonda(preguntaIdx)}</div>
+               </div>
+               <div className="text-center bg-black rounded-2xl w-full mb-3">
+                  <div className="text-5xl font-semibold mb-2 p-3">{preguntaIdx == null ? "!!! A JUGAAARRR !!!" : PREGUNTAS[preguntaIdx].texto}</div>
+               </div>
+            </div>
+
+            {/* ZONA DE RESPUESTAS */}
+            <div className="card bg-black rounded-2xl shadow-lg mx-25 p-5">
+               <div className="grid gap-5">
+                  {Array.from({ length: 5 }).map((_, i) => {
+                     const key = `${preguntaIdx}-${i}`;
+                     const revel = !!reveladas[key];
+                     const respuesta = preguntaIdx != null ? PREGUNTAS[preguntaIdx].respuestas[i] : null;
+                     return <RespuestaCard key={i} index={i} preguntaIdx={preguntaIdx} revelada={revel} respuesta={respuesta} onReveal={(idx) => destapar(idx)} />;
+                  })}
+               </div>
+            </div>
+
             {/* ZONA DE ERRORES "X" ANIMADAS */}
             <div className="flex absolute top-[50%] left-0 justify-center gap-16 -translate-y-1/2 z-50 w-full">
                {animX.e1 &&
@@ -168,83 +220,18 @@ export default function Tablero() {
                   ))}
             </div>
 
-            <div className="flex items-center justify-between">
-               <EquipoPanel
-                  numero={1}
-                  nombre={"Los pollitos"}
-                  color={"green"}
-                  puntos={puntosEquipo.e1}
-                  errores={errores.e1}
-                  MAX_ERRORES={MAX_ERRORES}
-                  activo={equipoActivo === 1}
-                  bloqueado={equipoBloqueado === 1}
-               />
-
-               <div className="text-center z-10">
-                  <div className="text-3xl font-bold mb-2">100 Mexicanos Dijeron</div>
-                  <div className="text-lg mb-2">{preguntaIdx == null ? "Elige una ronda (1-10)" : PREGUNTAS[preguntaIdx].texto}</div>
-                  <div className="text-green-600 font-extrabold text-4xl">{totalRonda(preguntaIdx)}</div>
-               </div>
-
-               <EquipoPanel
-                  numero={2}
-                  nombre={"Los naranjos"}
-                  color={"orange"}
-                  puntos={puntosEquipo.e2}
-                  errores={errores.e2}
-                  MAX_ERRORES={MAX_ERRORES}
-                  activo={equipoActivo === 2}
-                  bloqueado={equipoBloqueado === 2}
-               />
-            </div>
-
-            <div className="mt-6 grid gap-3">
-               {Array.from({ length: 5 }).map((_, i) => {
-                  const key = `${preguntaIdx}-${i}`;
-                  const revel = !!reveladas[key];
-                  const respuesta = preguntaIdx != null ? PREGUNTAS[preguntaIdx].respuestas[i] : null;
-                  return <RespuestaCard key={i} index={i} preguntaIdx={preguntaIdx} revelada={revel} respuesta={respuesta} onReveal={(idx) => destapar(idx)} />;
-               })}
-            </div>
-
             <ControlPanel
                onSelectQuestion={mostrarPregunta}
+               preguntaIdx={preguntaIdx}
                onActivateTeam={activarEquipo}
                equipoBloqueado={equipoBloqueado}
                equipoActivo={equipoActivo}
                onReset={resetJuego}
+               errores={errores}
+               marcarError={marcarError}
+               enRobo={enRobo}
             />
-
-            <div className="mt-4 flex gap-2">
-               <div className="flex flex-col gap-1">
-                  <div className="font-semibold">Errores (botones)</div>
-                  <div className="font-semibold">Eq1: {errores.e1}</div>
-                  <div className="font-semibold">Eq2: {errores.e2}</div>
-                  <div className="flex gap-1">
-                     <button onClick={() => marcarError(1)} className={`btn btn-error disabled:opacity-90`} disabled={errores.e1 >= 1 || errores.e2 >= 1}>
-                        Err 1
-                     </button>
-                     <button onClick={() => marcarError(2)} className={`btn btn-error disabled:opacity-90`} disabled={errores.e1 >= 2 || errores.e2 >= 2}>
-                        Err 2
-                     </button>
-                     <button onClick={() => marcarError(3)} className={`btn btn-error disabled:opacity-90`} disabled={errores.e1 >= 3 || errores.e2 >= 3}>
-                        Err 3
-                     </button>
-                  </div>
-               </div>
-
-               <div className="ml-4 text-sm font-light text-gray-600">
-                  <div>Equipo activo: {equipoActivo ?? "-"}</div>
-                  <div>En robo: {enRobo ? "SI" : "NO"}</div>
-                  <div className="mt-2">
-                     <label className="mr-2">Permitir teclado</label>
-                     <input type="checkbox" checked={true} onChange={() => {}} readOnly />
-                  </div>
-               </div>
-            </div>
          </div>
-         <BgEquipo numero={1} color={"ambar"} />
-         <BgEquipo numero={2} color={"blue"} />
       </>
    );
 }

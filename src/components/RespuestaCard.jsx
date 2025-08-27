@@ -17,7 +17,7 @@ export default function RespuestaCard({ index, preguntaIdx, revelada, respuesta,
    return (
       <motion.div
          layout
-         className={`relative w-full p-3 rounded-md bg-black text-green-300 overflow-hidden ${!revelada ? "hover:cursor-pointer placeholder-box" : ""}`}
+         className={`relative w-full p-3 rounded-md bg-black text-success overflow-hidden ${!revelada ? "hover:cursor-pointer placeholder-box" : ""}`}
          onClick={() => onReveal(index)}
       >
          <AnimatePresence mode="popLayout">
@@ -30,11 +30,10 @@ export default function RespuestaCard({ index, preguntaIdx, revelada, respuesta,
                   transition={{ duration: 0.3 }}
                   className="flex justify-between items-center"
                >
-                  <div className="text-2xl">
-                     Respuesta {index + 1}{" "}
-                     .........................................................................................................................................
+                  <div className="text-3xl font-semibold">
+                     {index + 1} ...............................................................................................
                   </div>
-                  <div className="text-2xl">----</div>
+                  <div className="text-3xl font-semibold">....</div>
                </motion.div>
             ) : (
                <motion.div
@@ -45,13 +44,15 @@ export default function RespuestaCard({ index, preguntaIdx, revelada, respuesta,
                   transition={{ duration: 0.4 }}
                   className="flex justify-between items-center"
                >
-                  <div className="text-2xl font-bold">{respuesta?.texto}</div>
+                  <div className="text-3xl font-bold">
+                     {index + 1} {respuesta?.texto}
+                  </div>
                   {showPoints ? (
-                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.1, delay: 0.3 }} className="text-2xl font-bold">
+                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.1, delay: 0.3 }} className="text-3xl font-bold">
                         {respuesta?.puntos}
                      </motion.div>
                   ) : (
-                     <div className="text-2xl">----</div>
+                     <div className="text-3xl font-semibold">....</div>
                   )}
                </motion.div>
             )}
@@ -62,7 +63,7 @@ export default function RespuestaCard({ index, preguntaIdx, revelada, respuesta,
       //       <button onClick={() => onReveal(index)} className="w-full text-left focus:outline-none">
       //          <div className="placeholder-box p-3 rounded-md text-green-300 flex justify-between">
       //             <div className="text-xl">Respuesta {index + 1} ...............................................................................................</div>
-      //             <div className="text-2xl font-bold">----</div>
+      //             <div className="text-3xl font-bold">----</div>
       //          </div>
       //       </button>
       //    ) : (
@@ -77,11 +78,11 @@ export default function RespuestaCard({ index, preguntaIdx, revelada, respuesta,
       //          >
       //             <div className="text-xl">{respuesta?.texto}</div>
       //             {showPoints ? (
-      //                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.1 }} className="text-2xl font-bold">
+      //                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.1 }} className="text-3xl font-bold">
       //                   {respuesta?.puntos}
       //                </motion.div>
       //             ) : (
-      //                <div className="text-2xl font-bold">----</div>
+      //                <div className="text-3xl font-bold">----</div>
       //             )}
       //          </motion.div>
       //       </div>
