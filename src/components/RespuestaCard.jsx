@@ -58,35 +58,5 @@ export default function RespuestaCard({ index, preguntaIdx, revelada, respuesta,
             )}
          </AnimatePresence>
       </motion.div>
-      // <motion.div layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="relative w-full">
-      //    {!revelada ? (
-      //       <button onClick={() => onReveal(index)} className="w-full text-left focus:outline-none">
-      //          <div className="placeholder-box p-3 rounded-md text-green-300 flex justify-between">
-      //             <div className="text-xl">Respuesta {index + 1} ...............................................................................................</div>
-      //             <div className="text-3xl font-bold">----</div>
-      //          </div>
-      //       </button>
-      //    ) : (
-      //       <div className="relative overflow-hidden p-3 rounded-md bg-black text-green-300">
-      //          {/* Barrido de izquierda a derecha */}
-      //          <motion.div initial={{ x: "-100%" }} animate={{ x: 0 }} transition={{ duration: 1 }} className="absolute top-0 left-0 w-full h-full bg-black" />
-      //          <motion.div
-      //             initial={{ opacity: 1, x: "-100%" }}
-      //             animate={{ opacity: 1, x: 0 }}
-      //             transition={{ duration: 1, delay: 0 }}
-      //             className="flex justify-between items-center relative"
-      //          >
-      //             <div className="text-xl">{respuesta?.texto}</div>
-      //             {showPoints ? (
-      //                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.1 }} className="text-3xl font-bold">
-      //                   {respuesta?.puntos}
-      //                </motion.div>
-      //             ) : (
-      //                <div className="text-3xl font-bold">----</div>
-      //             )}
-      //          </motion.div>
-      //       </div>
-      //    )}
-      // </motion.div>
    );
 }

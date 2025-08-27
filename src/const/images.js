@@ -1,4 +1,4 @@
-import x from "/public/images/x.png";
+import x from "../assets/images/x.png";
 
 const images = {
    x
