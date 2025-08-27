@@ -31,7 +31,7 @@ export default function RespuestaCard({ index, preguntaIdx, revelada, respuesta,
                   className="flex justify-between items-center"
                >
                   <div className="text-3xl font-semibold">
-                     {index + 1} ...............................................................................................
+                     {index + 1}. ...............................................................................................
                   </div>
                   <div className="text-3xl font-semibold">....</div>
                </motion.div>
@@ -45,10 +45,10 @@ export default function RespuestaCard({ index, preguntaIdx, revelada, respuesta,
                   className="flex justify-between items-center"
                >
                   <div className="text-3xl font-bold">
-                     {index + 1} {respuesta?.texto}
+                     {index + 1}. {respuesta?.texto}
                   </div>
                   {showPoints ? (
-                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.1, delay: 0.3 }} className="text-3xl font-bold">
+                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.1, delay: 0.1 }} className="text-3xl font-bold">
                         {respuesta?.puntos}
                      </motion.div>
                   ) : (

@@ -5,16 +5,18 @@ import images from "../const/images";
 export default function EquipoPanel({ numero, nombre, puntos, errores, MAX_ERRORES, activo, bloqueado }) {
    const bg = numero == 1 ? `bg-neutral` : `bg-neutral-content text-neutral`;
    const posicion = numero == 1 ? `left-25` : `right-25`;
+   const textColor = numero == 1 ? `text-red-500` : `text-blue-500`;
    const disabled = bloqueado || !activo ? "opacity-100" : "";
    return (
-      <div className={`absolute card w-96 h-3/9 transition-all ${bg} ${disabled} ${posicion} z-20 rounded-2xl`}>
+      <div className={`absolute card w-96 h-3/9 transition-all bg-warning ${textColor} ${disabled} ${posicion} z-20 rounded-2xl`}>
          <div className="card-body items-center text-center flex flex-col justify-between">
+            <progress className={`progress ${numero === 1 ? "progress-error" : "progress-info"} w-56`}></progress>
             <h2 className="card-title font-black flex flex-col text-4xl">
                {nombre.toUpperCase()}
                <small className="-mt-3 text-sm font-light">Equipo {numero}</small>
             </h2>
-            <div className="card-actions justify-center">
-               <div className="text-8xl font-black text-shadow-gray-600">{puntos}</div>
+            <div className="card-actions justify-center bg-black rounded-2xl p-4 w-full">
+               <div className="text-8xl font-black text-shadow-green-950">{puntos}</div>
             </div>
             <div className="mt-2">
                <div className="flex-1 flex justify-center gap-2">
@@ -27,13 +29,15 @@ export default function EquipoPanel({ numero, nombre, puntos, errores, MAX_ERROR
                   )}
                </div>
             </div>
+            <progress className={`progress ${numero === 1 ? "progress-error" : "progress-info"} w-56`}></progress>
          </div>
       </div>
    );
 }
 
 export function BgEquipo({ numero }) {
-   const finalBg = numero == 1 ? "skeleton bg-neutral duration-700" : "skeleton bg-neutral-content duration-700";
+   // const finalBg = numero == 1 ? "skeleton bg-neutral duration-700" : "skeleton bg-neutral-content duration-700";
+   const finalBg = numero == 1 ? "bg-red-500 duration-700" : "bg-blue-500 duration-700";
    const colors = [
       "bg-primary",
       "bg-secondary",
@@ -73,8 +77,8 @@ export function BgEquipo({ numero }) {
       };
    }, [numero]);
    return (
-      <div className={`absolute card h-full w-[50%] top-0 ${numero === 1 ? "left-0" : "right-0"} z-0`}>
-         <div className={twMerge(`h-full w-full transition-colors ${bg}`)}></div>
+      <div className={`absolute h-full w-[50%] top-0 ${numero === 1 ? "left-0" : "right-0"} z-0`}>
+         <div className={twMerge(`h-full w-full transition-colors ${bg} rounded-none`)}></div>
       </div>
    );
 }

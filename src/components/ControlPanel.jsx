@@ -1,5 +1,16 @@
 import React from "react";
-export default function ControlPanel({ onSelectQuestion, preguntaIdx, onActivateTeam, equipoBloqueado, equipoActivo, onReset, errores, marcarError, enRobo }) {
+export default function ControlPanel({
+   onSelectQuestion,
+   preguntaIdx,
+   onActivateTeam,
+   equipoBloqueado,
+   equipoActivo,
+   onReset,
+   errores,
+   marcarError,
+   enRobo,
+   reproducirRepetida
+}) {
    return (
       <div className="flex flex-col items-center justify-between mt-6  w-full bg-amber-500">
          {/* ZONA DE RONDAS */}
@@ -19,13 +30,13 @@ export default function ControlPanel({ onSelectQuestion, preguntaIdx, onActivate
          <div className="flex w-full justify-between items-center">
             <div className="mt-4 flex gap-2">
                <div className="flex gap-1">
-                  <button onClick={() => marcarError(1)} className={`btn btn-error disabled:opacity-90`} disabled={errores.e1 >= 1 || errores.e2 >= 1}>
+                  <button onClick={() => marcarError(1)} className={`btn btn-error`} disabled={errores.e1 >= 1 || errores.e2 >= 1}>
                      Err 1
                   </button>
-                  <button onClick={() => marcarError(2)} className={`btn btn-error disabled:opacity-90`} disabled={errores.e1 >= 2 || errores.e2 >= 2}>
+                  <button onClick={() => marcarError(2)} className={`btn btn-error`} disabled={errores.e1 >= 2 || errores.e2 >= 2}>
                      Err 2
                   </button>
-                  <button onClick={() => marcarError(3)} className={`btn btn-error disabled:opacity-90`} disabled={errores.e1 >= 3 || errores.e2 >= 3}>
+                  <button onClick={() => marcarError(3)} className={`btn btn-error`} disabled={errores.e1 >= 3 || errores.e2 >= 3}>
                      Err 3
                   </button>
                </div>
@@ -38,7 +49,6 @@ export default function ControlPanel({ onSelectQuestion, preguntaIdx, onActivate
                      <input type="checkbox" checked={true} onChange={() => {}} readOnly />
                   </p>
                </div>
-
             </div>
             <div className="flex gap-2 items-center">
                <button
@@ -57,6 +67,15 @@ export default function ControlPanel({ onSelectQuestion, preguntaIdx, onActivate
                >
                   Seleccionar E2 (<kbd className="kbd text-neutral-content">2</kbd>)
                </button>
+               {/* BOTONES INDEPENDIENTES DE ERROR Y REPETIDA */}
+               <div className="flex justify-center gap-6 mt-6">
+                  <button className="btn btn-error text-white text-lg font-bold px-6 py-2 rounded-xl shadow" onClick={() => marcarError(0)}>
+                     X
+                  </button>
+                  <button className="btn btn-warning text-lg font-bold px-6 py-2 rounded-xl shadow" onClick={reproducirRepetida}>
+                     R/E
+                  </button>
+               </div>
                <button onClick={onReset} className="btn btn-accent">
                   Reset Juego
                </button>
