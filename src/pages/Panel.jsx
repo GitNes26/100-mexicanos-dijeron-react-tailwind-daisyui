@@ -37,9 +37,14 @@ export default function Panel() {
       }
    }, []);
 
+   function setPregunta(idx) {
+      setPreguntaPreview(idx);
+      setPreguntaIdx(idx);
+   }
+
    function destaparRespuesta(answerIdx) {
       const action = "setAnswer";
-      const payload = { questionIdx: preguntaPreview, answerIdx };
+      const payload = { answerIdx };
       if (ws && ws.readyState === WebSocket.OPEN) {
          send({ action, ...payload });
       } else {
@@ -56,18 +61,6 @@ export default function Panel() {
             </span>
          </div>
 
-         {/* <ControlPanel
-            onSelectQuestion={mostrarPregunta}
-            preguntaIdx={preguntaIdx}
-            onActivateTeam={activarEquipo}
-            equipoBloqueado={equipoBloqueado}
-            equipoActivo={equipoActivo}
-            onReset={resetJuego}
-            errores={errores}
-            marcarError={marcarError}
-            enRobo={enRobo}
-            reproducirRepetida={reproducirRepetida}
-         /> */}
          <div className="flex flex-col items-center justify-between mt-6  w-full bg-amber-500">
             {/* ZONA DE RONDAS */}
             <div className="flex gap-2 justify-around w-full">
@@ -217,7 +210,7 @@ export default function Panel() {
                      ${preguntasEnviadas.includes(idx) ? "bg-green-700 border-green-400 opacity-70" : "bg-gray-800 border-gray-600 hover:bg-blue-800"}
                      ${preguntaPreview === idx ? "ring-4 ring-blue-400" : ""}
                   `}
-                  onClick={() => setPreguntaPreview(idx)}
+                  onClick={() => setPregunta(idx)}
                >
                   <div className="flex justify-between items-center mb-2">
                      <span className="font-bold text-lg">{pregunta.texto}</span>

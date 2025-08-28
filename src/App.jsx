@@ -11,7 +11,8 @@ export default function App() {
          <JuegoContextProvider>
             <BrowserRouter>
                <Routes>
-                  <Route index={true} path="/tablero" element={<Tablero />} />
+                  <Route index path="/" element={<Tablero />} />
+                  <Route index path="/tablero" element={<Tablero />} />
                   <Route path="/panel" element={<Panel />} />
                   <Route path="/control/:team" element={<Control />} />
                </Routes>

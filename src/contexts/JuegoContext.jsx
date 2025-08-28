@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useRef, useEffect } from "react";
+import { createContext, useContext, useState, useRef, useEffect } from "react";
 import useSound from "../hooks/useSound";
 import sounds from "../const/sounds";
 import { PREGUNTAS } from "../data";
@@ -9,6 +9,7 @@ export const JuegoContext = createContext();
 export function JuegoContextProvider({ children }) {
    const MAX_ERRORES = 3;
    const BLOQUEO_MS = 5000;
+
    const [ws, setWs] = useState(null);
    const [preguntaPreview, setPreguntaPreview] = useState(null);
    const [preguntasEnviadas, setPreguntasEnviadas] = useState([]);
@@ -63,18 +64,7 @@ export function JuegoContextProvider({ children }) {
             console.log("Acción WS desconocida:", data);
       }
    }
-   // useEffect(() => {
-   //    console.log("JuegoContext ~ preguntaPreview:", preguntaPreview);
-   //    const ws = new WebSocket("ws://localhost:8080");
-   //    console.log("🚀 ~ JuegoContext ~ ws:", ws);
-   //    ws.onmessage = (msg) => {
-   //       console.log("🚀 ~ JuegoContext ~ msg:", msg);
-   //       const data = JSON.parse(msg.data);
-   //       setLog((prev) => [...prev, JSON.stringify(data)]);
-   //       handleWSMessage(data);
-   //    };
-   //    return () => ws.close();
-   // }, [preguntaIdx, preguntaPreview, reveladas, equipoActivo, equipoBloqueado, errores, animX]);
+
    useEffect(() => {
       let socket;
       let reconnectTimer;
@@ -92,7 +82,7 @@ export function JuegoContextProvider({ children }) {
          };
          socket.onclose = () => {
             console.warn("WebSocket cerrado, reintentando en 2s...");
-            reconnectTimer = setTimeout(connectWS, 2000);
+            // reconnectTimer = setTimeout(connectWS, 2000);
          };
          socket.onerror = (err) => {
             console.error("WebSocket error:", err);
@@ -105,6 +95,7 @@ export function JuegoContextProvider({ children }) {
          if (reconnectTimer) clearTimeout(reconnectTimer);
       };
    }, [preguntaIdx, preguntaPreview, reveladas, equipoActivo, equipoBloqueado, errores, animX]);
+   // useEffect(() => {}, [preguntaIdx, preguntaPreview, reveladas, equipoActivo, equipoBloqueado, errores, animX]);
    const send = (data) => {
       console.log("🚀 ~ send ~ data:", data);
       // console.log("🚀 ~ send ~ ws:", ws);
@@ -115,13 +106,13 @@ export function JuegoContextProvider({ children }) {
    };
 
    const handleConfirmarPregunta = () => {
-      console.log("🚀 ~ handleConfirmarPregunta ~ handleConfirmarPregunta:", preguntaPreview);
-      if (preguntaPreview != null) {
-         send({ action: "setQuestion", questionIdx: preguntaPreview });
-         setPreguntasEnviadas((prev) => [...prev, preguntaPreview]);
-         setRondasJugadas((prev) => prev + 1);
-         setPreguntaPreview(null);
-      }
+      // console.log("🚀 ~ handleConfirmarPregunta ~ handleConfirmarPregunta:", preguntaPreview);
+      // if (preguntaPreview != null) {
+      //    // send({ action: "setQuestion", questionIdx: preguntaPreview });
+      //    setPreguntasEnviadas((prev) => [...prev, preguntaPreview]);
+      //    setRondasJugadas((prev) => prev + 1);
+      //    setPreguntaPreview(null);
+      // }
    };
 
    /* NUEVO */
@@ -129,6 +120,9 @@ export function JuegoContextProvider({ children }) {
    const s = useSound();
    useEffect(() => {
       // load simple sounds (these are placeholders, include your own in public/)
+      // navigation
+      console.log("🚀 ~ JuegoContextProvider ~ window:", window.location.pathname);
+      if (!["/", "/tablero"].includes(window.location.pathname)) return;
       s.load("aJugar", sounds.aJugar);
       s.load("botonazo", sounds.botonazo);
       s.load("correcto", sounds.correcto);
@@ -173,6 +167,8 @@ export function JuegoContextProvider({ children }) {
 
    function mostrarPregunta(i) {
       console.log("🚀 ~ mostrarPregunta ~ mostrarPregunta ~ i:", i);
+      console.log("🚀 ~ handleConfirmarPregunta ~ reveladas:", reveladas);
+
       // send({ action: "setQuestion", questionIdx: i });
       s.play("aJugar");
       setPreguntaIdx(i);
@@ -193,6 +189,9 @@ export function JuegoContextProvider({ children }) {
          return copy;
       });
       setErrores({ e1: 0, e2: 0 });
+      setPreguntasEnviadas((prev) => [...prev, preguntaPreview]);
+      setRondasJugadas((prev) => prev + 1);
+      // setPreguntaPreview(null);
    }
 
    function activarEquipo(n) {
@@ -209,6 +208,10 @@ export function JuegoContextProvider({ children }) {
    }
 
    async function destapar(i) {
+      console.log("🚀 ~ destapar ~ i:", i); // 2-1:true
+      console.log("🚀 ~ mostrarPregunta ~ reveladas:", reveladas);
+      console.log("🚀 ~ destapar ~ preguntaIdx:", preguntaIdx);
+      if (!equipoActivo) return s.play("RE");
       if (preguntaIdx == null) return;
       const key = `${preguntaIdx}-${i}`;
       if (reveladas[key]) return;
@@ -216,6 +219,7 @@ export function JuegoContextProvider({ children }) {
       const puntos = PREGUNTAS[preguntaIdx].respuestas[i].puntos || 0;
       s.play("correcto");
       await sleep(2000);
+      console.log("🚀 ~ mostrarPregunta ~ reveladas2:", reveladas);
       setAcumuladoRonda((prev) => prev + puntos);
 
       // Si estamos en robo
@@ -311,6 +315,7 @@ export function JuegoContextProvider({ children }) {
    }
 
    function resetJuego() {
+      console.log("🚀 ~ resetJuego ~ resetJuego:");
       setPreguntaIdx(null);
       setEquipoActivo(null);
       setEquipoBloqueado(null);
