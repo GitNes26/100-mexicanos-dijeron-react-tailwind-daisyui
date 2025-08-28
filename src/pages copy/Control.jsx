@@ -4,7 +4,7 @@ import { useJuegoContext } from "../contexts/JuegoContext";
 
 export default function Control() {
    const { team } = useParams();
-   const { ws, setWs, send } = useJuegoContext();
+   const { ws, setWs } = useJuegoContext();
    // const [ws, setWs] = useState(null);
    const [animando, setAnimando] = useState(false);
    const equipo = {
@@ -19,12 +19,16 @@ export default function Control() {
          return () => socket.close();
       }
    }, []);
+   // useEffect(() => {
+   //    const socket = new WebSocket("ws://localhost:8080");
+   //    setWs(socket);
+   //    return () => socket.close();
+   // }, []);
 
    const press = (team) => {
       if (animando) return; // Evita doble clic durante animación
       if (ws && ws.readyState === WebSocket.OPEN) {
-         // ws.send(JSON.stringify({ action: "press", team }));
-         send({ action: "press", team });
+         ws.send(JSON.stringify({ action: "press", team }));
          setAnimando(true);
          transitionColors(() => setAnimando(false));
       }

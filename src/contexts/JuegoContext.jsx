@@ -32,8 +32,83 @@ export function JuegoContextProvider({ children }) {
 
    // Puedes agregar aquí más estados y funciones globales
 
+   function handleWSMessage(data) {
+      console.log("🚀 ~ handleWSMessage ~ data:", data);
+      switch (data.action) {
+         case "press":
+            console.log("🚀 ~ handleWSMessage ~ equipoActivo:", equipoActivo);
+            if (!equipoActivo) activarEquipo(Number(data.team));
+            break;
+         case "activateTeam":
+            activarEquipo(data.team);
+            break;
+         case "setQuestion":
+            mostrarPregunta(data.questionIdx);
+            break;
+         case "setAnswer":
+            // setPreguntaIdx(data.questionIdx);
+            destapar(data.answerIdx);
+            break;
+         case "markError":
+            marcarError(data.slot);
+            break;
+         case "reset":
+            resetJuego();
+            break;
+         case "repetida":
+            reproducirRepetida();
+            break;
+         // Agrega más casos según tus acciones
+         default:
+            console.log("Acción WS desconocida:", data);
+      }
+   }
+   // useEffect(() => {
+   //    console.log("JuegoContext ~ preguntaPreview:", preguntaPreview);
+   //    const ws = new WebSocket("ws://localhost:8080");
+   //    console.log("🚀 ~ JuegoContext ~ ws:", ws);
+   //    ws.onmessage = (msg) => {
+   //       console.log("🚀 ~ JuegoContext ~ msg:", msg);
+   //       const data = JSON.parse(msg.data);
+   //       setLog((prev) => [...prev, JSON.stringify(data)]);
+   //       handleWSMessage(data);
+   //    };
+   //    return () => ws.close();
+   // }, [preguntaIdx, preguntaPreview, reveladas, equipoActivo, equipoBloqueado, errores, animX]);
+   useEffect(() => {
+      let socket;
+      let reconnectTimer;
+      function connectWS() {
+         socket = new WebSocket("ws://localhost:8080");
+         setWs(socket);
+         socket.onopen = () => {
+            console.log("WebSocket conectado");
+         };
+         socket.onmessage = (msg) => {
+            console.log("🚀 ~ JuegoContext ~ msg:", msg);
+            const data = JSON.parse(msg.data);
+            setLog((prev) => [...prev, JSON.stringify(data)]);
+            handleWSMessage(data);
+         };
+         socket.onclose = () => {
+            console.warn("WebSocket cerrado, reintentando en 2s...");
+            reconnectTimer = setTimeout(connectWS, 2000);
+         };
+         socket.onerror = (err) => {
+            console.error("WebSocket error:", err);
+            socket.close();
+         };
+      }
+      connectWS();
+      return () => {
+         if (socket) socket.close();
+         if (reconnectTimer) clearTimeout(reconnectTimer);
+      };
+   }, [preguntaIdx, preguntaPreview, reveladas, equipoActivo, equipoBloqueado, errores, animX]);
    const send = (data) => {
-      console.log("🚀 ~ send ~ data:", data)
+      console.log("🚀 ~ send ~ data:", data);
+      // console.log("🚀 ~ send ~ ws:", ws);
+      // console.log("🚀 ~ send ~ WebSocket:", WebSocket.OPEN);
       if (ws && ws.readyState === WebSocket.OPEN) {
          ws.send(JSON.stringify(data));
       }
@@ -62,8 +137,43 @@ export function JuegoContextProvider({ children }) {
       s.load("triunfo", sounds.triunfo);
    }, []);
 
+   // useEffect(() => {
+   //    // Escuchar mensajes del WebSocket y actualizar el estado global
+   //    if (!ws) return;
+   //    ws.onmessage = (event) => {
+   //       console.log("🚀 ~ JuegoContextProvider ~ event:", event)
+   //       try {
+   //          const data = JSON.parse(event.data);
+   //          // Ejemplo: manejar acciones y actualizar estados
+   //          switch (data.action) {
+   //             case "setQuestion":
+   //                setPreguntaIdx(data.questionIdx);
+   //                setEnRobo(false);
+   //                setEquipoActivo(null);
+   //                setEquipoBloqueado(null);
+   //                setAcumuladoRonda(0);
+   //                setReveladas({});
+   //                setErrores({ e1: 0, e2: 0 });
+   //                break;
+   //             case "press":
+   //                // Activar equipo
+   //                setEquipoActivo(data.team);
+   //                setEquipoBloqueado(data.team === 1 ? 2 : 1);
+   //                break;
+   //             // Agrega aquí más acciones según tu flujo
+   //             // Por ejemplo: destapar, marcarError, reproducirRepetida, etc.
+   //             default:
+   //                break;
+   //          }
+   //       } catch (err) {
+   //          console.error("Error al procesar mensaje WS:", err);
+   //       }
+   //    };
+   // }, [ws, s]);
+
    function mostrarPregunta(i) {
       console.log("🚀 ~ mostrarPregunta ~ mostrarPregunta ~ i:", i);
+      // send({ action: "setQuestion", questionIdx: i });
       s.play("aJugar");
       setPreguntaIdx(i);
       setEnRobo(false);
@@ -89,6 +199,7 @@ export function JuegoContextProvider({ children }) {
       console.log("🚀 ~ activarEquipo ~ n:", n);
       // Solo permite activar si no hay equipo activo
       if (equipoActivo) return;
+      s.play("botonazo");
       console.log("🚀 ~ activarEquipo: todo bien hasta aqui");
       setEquipoActivo(n);
       const contrario = n === 1 ? 2 : 1;
@@ -157,6 +268,7 @@ export function JuegoContextProvider({ children }) {
    }
 
    function marcarError(slot) {
+      console.log("🚀 ~ marcarError ~ slot:", slot);
       if (slot === 0) {
          s.play("incorrecto");
          setAnimX((prev) => ({ ...prev, ind: true }));
@@ -235,6 +347,7 @@ export function JuegoContextProvider({ children }) {
             resetJuego,
             log,
             setLog,
+            handleWSMessage,
             /* estados */
             s,
             preguntaIdx,
