@@ -18,7 +18,7 @@ export default function RespuestaCard({ index, preguntaIdx, revelada, respuesta,
       <motion.div
          layout
          className={`relative w-full p-3 rounded-md bg-black text-success overflow-hidden ${!revelada ? "hover:cursor-pointer placeholder-box" : ""}`}
-         onClick={() => onReveal(index)}
+         // onClick={() => onReveal(index)}
       >
          <AnimatePresence mode="popLayout">
             {!revelada ? (

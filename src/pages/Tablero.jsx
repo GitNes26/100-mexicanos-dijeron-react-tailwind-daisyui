@@ -9,6 +9,7 @@ import EquipoPanel, { BgEquipo } from "../components/EquipoPanel";
 import { sleep } from "../utils/helpers";
 import useSocket from "../hooks/useSocket";
 import { useJuegoContext } from "../contexts/JuegoContext";
+import Celebration from "../components/Celebracion";
 
 export default function Tablero() {
    const {
@@ -57,6 +58,8 @@ export default function Tablero() {
       equipoEsperandoError,
       setEquipoEsperandoError
    } = useJuegoContext();
+   const [showCelebration, setShowCelebration] = useState(false);
+
    useEffect(() => {
       function handler(e) {
          if (!allowKeyboard) return;
@@ -75,9 +78,10 @@ export default function Tablero() {
 
    return (
       <>
+         <Celebration teamNumber={1} teamName={"LOS ALELUYA"} onClose={showCelebration} />
          {/* TABLERO */}
-         <div className="w-full max-w-6xl rounded-2xl p-6 shadow-lg mx-auto z-20">
-            <div className="flex flex-col items-center justify-between w-full">
+         <div className="flex flex-col z-20 items-center justify-between relative">
+            <div className="flex flex-col items-center justify-between w-full bg-warning-content">
                <div className="text-center bg-black rounded-2xl w-5/9 mb-3 p-3 rounded-t-full">
                   <div className="text-success font-extrabold text-9xl">{acumuladoRonda}</div>
                </div>
@@ -85,47 +89,39 @@ export default function Tablero() {
                   <div className="text-5xl text-success font-semibold mb-2 p-3">{preguntaIdx == null ? "!!! A JUGAAARRR !!!" : PREGUNTAS[preguntaIdx].texto}</div>
                </div>
             </div>
-
-            {/* ZONA DE RESPUESTAS */}
-            <div className="card bg-black rounded-2xl shadow-lg mx-25 p-5">
-               <div className="grid gap-5">
-                  {Array.from({ length: 5 }).map((_, i) => {
-                     const key = `${preguntaIdx}-${i}`;
-                     const revel = !!reveladas[key];
-                     const respuesta = preguntaIdx != null ? PREGUNTAS[preguntaIdx].respuestas[i] : null;
-                     return <RespuestaCard key={i} index={i} preguntaIdx={preguntaIdx} revelada={revel} respuesta={respuesta} onReveal={(idx) => destapar(idx)} />;
-                  })}
+            <div className="w-full bg-warning max-w-6xl rounded-2xl p-6 shadow-lg mx-auto">
+               {/* ZONA DE RESPUESTAS */}
+               <div className="card bg-black rounded-2xl shadow-lg mx-25 p-5">
+                  <div className="grid gap-5">
+                     {Array.from({ length: 5 }).map((_, i) => {
+                        const key = `${preguntaIdx}-${i}`;
+                        const revel = !!reveladas[key];
+                        const respuesta = preguntaIdx != null ? PREGUNTAS[preguntaIdx].respuestas[i] : null;
+                        return <RespuestaCard key={i} index={i} preguntaIdx={preguntaIdx} revelada={revel} respuesta={respuesta} onReveal={(idx) => destapar(idx)} />;
+                     })}
+                  </div>
+               </div>
+               {/* ZONA DE ERRORES "X" ANIMADAS */}
+               <div className="flex absolute top-[50%] left-0 justify-center gap-16 -translate-y-1/2 w-full z-40" style={{ zIndex: 100 }}>
+                  {Array.from({ length: 4 }).map((_, i) => (
+                     <img key={i} src={images.x} alt="X" className="w-[22%] h-[22%]  z-40" style={{ transition: "opacity 0.5s", opacity: animX.e1 ? 1 : 1 }} />
+                  ))}
+                  {animX.e2 &&
+                     Array.from({ length: errores.e2 }).map((_, i) => (
+                        <img
+                           key={i}
+                           src={images.x}
+                           alt="X"
+                           className="w-[22%] h-[22%] animate-fade"
+                           style={{ transition: "opacity 0.5s", opacity: animX.e2 ? 1 : 0 }}
+                        />
+                     ))}
+                  {animX.ind && (
+                     <img src={images.x} alt="X" className="w-[22%] h-[22%] animate-fade" style={{ transition: "opacity 0.5s", opacity: animX.ind ? 1 : 0 }} />
+                  )}
                </div>
             </div>
-            {/* ZONA DE ERRORES "X" ANIMADAS */}
-            <div className="flex absolute top-[50%] left-0 justify-center gap-16 -translate-y-1/2 w-full" style={{ zIndex: 100 }}>
-               {animX.e1 &&
-                  Array.from({ length: errores.e1 }).map((_, i) => (
-                     <img key={i} src={images.x} alt="X" className="w-[22%] h-[22%] animate-fade" style={{ transition: "opacity 0.5s", opacity: animX.e1 ? 1 : 0 }} />
-                  ))}
-               {animX.e2 &&
-                  Array.from({ length: errores.e2 }).map((_, i) => (
-                     <img key={i} src={images.x} alt="X" className="w-[22%] h-[22%] animate-fade" style={{ transition: "opacity 0.5s", opacity: animX.e2 ? 1 : 0 }} />
-                  ))}
-               {animX.ind && (
-                  <img src={images.x} alt="X" className="w-[22%] h-[22%] animate-fade" style={{ transition: "opacity 0.5s", opacity: animX.ind ? 1 : 0 }} />
-               )}
-            </div>
-            {/* 
-            <ControlPanel
-               onSelectQuestion={mostrarPregunta}
-               preguntaIdx={preguntaIdx}
-               onActivateTeam={activarEquipo}
-               equipoBloqueado={equipoBloqueado}
-               equipoActivo={equipoActivo}
-               onReset={resetJuego}
-               errores={errores}
-               marcarError={marcarError}
-               enRobo={enRobo}
-               reproducirRepetida={reproducirRepetida}
-            /> */}
          </div>
-
          <EquipoPanel
             numero={1}
             nombre={"Los Rojos"}
@@ -149,18 +145,6 @@ export default function Tablero() {
             bloqueado={equipoBloqueado === 2}
          />
          {equipoActivo === 2 && <BgEquipo numero={2} />}
-
-         {/* <div className="h-screen flex flex-col items-center justify-center bg-black text-white">
-            <h1 className="text-4xl mb-6">🎮 Tablero</h1>
-            <div className="w-2/3 bg-gray-800 p-4 rounded">
-               <h2 className="font-bold">Eventos recibidos:</h2>
-               <ul className="text-sm">
-                  {log.map((line, i) => (
-                     <li key={i}>{line}</li>
-                  ))}
-               </ul>
-            </div>
-         </div> */}
       </>
    );
 }
