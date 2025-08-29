@@ -1,7 +1,9 @@
+@import url('./assets/styles/celebracion.css');
 @import "tailwindcss";
 @plugin "daisyui" {
    themes: winter --default, abyss --prefersdark;
 }
+
 
 .fade-in {
    animation: fadeIn 0.28s ease forwards;
@@ -50,3 +52,4 @@
 .animate-fade {
    animation: fadeOut 2s forwards;
 }
+

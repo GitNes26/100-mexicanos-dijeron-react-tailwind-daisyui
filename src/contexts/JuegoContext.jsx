@@ -27,6 +27,7 @@ export function JuegoContextProvider({ children }) {
    const [animX, setAnimX] = useState({ e1: false, e2: false });
    const [equipoEsperandoError, setEquipoEsperandoError] = useState(null); // 1 o 2
    const bloqueoTimer = useRef(null);
+   const [showCelebration, setShowCelebration] = useState(false);
 
    const [log, setLog] = useState([]);
    /* NUEVO */
@@ -95,7 +96,7 @@ export function JuegoContextProvider({ children }) {
          if (reconnectTimer) clearTimeout(reconnectTimer);
       };
    }, [preguntaIdx, preguntaPreview, reveladas, equipoActivo, equipoBloqueado, errores, animX]);
-   // useEffect(() => {}, [preguntaIdx, preguntaPreview, reveladas, equipoActivo, equipoBloqueado, errores, animX]);
+
    const send = (data) => {
       console.log("🚀 ~ send ~ data:", data);
       // console.log("🚀 ~ send ~ ws:", ws);
@@ -129,41 +130,8 @@ export function JuegoContextProvider({ children }) {
       s.load("incorrecto", sounds.incorrecto);
       s.load("RE", sounds.RE);
       s.load("triunfo", sounds.triunfo);
+      s.load("robo", sounds.robo);
    }, []);
-
-   // useEffect(() => {
-   //    // Escuchar mensajes del WebSocket y actualizar el estado global
-   //    if (!ws) return;
-   //    ws.onmessage = (event) => {
-   //       console.log("🚀 ~ JuegoContextProvider ~ event:", event)
-   //       try {
-   //          const data = JSON.parse(event.data);
-   //          // Ejemplo: manejar acciones y actualizar estados
-   //          switch (data.action) {
-   //             case "setQuestion":
-   //                setPreguntaIdx(data.questionIdx);
-   //                setEnRobo(false);
-   //                setEquipoActivo(null);
-   //                setEquipoBloqueado(null);
-   //                setAcumuladoRonda(0);
-   //                setReveladas({});
-   //                setErrores({ e1: 0, e2: 0 });
-   //                break;
-   //             case "press":
-   //                // Activar equipo
-   //                setEquipoActivo(data.team);
-   //                setEquipoBloqueado(data.team === 1 ? 2 : 1);
-   //                break;
-   //             // Agrega aquí más acciones según tu flujo
-   //             // Por ejemplo: destapar, marcarError, reproducirRepetida, etc.
-   //             default:
-   //                break;
-   //          }
-   //       } catch (err) {
-   //          console.error("Error al procesar mensaje WS:", err);
-   //       }
-   //    };
-   // }, [ws, s]);
 
    function mostrarPregunta(i) {
       console.log("🚀 ~ mostrarPregunta ~ mostrarPregunta ~ i:", i);
@@ -218,7 +186,7 @@ export function JuegoContextProvider({ children }) {
       setReveladas((prev) => ({ ...prev, [key]: true }));
       const puntos = PREGUNTAS[preguntaIdx].respuestas[i].puntos || 0;
       s.play("correcto");
-      await sleep(2000);
+      await sleep(3000);
       console.log("🚀 ~ mostrarPregunta ~ reveladas2:", reveladas);
       setAcumuladoRonda((prev) => prev + puntos);
 
@@ -247,7 +215,9 @@ export function JuegoContextProvider({ children }) {
          if (destapadas === totalRespuestas) {
             // El equipo activo suma el acumulado
             s.play("triunfo");
+            setShowCelebration(true);
             await sleep(4000);
+
             setPuntosEquipo((prev) => {
                const copy = { ...prev };
                if (equipoActivo === 1) copy.e1 += acumuladoRonda + puntos;
@@ -310,6 +280,7 @@ export function JuegoContextProvider({ children }) {
    }
 
    function activarRobo(equipoQueRoba) {
+      s.play("robo");
       setEnRobo(true);
       setEquipoActivo(equipoQueRoba);
    }
@@ -352,6 +323,9 @@ export function JuegoContextProvider({ children }) {
             resetJuego,
             log,
             setLog,
+            showCelebration,
+            setShowCelebration,
+
             handleWSMessage,
             /* estados */
             s,

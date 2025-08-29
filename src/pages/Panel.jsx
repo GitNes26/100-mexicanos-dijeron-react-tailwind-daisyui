@@ -117,7 +117,7 @@ export default function Panel() {
                      </button>
                   </div>
 
-                  <div className="flex ml-4 text-sm font-medium text-gray-600">
+                  <div className="flex ml-4 text-sm font-medium text-gray-600 justify-center items-center">
                      <p>Equipo activo: {equipoActivo ?? "-"}</p>
                      <p>En robo: {enRobo ? "SI" : "NO"}</p>
                      <p className="mt-2">

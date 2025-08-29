@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useJuegoContext } from "../contexts/JuegoContext";
 
 // interface CelebrationProps {
 //   teamName: string
@@ -9,10 +10,12 @@ import { useState, useEffect } from "react";
 // }
 
 export default function Celebration({ teamName, teamNumber, onClose }) {
+   // const { s } = useJuegoContext();
    const [isVisible, setIsVisible] = useState(false);
 
    useEffect(() => {
       setIsVisible(true);
+      // s.play("triunfo");
 
       // Confetti effect
       const createConfetti = () => {
@@ -27,7 +30,7 @@ export default function Celebration({ teamName, teamNumber, onClose }) {
           height: 10px;
           background: ${colors[Math.floor(Math.random() * colors.length)]};
           left: ${Math.random() * 100}vw;
-          animation: confetti-fall ${2 + Math.random() * 3}s linear forwards;
+          animation: confetti-fall ${2 + Math.random() * 3}s linear forwards infinite;
           z-index: 1000;
           border-radius: ${Math.random() > 0.5 ? "50%" : "0"};
         `;
@@ -118,7 +121,7 @@ export default function Celebration({ teamName, teamNumber, onClose }) {
       return () => clearTimeout(timer);
    }, [onClose]);
 
-   const teamColor = teamNumber === 1 ? "from-blue-400 to-blue-600" : "from-green-400 to-green-600";
+   const teamColor = teamNumber === 1 ? "from-red-400 to-red-600" : "from-blue-400 to-blue-600";
 
    return (
       <div className={`fixed inset-0 z-50 flex items-center justify-center transition-all duration-500 ${isVisible ? "opacity-100" : "opacity-0"}`}>
@@ -129,7 +132,7 @@ export default function Celebration({ teamName, teamNumber, onClose }) {
          <div className={`relative z-10 text-center transform transition-all duration-1000 ${isVisible ? "scale-100 rotate-0" : "scale-0 rotate-180"}`}>
             <div className="bg-white/20 backdrop-blur-md rounded-3xl p-12 border-4 border-yellow-400 shadow-2xl">
                <div className="animate-bounce">
-                  <h1 className="text-8xl font-black text-yellow-300 mb-4 drop-shadow-2xl animate-pulse">🎉 PUNTO 🎉</h1>
+                  <h1 className="text-8xl font-black text-yellow-300 mb-4 drop-shadow-2xl animate-pulse">🎉 PUNTOS 🎉</h1>
                </div>
 
                <div className="animate-pulse">
@@ -151,7 +154,7 @@ export default function Celebration({ teamName, teamNumber, onClose }) {
          </div>
 
          {/* Close button */}
-         <button
+         {/* <button
             onClick={() => {
                setIsVisible(false);
                setTimeout(onClose, 500);
@@ -159,7 +162,7 @@ export default function Celebration({ teamName, teamNumber, onClose }) {
             className="absolute top-8 right-8 z-20 bg-white/20 hover:bg-white/30 text-white border-2 border-white/50 backdrop-blur-md"
          >
             ✕ Cerrar
-         </button>
+         </button> */}
       </div>
    );
 }

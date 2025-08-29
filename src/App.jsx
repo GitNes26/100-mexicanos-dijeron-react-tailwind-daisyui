@@ -7,7 +7,7 @@ import { JuegoContextProvider } from "./contexts/JuegoContext.jsx";
 
 export default function App() {
    return (
-      <div className="min-h-screen bg-slate-200 flex items-center justify-center p-6">
+      <div className="min-h-screen bg-slate-200 flex items-center justify-center">
          <JuegoContextProvider>
             <BrowserRouter>
                <Routes>
