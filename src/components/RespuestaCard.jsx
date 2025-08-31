@@ -17,7 +17,7 @@ export default function RespuestaCard({ index, preguntaIdx, revelada, respuesta,
    return (
       <motion.div
          layout
-         className={`relative w-full p-3 rounded-md bg-black text-success overflow-hidden ${!revelada ? "hover:cursor-pointer placeholder-box" : ""}`}
+         className={`relative w-full p-3 rounded-md bg-black text-success overflow-hidden`}
          // onClick={() => onReveal(index)}
       >
          <AnimatePresence mode="popLayout">
@@ -30,9 +30,7 @@ export default function RespuestaCard({ index, preguntaIdx, revelada, respuesta,
                   transition={{ duration: 0.6 }}
                   className="flex justify-between items-center"
                >
-                  <div className="text-3xl font-semibold">
-                     {index + 1}. .....................................................................................
-                  </div>
+                  <div className="text-3xl font-semibold">{index + 1}. .....................................................................................</div>
                   <div className="text-3xl font-semibold">....</div>
                </motion.div>
             ) : (

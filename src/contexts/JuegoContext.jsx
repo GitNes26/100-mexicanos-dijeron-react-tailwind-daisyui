@@ -28,6 +28,8 @@ export function JuegoContextProvider({ children }) {
    const [equipoEsperandoError, setEquipoEsperandoError] = useState(null); // 1 o 2
    const bloqueoTimer = useRef(null);
    const [showCelebration, setShowCelebration] = useState(false);
+   const [muerteSubita, setMuerteSubita] = useState(false);
+   const [showLetrero, setShowLetrero] = useState(false);
 
    const [log, setLog] = useState([]);
    /* NUEVO */
@@ -38,7 +40,6 @@ export function JuegoContextProvider({ children }) {
       console.log("🚀 ~ handleWSMessage ~ data:", data);
       switch (data.action) {
          case "press":
-            console.log("🚀 ~ handleWSMessage ~ equipoActivo:", equipoActivo);
             if (!equipoActivo) activarEquipo(Number(data.team));
             break;
          case "activateTeam":
@@ -53,6 +54,9 @@ export function JuegoContextProvider({ children }) {
             break;
          case "markError":
             marcarError(data.slot);
+            break;
+         case "activarMuerteSubita":
+            activarMuerteSubita();
             break;
          case "reset":
             resetJuego();
@@ -120,7 +124,7 @@ export function JuegoContextProvider({ children }) {
    // sounds
    const s = useSound();
    useEffect(() => {
-      // load simple sounds (these are placeholders, include your own in public/)
+      // load simple sounds ( these are placeholders, include your own in public/)
       // navigation
       console.log("🚀 ~ JuegoContextProvider ~ window:", window.location.pathname);
       if (!["/", "/tablero"].includes(window.location.pathname)) return;
@@ -137,7 +141,6 @@ export function JuegoContextProvider({ children }) {
       console.log("🚀 ~ mostrarPregunta ~ mostrarPregunta ~ i:", i);
       console.log("🚀 ~ handleConfirmarPregunta ~ reveladas:", reveladas);
 
-      // send({ action: "setQuestion", questionIdx: i });
       s.play("aJugar");
       setPreguntaIdx(i);
       setEnRobo(false);
@@ -167,7 +170,6 @@ export function JuegoContextProvider({ children }) {
       // Solo permite activar si no hay equipo activo
       if (equipoActivo) return;
       s.play("botonazo");
-      console.log("🚀 ~ activarEquipo: todo bien hasta aqui");
       setEquipoActivo(n);
       const contrario = n === 1 ? 2 : 1;
       setEquipoBloqueado(contrario);
@@ -177,8 +179,6 @@ export function JuegoContextProvider({ children }) {
 
    async function destapar(i) {
       console.log("🚀 ~ destapar ~ i:", i); // 2-1:true
-      console.log("🚀 ~ mostrarPregunta ~ reveladas:", reveladas);
-      console.log("🚀 ~ destapar ~ preguntaIdx:", preguntaIdx);
       if (!equipoActivo) return s.play("RE");
       if (preguntaIdx == null) return;
       const key = `${preguntaIdx}-${i}`;
@@ -187,7 +187,6 @@ export function JuegoContextProvider({ children }) {
       const puntos = PREGUNTAS[preguntaIdx].respuestas[i].puntos || 0;
       s.play("correcto");
       await sleep(3000);
-      console.log("🚀 ~ mostrarPregunta ~ reveladas2:", reveladas);
       setAcumuladoRonda((prev) => prev + puntos);
 
       // Si estamos en robo
@@ -230,15 +229,35 @@ export function JuegoContextProvider({ children }) {
          // ¿Es la respuesta de mayor puntaje?
          const maxPuntos = Math.max(...PREGUNTAS[preguntaIdx].respuestas.map((r) => r.puntos || 0));
          if (puntos === maxPuntos) {
-            // Sigue el equipo activo respondiendo
-            setEquipoEsperandoError(equipoActivo); // solo el equipo activo puede marcar error
+            setEquipoEsperandoError(equipoActivo);
+            setMuerteSubita(false);
          } else {
-            // Permitir que el equipo contrario intente responder
-            setEquipoBloqueado(null); // ambos pueden responder
-            // setEquipoActivo(null); // nadie activo hasta que el contrario responda
-            setEquipoEsperandoError(null); // nadie esperando error
+            const totalRespuestas = PREGUNTAS[preguntaIdx].respuestas.length;
+            const destapadas = Object.keys(reveladas).filter((k) => k.startsWith(`${preguntaIdx}-`)).length + 1;
+            if (destapadas === 1 || muerteSubita) {
+               // Permitir que el equipo contrario intente responder
+               setEquipoActivo(equipoActivo === 1 ? 2 : 1);
+               setEquipoBloqueado(equipoActivo);
+               setEquipoEsperandoError(null);
+               setMuerteSubita(false);
+            } else {
+               setEquipoBloqueado(null);
+               setEquipoEsperandoError(null);
+            }
          }
       }
+   }
+
+   function activarMuerteSubita() {
+      s.play("robo");
+      setMuerteSubita(true);
+      setEquipoActivo(null);
+      setEquipoBloqueado(null);
+      setEquipoEsperandoError(null);
+      setShowLetrero(true);
+      // sleep(3000);
+      // setShowLetrero(false);
+      // Aquí podrías disparar una animación en Tablero
    }
 
    function marcarError(slot) {
@@ -247,7 +266,11 @@ export function JuegoContextProvider({ children }) {
          s.play("incorrecto");
          setAnimX((prev) => ({ ...prev, ind: true }));
          setTimeout(() => setAnimX((prev) => ({ ...prev, ind: false })), 2000);
+         // Si ambos equipos fallan, activar muerte súbita
          setEquipoActivo(null);
+         setEquipoBloqueado(null);
+         setEquipoEsperandoError(null);
+         setMuerteSubita(true);
          return;
       }
       if (!equipoActivo) return;
@@ -295,6 +318,10 @@ export function JuegoContextProvider({ children }) {
       setPuntosEquipo({ e1: 0, e2: 0 });
       setEnRobo(false);
       setAcumuladoRonda(0);
+      setRondasJugadas(0);
+      setPreguntasEnviadas([]);
+      setPreguntaPreview(null);
+      setShowLetrero(false);
    }
    /* NUEVO */
 
@@ -325,6 +352,11 @@ export function JuegoContextProvider({ children }) {
             setLog,
             showCelebration,
             setShowCelebration,
+            muerteSubita,
+            setMuerteSubita,
+            activarMuerteSubita,
+            showLetrero,
+            setShowLetrero,
 
             handleWSMessage,
             /* estados */

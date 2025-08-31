@@ -130,7 +130,7 @@ export default function Celebration({ teamName, teamNumber, onClose }) {
 
          {/* Main celebration message */}
          <div className={`relative z-10 text-center transform transition-all duration-1000 ${isVisible ? "scale-100 rotate-0" : "scale-0 rotate-180"}`}>
-            <div className="bg-white/20 backdrop-blur-md rounded-3xl p-12 border-4 border-yellow-400 shadow-2xl">
+            <div className="bg-white/20 backdrop-blur-md rounded-4xl p-12 border-8 border-yellow-400 shadow-2xl">
                <div className="animate-bounce">
                   <h1 className="text-8xl font-black text-yellow-300 mb-4 drop-shadow-2xl animate-pulse">🎉 PUNTOS 🎉</h1>
                </div>

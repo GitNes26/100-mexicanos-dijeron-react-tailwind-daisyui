@@ -26,7 +26,8 @@ export default function Panel() {
       marcarError,
       reveladas,
       enRobo,
-      reproducirRepetida
+      reproducirRepetida,
+      activarMuerteSubita
    } = useJuegoContext();
 
    useEffect(() => {
@@ -63,7 +64,7 @@ export default function Panel() {
 
          <div className="flex flex-col items-center justify-between mt-6  w-full bg-amber-500">
             {/* ZONA DE RONDAS */}
-            <div className="flex gap-2 justify-around w-full">
+            {/* <div className="flex gap-2 justify-around w-full">
                {Array.from({ length: 10 }).map((_, i) => (
                   <button
                      key={i}
@@ -74,7 +75,7 @@ export default function Panel() {
                      {i + 1}
                   </button>
                ))}
-            </div>
+            </div> */}
 
             <div className="flex w-full justify-between items-center">
                <div className="mt-4 flex gap-2">
@@ -127,6 +128,9 @@ export default function Panel() {
                   </div>
                </div>
                <div className="flex gap-2 items-center">
+                  <button onClick={() => send({ action: "activarMuerteSubita" })} className="btn btn-error text-white text-lg font-bold px-6 py-2 rounded-xl shadow">
+                     Activar Muerte Súbita
+                  </button>
                   <button
                      onClick={() => send({ action: "activateTeam", team: 1 })}
                      disabled={equipoBloqueado === 1 || equipoActivo !== null}

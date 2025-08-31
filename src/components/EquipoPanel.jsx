@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import images from "../const/images";
+import { b } from "framer-motion/client";
 
 export default function EquipoPanel({ numero, nombre, puntos, errores, MAX_ERRORES, activo, bloqueado }) {
    const bg = numero == 1 ? `bg-neutral` : `bg-neutral-content text-neutral`;
    const posicionH = numero == 1 ? `left-25` : `right-25`;
    const textColor = numero == 1 ? `text-red-500` : `text-blue-500`;
    const roundedCard = numero == 1 ? "rounded-l-full" : "rounded-r-full";
+   const borderedCard = numero == 1 ? "border-r-0" : "border-l-0";
    const disabled = bloqueado || !activo ? "opacity-100" : "";
    return (
-      <div className={`absolute card w-96 h-5/12 transition-all bg-warning ${textColor} ${disabled} ${posicionH} top-5/12 z-20 rounded-2xl ${roundedCard}`}>
+      <div
+         className={`absolute card w-96 h-5/12 transition-all bg-warning ${textColor} ${disabled} ${posicionH} top-5/12 z-20 border-8 border-warning-content rounded-2xl ${borderedCard}`}
+         style={{ borderRadius: numero === 1 ? "30% 0 0 30% / 30% 0 0 30%" : "0 30% 30% 0 / 0 30% 30% 0" }}
+      >
          <div className="card-body items-center text-center flex flex-col justify-between">
-            <progress className={`progress ${numero === 1 ? "progress-error" : "progress-info"} w-5`}></progress>
+            <progress className={`progress ${numero === 1 ? "progress-error" : "progress-info"} w-50`}></progress>
             <h2 className="card-title font-black flex flex-col text-4xl">
                {nombre.toUpperCase()}
                <small className="-mt-3 text-sm font-medium">Equipo {numero}</small>
@@ -30,7 +35,7 @@ export default function EquipoPanel({ numero, nombre, puntos, errores, MAX_ERROR
                   )}
                </div>
             </div>
-            <progress className={`progress ${numero === 1 ? "progress-error" : "progress-info"} w-5`}></progress>
+            <progress className={`progress ${numero === 1 ? "progress-error" : "progress-info"} w-50`}></progress>
          </div>
       </div>
    );

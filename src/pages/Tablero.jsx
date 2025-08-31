@@ -11,6 +11,7 @@ import useSocket from "../hooks/useSocket";
 import { useJuegoContext } from "../contexts/JuegoContext";
 import Celebration from "../components/Celebracion";
 import FormEquipos from "../components/FormEquipos";
+import Letrero from "../components/Letrero";
 
 export default function Tablero() {
    const {
@@ -36,6 +37,7 @@ export default function Tablero() {
       setLog,
       showCelebration,
       setShowCelebration,
+      muerteSubita,
       /* estados */
       s,
       preguntaIdx,
@@ -59,7 +61,9 @@ export default function Tablero() {
       animX,
       setAnimX,
       equipoEsperandoError,
-      setEquipoEsperandoError
+      setEquipoEsperandoError,
+      showLetrero,
+      setShowLetrero
    } = useJuegoContext();
    const [showNameModal, setShowNameModal] = useState(true);
    const [teamNames, setTeamNames] = useState({ e1: "", e2: "" });
@@ -90,6 +94,13 @@ export default function Tablero() {
 
          {showCelebration && <Celebration teamNumber={2} teamName={"LOS ALELUYA"} onClose={showCelebration} />}
 
+         {/* ANIMACIÓN/MENSAJE DE MUERTE SÚBITA */}
+         {
+            /* muerteSubita */ showLetrero && (
+               <Letrero titulo={"¡MUERTE SÚBITA!"} mensaje={"El que conteste primero la más popular gana el turno"} onClose={setShowLetrero} />
+            )
+         }
+
          {/* ZONA DE ERRORES "X" ANIMADAS */}
          <div className="flex absolute top-[65%] left-0 justify-center gap-10 -translate-y-1/2 w-full z-40" style={{ zIndex: 100 }}>
             {animX.e1 &&
@@ -107,21 +118,21 @@ export default function Tablero() {
          {/* TABLERO */}
          <div className="tablero h-screen max-h-screen flex flex-col items-center w-full py-5 z-20">
             {/* MARCADOR */}
-            <div className="flex items-center justify-between w-4/12 p-8 pb-0 bg-warning rounded-t-full">
+            <div className="flex items-center justify-between w-4/12 p-8 pb-0 bg-warning border-8 border-warning-content border-b-warning rounded-t-full z-10">
                <div className="text-center bg-black rounded-2xl w-full p-3 rounded-t-full">
                   <div className="text-success font-extrabold text-9xl">{acumuladoRonda}</div>
                </div>
             </div>
 
             {/* PREGUNTA */}
-            <div className="flex items-center justify-between w-8/12 p-8 pb-2 bg-warning rounded-2xl">
+            <div className="flex items-center justify-between w-8/12 p-8 pb-2 bg-warning border-8 border-warning-content rounded-2xl -mt-2">
                <div className="text-center bg-black rounded-2xl w-full mb-3">
                   <div className="text-5xl text-success font-semibold mb-2 p-3">{preguntaIdx == null ? "!!! A JUGAAARRR !!!" : PREGUNTAS[preguntaIdx].texto}</div>
                </div>
             </div>
 
             {/* ZONA DE RESPUESTAS  max-w-6xl*/}
-            <div className="flex items-center justify-between w-7/12 flex-1 p-8 bg-warning rounded-b-2xl shadow-lg">
+            <div className="flex items-center justify-between w-7/12 flex-1 p-8 bg-warning border-8 border-warning-content border-t-warning rounded-b-2xl -mt-2">
                <div className="card w-full h-full bg-black rounded-2xl shadow-lg mx-20 p-5">
                   <div className="grid h-full" style={{ alignContent: "space-around" }}>
                      {Array.from({ length: 5 }).map((_, i) => {
@@ -135,9 +146,9 @@ export default function Tablero() {
             </div>
 
             {/* DECORACION DEL FINAL */}
-            <div className="flex items-center justify-between w-5/12 h-8 p-2 px-5 bg-warning rounded-b-xl">
+            <div className="flex items-center justify-between w-6/12 h-8 p-2 px-5 bg-warning border-8 border-warning-content border-t-warning rounded-b-xl -mt-2">
                {Array.from({ length: 12 }).map((_, i) => (
-                  <div className="flex flex-col items-center justify-between h-4 w-4 bg-black rounded-full"></div>
+                  <div className="flex flex-col items-center justify-between h-4 w-4 bg-black rounded-full -mt-2"></div>
                ))}
             </div>
          </div>
