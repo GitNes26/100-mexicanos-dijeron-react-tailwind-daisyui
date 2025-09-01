@@ -69,7 +69,7 @@ export default function Tablero() {
    const [teamNames, setTeamNames] = useState({ e1: "", e2: "" });
 
    useEffect(() => {
-      setShowNameModal(true);
+      if (teamNames.e1 === "") setShowNameModal(true);
    }, [teamNames.e1 === "" || teamNames.e2 === ""]); // Se muestra cada vez que inicia o se resetea
 
    useEffect(() => {
@@ -92,7 +92,7 @@ export default function Tablero() {
       <>
          {showNameModal && <FormEquipos teamNames={teamNames} setTeamNames={setTeamNames} setShowNameModal={setShowNameModal} />}
 
-         {showCelebration && <Celebration teamNumber={2} teamName={"LOS ALELUYA"} onClose={showCelebration} />}
+         {showCelebration && <Celebration teamNumber={equipoActivo} teamName={equipoActivo === 1 ? teamNames.e1 : teamNames.e2} onClose={showCelebration} />}
 
          {/* ANIMACIÓN/MENSAJE DE MUERTE SÚBITA */}
          {
