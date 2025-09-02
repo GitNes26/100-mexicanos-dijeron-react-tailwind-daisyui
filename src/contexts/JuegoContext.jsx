@@ -4,7 +4,7 @@ import sounds from "../const/sounds";
 import { PREGUNTAS } from "../data";
 import { sleep } from "../utils/helpers";
 
-export const JuegoContext = createContext();
+const JuegoContext = createContext();
 
 export function JuegoContextProvider({ children }) {
    const MAX_ERRORES = 3;
@@ -15,6 +15,27 @@ export function JuegoContextProvider({ children }) {
    const [preguntasEnviadas, setPreguntasEnviadas] = useState([]);
    const [rondasJugadas, setRondasJugadas] = useState(0);
    /* NUEVO */
+
+   const [preguntaIdx, setPreguntaIdx] = useState(null);
+   const [allowKeyboard, setAllowKeyboard] = useState(true); // keyboard optional: only activate if allowKeyboard true (toggle)
+   const [teamNames, setTeamNames] = useState({ e1: "", e2: "" });
+   const [equipoActivo, setEquipoActivo] = useState(null);
+   const [equipoBloqueado, setEquipoBloqueado] = useState(null);
+   const [errores, setErrores] = useState({ e1: 0, e2: 0 });
+   const [reveladas, setReveladas] = useState({}); // key: "q-i"
+   const [puntosEquipo, setPuntosEquipo] = useState({ e1: 0, e2: 0 });
+   const [acumuladoRonda, setAcumuladoRonda] = useState(0);
+   const [enRobo, setEnRobo] = useState(false);
+   const [animX, setAnimX] = useState({ e1: false, e2: false });
+   const [equipoEsperandoError, setEquipoEsperandoError] = useState(null); // 1 o 2
+   const bloqueoTimer = useRef(null);
+   const [showCelebration, setShowCelebration] = useState(false);
+   const [unoVsUno, setUnoVsUno] = useState(false);
+   const [muerteSubita, setMuerteSubita] = useState(false);
+   const [showLetrero, setShowLetrero] = useState(false);
+   const [rondaActiva, setRondaActiva] = useState(false);
+
+   const [log, setLog] = useState([]);
    const [contadorActivo, setContadorActivo] = useState(false);
    const [tiempoRestante, setTiempoRestante] = useState(10);
    const contadorRef = useRef(null);
@@ -39,31 +60,11 @@ export function JuegoContextProvider({ children }) {
          });
       }, 1000);
    }
-
    function desactivarContador() {
       setContadorActivo(false);
       setTiempoRestante(tiempoRestante);
       if (contadorRef.current) clearInterval(contadorRef.current);
    }
-   const [preguntaIdx, setPreguntaIdx] = useState(null);
-   const [allowKeyboard, setAllowKeyboard] = useState(true); // keyboard optional: only activate if allowKeyboard true (toggle)
-   const [teamNames, setTeamNames] = useState({ e1: "", e2: "" });
-   const [equipoActivo, setEquipoActivo] = useState(null);
-   const [equipoBloqueado, setEquipoBloqueado] = useState(null);
-   const [errores, setErrores] = useState({ e1: 0, e2: 0 });
-   const [reveladas, setReveladas] = useState({}); // key: "q-i"
-   const [puntosEquipo, setPuntosEquipo] = useState({ e1: 0, e2: 0 });
-   const [acumuladoRonda, setAcumuladoRonda] = useState(0);
-   const [enRobo, setEnRobo] = useState(false);
-   const [animX, setAnimX] = useState({ e1: false, e2: false });
-   const [equipoEsperandoError, setEquipoEsperandoError] = useState(null); // 1 o 2
-   const bloqueoTimer = useRef(null);
-   const [showCelebration, setShowCelebration] = useState(false);
-   const [unoVsUno, setUnoVsUno] = useState(false);
-   const [muerteSubita, setMuerteSubita] = useState(false);
-   const [showLetrero, setShowLetrero] = useState(false);
-
-   const [log, setLog] = useState([]);
    /* NUEVO */
 
    // Puedes agregar aquí más estados y funciones globales
@@ -134,7 +135,7 @@ export function JuegoContextProvider({ children }) {
          if (socket) socket.close();
          if (reconnectTimer) clearTimeout(reconnectTimer);
       };
-   }, [preguntaIdx, preguntaPreview, reveladas, equipoActivo, equipoBloqueado, errores, animX]);
+   }, [preguntaIdx, preguntaPreview, reveladas, equipoActivo, equipoBloqueado, errores, animX, enRobo, unoVsUno]);
 
    const send = (data) => {
       // console.log("🚀 ~ send ~ data:", data);
@@ -163,6 +164,7 @@ export function JuegoContextProvider({ children }) {
 
    function mostrarPregunta(i) {
       s.play("aJugar");
+      setRondaActiva(true);
       setPreguntaIdx(i);
       setEnRobo(false);
       setEquipoActivo(null);
@@ -173,14 +175,16 @@ export function JuegoContextProvider({ children }) {
          clearTimeout(bloqueoTimer.current);
          bloqueoTimer.current = null;
       }
-      // limpiar reveladas de esta pregunta
-      setReveladas((prev) => {
-         const copy = { ...prev };
-         Object.keys(copy).forEach((k) => {
-            if (k.startsWith(i + "-")) delete copy[k];
-         });
-         return copy;
-      });
+      // // limpiar reveladas de esta pregunta
+      // setReveladas((prev) => {
+      //    const copy = { ...prev };
+      //    Object.keys(copy).forEach((k) => {
+      //       if (k.startsWith(i + "-")) delete copy[k];
+      //    });
+      //    return copy;
+      // });
+      // limpiar objeto de reveladas
+      setReveladas({});
       setErrores({ e1: 0, e2: 0 });
       setPreguntasEnviadas((prev) => [...prev, preguntaPreview]);
       setRondasJugadas((prev) => prev + 1);
@@ -199,6 +203,35 @@ export function JuegoContextProvider({ children }) {
       bloqueoTimer.current = setTimeout(() => setEquipoBloqueado(null), BLOQUEO_MS);
    }
 
+   async function actualizarPuntaje(key = null) {
+      const respuestasReveladas = key ? { ...reveladas, [key]: true } : { ...reveladas };
+      const destapadas = Object.keys(respuestasReveladas).filter((k) => k.startsWith(`${preguntaIdx}-`)).length;
+      const idxDestapadas = Object.keys(respuestasReveladas).map((k) => Number(k.split(`${preguntaIdx}-`).reverse()[0]));
+      console.log("🚀 ~ actualizarPuntaje ~ idxDestapadas:", idxDestapadas);
+      setReveladas(respuestasReveladas);
+      let puntosAcumulados = 0;
+      PREGUNTAS[preguntaIdx].respuestas.map((r, i) => {
+         if (idxDestapadas.includes(i)) puntosAcumulados += r.puntos;
+      });
+      console.log("🚀 ~ actualizarPuntaje ~ puntosAcumulados:", puntosAcumulados);
+      return { destapadas, puntosAcumulados };
+   }
+
+   async function ganaRonda(puntosAcumulados) {
+      s.play("triunfo");
+      setShowCelebration(true);
+      await sleep(4000);
+
+      setPuntosEquipo((prev) => {
+         const copy = { ...prev };
+         if (equipoActivo === 1) copy.e1 += puntosAcumulados;
+         else copy.e2 += puntosAcumulados;
+         return copy;
+      });
+      await sleep(1000);
+      setAcumuladoRonda(0);
+   }
+
    async function destapar(i) {
       console.log("🚀 ~ destapar ~ i:", i); // 2-1:true
       if (!equipoActivo) return s.play("RE");
@@ -206,15 +239,19 @@ export function JuegoContextProvider({ children }) {
       const key = `${preguntaIdx}-${i}`;
       if (reveladas[key]) return;
 
-      const respuestasReveladas = { ...reveladas, [key]: true };
-      const destapadas = Object.keys(respuestasReveladas).filter((k) => k.startsWith(`${preguntaIdx}-`)).length;
-      setReveladas(respuestasReveladas);
-      // setReveladas((prev) => ({ ...prev, [key]: true }));
+      // const respuestasReveladas = { ...reveladas, [key]: true };
+      // const destapadas = Object.keys(respuestasReveladas).filter((k) => k.startsWith(`${preguntaIdx}-`)).length;
+      // setReveladas(respuestasReveladas);
+      // // setReveladas((prev) => ({ ...prev, [key]: true }));
+      const { destapadas, puntosAcumulados } = await actualizarPuntaje(key);
       const puntos = PREGUNTAS[preguntaIdx].respuestas[i].puntos || 0;
       s.play("correcto");
-      const puntosAcumulados = acumuladoRonda + puntos;
+      // const puntosAcumulados = acumuladoRonda + puntos;
       await sleep(3000);
       setAcumuladoRonda(puntosAcumulados);
+
+      // esta bandera ayuda para poder destapar las respuestas sin que se le sumen puntos a ningun equipo
+      if (!rondaActiva) return;
 
       // Si hay equipo activo, aplicar lógica de escenario 1
       if (equipoActivo) {
@@ -223,18 +260,7 @@ export function JuegoContextProvider({ children }) {
          // const destapadas = Object.keys(reveladas).filter((k) => k.startsWith(`${preguntaIdx}-`)).length + 1; // +1 por la actual
          if (destapadas === totalRespuestas) {
             // El equipo activo suma el acumulado
-            s.play("triunfo");
-            setShowCelebration(true);
-            await sleep(4000);
-
-            setPuntosEquipo((prev) => {
-               const copy = { ...prev };
-               if (equipoActivo === 1) copy.e1 += puntosAcumulados;
-               else copy.e2 += puntosAcumulados;
-               return copy;
-            });
-            await sleep(1000);
-            setAcumuladoRonda(0);
+            await ganaRonda(puntosAcumulados);
          }
 
          if (unoVsUno || muerteSubita) {
@@ -274,14 +300,34 @@ export function JuegoContextProvider({ children }) {
             }
             if (puntos > 0) {
                // El equipo que roba suma el acumulado + el puntaje de la respuesta que destapó
+               s.play("triunfo");
+               setShowCelebration(true);
+               await sleep(4000);
                setPuntosEquipo((prev) => {
                   const copy = { ...prev };
                   if (equipoActivo === 1) copy.e1 += puntosAcumulados;
                   else copy.e2 += puntosAcumulados;
                   return copy;
                });
+
+               s.play("triunfo");
+               setShowCelebration(true);
+               await sleep(4000);
+
+               setPuntosEquipo((prev) => {
+                  const copy = { ...prev };
+                  if (equipoActivo === 1) copy.e1 += puntosAcumulados;
+                  else copy.e2 += puntosAcumulados;
+                  return copy;
+               });
+               await sleep(1000);
+               setAcumuladoRonda(0);
             } else {
                // si el equipo conrario se equivoca en el robo de puntos, el equipo original se queda con los puntos
+               setEquipoActivo(equipoActivo === 1 ? 2 : 1);
+               s.play("triunfo");
+               setShowCelebration(true);
+               await sleep(4000);
                setPuntosEquipo((prev) => {
                   const copy = { ...prev };
                   if (equipoActivo === 1) copy.e2 += puntosAcumulados;
@@ -330,6 +376,11 @@ export function JuegoContextProvider({ children }) {
             } else {
                activarRobo(equipoActivo === 1 ? 2 : 1);
             }
+         }
+
+         if (enRobo) {
+            setEquipoActivo(equipoActivo === 1 ? 2 : 1);
+            setRondaActiva(false); // para destapar respuestas en caso de que falte destapar
          }
          return;
       }
@@ -384,6 +435,8 @@ export function JuegoContextProvider({ children }) {
       setShowLetrero(false);
       setUnoVsUno(false);
       setMuerteSubita(false);
+      setShowCelebration(false);
+      setContadorActivo(false);
       setTeamNames({ e1: "", e2: "" });
    }
    /* NUEVO */

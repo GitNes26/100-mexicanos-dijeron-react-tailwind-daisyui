@@ -134,22 +134,34 @@ export default function Panel() {
                              </li>
                           ))}
                   </ul>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between items-center">
                      {preguntaPreview !== null ? (
-                        <button
-                           className="btn btn-info px-4 py-2 rounded font-bold"
-                           onClick={() => send({ action: "setQuestion", questionIdx: preguntaPreview })}
-                           disabled={preguntasEnviadas.includes(preguntaPreview)}
-                        >
-                           {preguntasEnviadas.includes(preguntaPreview) ? "Ya enviada" : "Enviar al tablero"}
-                        </button>
+                        <>
+                           <button
+                              className="btn btn-info px-4 py-2 rounded font-bold"
+                              onClick={() => send({ action: "setQuestion", questionIdx: preguntaPreview })}
+                              disabled={preguntasEnviadas.includes(preguntaPreview)}
+                           >
+                              <icons.md.MdConnectedTv size={20} />
+                              {preguntasEnviadas.includes(preguntaPreview) ? "Ya enviada" : "Enviar al tablero"}
+                           </button>
+
+                           <div className="flex justify-between w-6/12 font-bold">
+                              <span className="badge badge-soft badge-warning">{preguntaPreview}</span>
+                              <span className="badge badge-soft badge-warning">
+                                 {PREGUNTAS[preguntaPreview].respuestas.reduce((total, r) => total + r.puntos, 0)} Pts.
+                              </span>
+                              <span className="badge badge-soft badge-warning">{PREGUNTAS[preguntaPreview].categoria}</span>
+                           </div>
+                        </>
                      ) : (
                         <button className="btn" disabled>
                            Selecciona una pregunta
                         </button>
                      )}
+
                      <button
-                        className="btn"
+                        className="btn btn-soft"
                         onClick={() => {
                            // Filtrar preguntas no enviadas
                            const noEnviadas = PREGUNTAS.map((_, idx) => idx).filter((idx) => !preguntasEnviadas.includes(idx));
@@ -160,7 +172,7 @@ export default function Panel() {
                         }}
                         disabled={PREGUNTAS.length === preguntasEnviadas.length}
                      >
-                        Pregunta Random
+                        {<icons.fa.FaRandom />} Pregunta Random
                      </button>
                   </div>
                </div>
@@ -262,7 +274,7 @@ export default function Panel() {
                   </div>
                   {/* MUERTE SUBITA */}
                   <div className="flex flex-col gap-2 justify-center items-center bg-gray-700 p-4 rounded-lg">
-                     <p className="font-medium text-2xl">Activar Muerte Súbita</p>
+                     <p className="font-medium text-2xl">Muerte Súbita</p>
                      <button
                         onClick={() => send({ action: "activarMuerteSubita" })}
                         className="btn btn-error btn-xl text-white text-lg font-bold px-6 py-2 rounded-xl shadow"
@@ -272,7 +284,7 @@ export default function Panel() {
                   </div>
                   {/* ERROR INDEPENDIENTE */}
                   <div className="flex flex-col gap-2 justify-center items-center bg-gray-700 p-4 rounded-lg">
-                     <p className="font-medium text-2xl">Activar Error Independiente</p>
+                     <p className="font-medium text-2xl">Error Independiente</p>
                      <button
                         className="btn btn-error btn-xl text-white text-lg font-bold px-6 py-2 rounded-xl shadow"
                         onClick={() =>
@@ -337,18 +349,24 @@ export default function Panel() {
                {preguntasFiltradas.map((pregunta, idx) => (
                   <div
                      key={idx}
-                     className={`p-4 rounded-lg border cursor-pointer transition-all
+                     className={`p-2 rounded-lg border cursor-pointer transition-all
                      ${preguntasEnviadas.includes(idx) ? "bg-green-700 border-green-400 opacity-70" : "bg-gray-800 border-gray-600 hover:bg-blue-800"}
                      ${preguntaPreview === idx ? "ring-4 ring-blue-400" : ""}
                   `}
                      onClick={() => setPregunta(idx)}
                   >
-                     <div className="flex justify-between items-center">
-                        <span className="font-bold text-lg">{pregunta.texto}</span>
-                        {preguntasEnviadas.includes(idx) && (
-                           <span className="ml-2 text-green-300 font-bold">{<icons.io.IoMdCheckmarkCircleOutline size={30} color="white" />} </span>
-                        )}
-                        <span className="badge badge-soft badge-warning">{pregunta.categoria}</span>
+                     <div className="flex justify-between items-center mb-1">
+                        <div className="flex gap-1 items-center">
+                           <span className="badge badge-soft badge-warning">{idx}</span>
+                           <span className="font-bold text-lg">{pregunta.texto}</span>
+                           {preguntasEnviadas.includes(idx) && (
+                              <span className="ml-2 text-green-300 font-bold">{<icons.io.IoMdCheckmarkCircleOutline size={30} color="white" />} </span>
+                           )}
+                        </div>
+                        <div className="flex items-center">
+                           <span className="badge badge-soft badge-warning">{pregunta.respuestas.reduce((total, r) => total + r.puntos, 0)} Pts.</span>
+                           <span className="badge badge-soft badge-warning">{pregunta.categoria}</span>
+                        </div>
                      </div>
                      <ul className="text-sm pl-4">
                         {pregunta.respuestas.map((r, i) => (
