@@ -300,15 +300,15 @@ export function JuegoContextProvider({ children }) {
             }
             if (puntos > 0) {
                // El equipo que roba suma el acumulado + el puntaje de la respuesta que destapó
-               s.play("triunfo");
-               setShowCelebration(true);
-               await sleep(4000);
-               setPuntosEquipo((prev) => {
-                  const copy = { ...prev };
-                  if (equipoActivo === 1) copy.e1 += puntosAcumulados;
-                  else copy.e2 += puntosAcumulados;
-                  return copy;
-               });
+               // s.play("triunfo");
+               // setShowCelebration(true);
+               // await sleep(4000);
+               // setPuntosEquipo((prev) => {
+               //    const copy = { ...prev };
+               //    if (equipoActivo === 1) copy.e1 += puntosAcumulados;
+               //    else copy.e2 += puntosAcumulados;
+               //    return copy;
+               // });
 
                s.play("triunfo");
                setShowCelebration(true);
@@ -376,6 +376,7 @@ export function JuegoContextProvider({ children }) {
             } else {
                activarRobo(equipoActivo === 1 ? 2 : 1);
             }
+            return;
          }
 
          if (enRobo) {
