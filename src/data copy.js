@@ -55,6 +55,17 @@ export const PREGUNTAS = [
       categoria: "educacion"
    },
    {
+      texto: "¿Animal de granja común?",
+      respuestas: [
+         { texto: "Vaca", puntos: 50 },
+         { texto: "Cerdo", puntos: 30 },
+         { texto: "Gallina", puntos: 25 },
+         { texto: "Caballo", puntos: 20 },
+         { texto: "Oveja", puntos: 15 }
+      ],
+      categoria: "animales"
+   },
+   {
       texto: "¿Bebida caliente popular?",
       respuestas: [
          { texto: "Café", puntos: 60 },
@@ -330,6 +341,17 @@ export const PREGUNTAS = [
       categoria: "hogar"
    },
    {
+      texto: "¿Un superhéroe famoso?",
+      respuestas: [
+         { texto: "Superman", puntos: 50 },
+         { texto: "Batman", puntos: 45 },
+         { texto: "Spider-Man", puntos: 40 },
+         { texto: "Iron Man", puntos: 35 },
+         { texto: "Capitán América", puntos: 30 }
+      ],
+      categoria: "entretenimiento"
+   },
+   {
       texto: "¿Un país de Asia?",
       respuestas: [
          { texto: "China", puntos: 55 },
@@ -482,6 +504,17 @@ export const PREGUNTAS = [
          { texto: "Bolígrafo de gel", puntos: 30 }
       ],
       categoria: "educacion"
+   },
+   {
+      texto: "¿Un animal de granja?",
+      respuestas: [
+         { texto: "Vaca", puntos: 55 },
+         { texto: "Cerdo", puntos: 50 },
+         { texto: "Gallina", puntos: 45 },
+         { texto: "Caballo", puntos: 40 },
+         { texto: "Oveja", puntos: 35 }
+      ],
+      categoria: "animales"
    },
    {
       texto: "¿Un idioma hablado en el mundo?",

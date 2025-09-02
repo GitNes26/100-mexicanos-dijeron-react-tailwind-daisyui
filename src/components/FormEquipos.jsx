@@ -10,7 +10,7 @@ const FormEquipos = ({ teamNames, setTeamNames, setShowNameModal }) => {
                   className="input"
                   placeholder="Equipo 1"
                   value={teamNames.e1}
-                  onChange={(e) => setTeamNames({ ...teamNames, e1: e.target.value })}
+                  onChange={(e) => setTeamNames({ ...teamNames, e1: e.target.value.toUpperCase() })}
                   required
                />
                {/* <p className="label">Optional</p> */}
@@ -22,7 +22,7 @@ const FormEquipos = ({ teamNames, setTeamNames, setShowNameModal }) => {
                   className="input"
                   placeholder="Equipo 2"
                   value={teamNames.e2}
-                  onChange={(e) => setTeamNames({ ...teamNames, e2: e.target.value })}
+                  onChange={(e) => setTeamNames({ ...teamNames, e2: e.target.value.toUpperCase() })}
                   required
                />
                {/* <p className="label">Optional</p> */}

@@ -19,6 +19,7 @@ export default function Tablero() {
       BLOQUEO_MS,
       ws,
       setWs,
+      send,
       preguntaPreview,
       setPreguntaPreview,
       preguntasEnviadas,
@@ -38,6 +39,9 @@ export default function Tablero() {
       showCelebration,
       setShowCelebration,
       muerteSubita,
+      unoVsUno,
+      teamNames,
+      setTeamNames,
       /* estados */
       s,
       preguntaIdx,
@@ -63,30 +67,50 @@ export default function Tablero() {
       equipoEsperandoError,
       setEquipoEsperandoError,
       showLetrero,
-      setShowLetrero
+      setShowLetrero,
+      contadorActivo,
+      tiempoRestante
    } = useJuegoContext();
    const [showNameModal, setShowNameModal] = useState(true);
-   const [teamNames, setTeamNames] = useState({ e1: "", e2: "" });
 
    useEffect(() => {
       if (teamNames.e1 === "") setShowNameModal(true);
    }, [teamNames.e1 === "" || teamNames.e2 === ""]); // Se muestra cada vez que inicia o se resetea
 
    useEffect(() => {
+      if (!ws) {
+         const socket = new WebSocket("ws://localhost:8080");
+         setWs(socket);
+         return () => socket.close();
+      }
+   }, []);
+
+   useEffect(() => {
       function handler(e) {
          if (!allowKeyboard) return;
+         if (!ws) {
+            const socket = new WebSocket("ws://localhost:8080");
+            setWs(socket);
+            return () => socket.close();
+         }
          if (e.key === "1" || e.code === "Numpad1") {
             if (!equipoActivo) s.play("botonazo");
-            activarEquipo(1);
+            if (ws && ws.readyState === WebSocket.OPEN) {
+               send({ action: "press", team: 1 });
+            }
+            // activarEquipo(1);
          }
          if (e.key === "2" || e.code === "Numpad2") {
             if (!equipoActivo) s.play("botonazo");
-            activarEquipo(2);
+            if (ws && ws.readyState === WebSocket.OPEN) {
+               send({ action: "press", team: 2 });
+            }
+            // activarEquipo(2);
          }
       }
       window.addEventListener("keydown", handler);
       return () => window.removeEventListener("keydown", handler);
-   }, [allowKeyboard, equipoActivo, equipoBloqueado]);
+   }, [allowKeyboard, equipoActivo, equipoBloqueado, ws]);
 
    return (
       <>
@@ -94,12 +118,18 @@ export default function Tablero() {
 
          {showCelebration && <Celebration teamNumber={equipoActivo} teamName={equipoActivo === 1 ? teamNames.e1 : teamNames.e2} onClose={showCelebration} />}
 
+         {/* CONTADOR DE TIEMPO */}
+         {contadorActivo && (
+            <div className="fixed top-10 left-1/2 transform -translate-x-1/2 z-50">
+               <div className="bg-red-700 text-white text-5xl font-bold p-6 rounded-full shadow-xl border-4 border-yellow-400 animate-pulse">{tiempoRestante}s</div>
+            </div>
+         )}
          {/* ANIMACIÓN/MENSAJE DE MUERTE SÚBITA */}
-         {
-            /* muerteSubita */ showLetrero && (
-               <Letrero titulo={"¡MUERTE SÚBITA!"} mensaje={"El que conteste primero la más popular gana el turno"} onClose={setShowLetrero} />
-            )
-         }
+         {showLetrero && muerteSubita && (
+            <Letrero titulo={"¡MUERTE SÚBITA!"} mensaje={"El que conteste primero la más popular gana el turno"} onClose={setShowLetrero} />
+         )}
+
+         {showLetrero && enRobo && <Letrero titulo={"¡MUERTE SÚBITA!"} mensaje={"El que conteste primero la más popular gana el turno"} onClose={setShowLetrero} />}
 
          {/* ZONA DE ERRORES "X" ANIMADAS */}
          <div className="flex absolute top-[65%] left-0 justify-center gap-10 -translate-y-1/2 w-full z-40" style={{ zIndex: 100 }}>
@@ -125,10 +155,15 @@ export default function Tablero() {
             </div>
 
             {/* PREGUNTA */}
-            <div className="flex items-center justify-between w-8/12 p-8 pb-2 bg-warning border-8 border-warning-content rounded-2xl -mt-2">
+            <div className="flex flex-col items-center justify-between w-8/12 p-8 pb-2 bg-warning border-8 border-warning-content rounded-2xl -mt-2">
                <div className="text-center bg-black rounded-2xl w-full mb-3">
                   <div className="text-5xl text-success font-semibold mb-2 p-3">{preguntaIdx == null ? "!!! A JUGAAARRR !!!" : PREGUNTAS[preguntaIdx].texto}</div>
                </div>
+               {(enRobo || muerteSubita) && (
+                  <div className="absolute mt-21 card p-3 skeleton bg-red-700 text-center text-lg text-white font-semibold">
+                     {enRobo ? (unoVsUno ? "ROBO DE TURNO" : "ROBO DE PUNTOS") : ""} {muerteSubita ? "MUERTE SUBITA ACIVADA" : ""}
+                  </div>
+               )}
             </div>
 
             {/* ZONA DE RESPUESTAS  max-w-6xl*/}

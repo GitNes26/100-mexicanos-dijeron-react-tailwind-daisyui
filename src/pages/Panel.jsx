@@ -28,7 +28,12 @@ export default function Panel() {
       reveladas,
       enRobo,
       reproducirRepetida,
-      activarMuerteSubita
+      unoVsUno,
+      muerteSubita,
+      activarContador,
+      desactivarContador,
+      contadorActivo,
+      tiempoRestante
    } = useJuegoContext();
    const [search, setSearch] = React.useState("");
    const categorias = Array.from(new Set(PREGUNTAS.map((p) => p.categoria).filter(Boolean)));
@@ -51,10 +56,13 @@ export default function Panel() {
 
    function setPregunta(idx) {
       setPreguntaPreview(idx);
-      setPreguntaIdx(idx);
    }
 
    function destaparRespuesta(answerIdx) {
+      console.log("🚀 ~ destaparRespuesta ~ answerIdx:", answerIdx);
+      console.log("🚀 ~ destaparRespuesta ~ preguntaIdx:", preguntaIdx);
+      console.log("🚀 ~ destaparRespuesta ~ preguntaPreview:", preguntaPreview);
+      if (preguntaIdx === null && preguntaPreview === null) return;
       const action = "setAnswer";
       const payload = { answerIdx };
       if (ws && ws.readyState === WebSocket.OPEN) {
@@ -82,11 +90,14 @@ export default function Panel() {
                      Equipo En Robo: <span className="bg-warning-content font-black  px-2 rounded">{enRobo ? "SI" : "NO"}</span>
                   </div>
                   <div className="text-lg font-semibold">
-                     Muerte Subita: <input className="checkbox checkbox-warning" type="checkbox" checked={true} onChange={() => {}} readOnly />
+                     Muerte Subita: <span className="bg-warning-content font-black  px-2 rounded">{muerteSubita ? "SI" : "NO"}</span>
                   </div>
                   <div className="text-lg font-semibold">
-                     Permitir Teclado: <input className="checkbox checkbox-warning" type="checkbox" checked={true} onChange={() => {}} readOnly />
+                     1 vs 1: <span className="bg-warning-content font-black  px-2 rounded">{unoVsUno ? "SI" : "NO"}</span>
                   </div>
+                  {/* <div className="text-lg font-semibold">
+                     Permitir Teclado: <input className="checkbox checkbox-warning" type="checkbox" checked={true} onChange={() => {}} readOnly />
+                  </div> */}
                </div>
 
                <div className="bg-warning-content h-full rounded-r-lg p-4">
@@ -98,12 +109,12 @@ export default function Panel() {
          </div>
 
          {/* CUERPO */}
-         <div className="card py-2 px-4 w-full max-w-screen flex-1 wrap-anywhere bg-gray-800 grid grid-cols-1 md:grid-cols-5 gap-4 mb-2">
+         <div className="card py-2 px-4 w-full max-w-screen h-7/12 wrap-anywhere bg-gray-800 grid grid-cols-1 md:grid-cols-5 gap-4 mb-2 ">
             {/* VISTA PREVIA PREGUNTA */}
             <div className="col-span-3 h-full">
                <h2 className="text-2xl font-bold mb-4 text-center">Vista Previa de la Pregunta</h2>
                <div className="bg-gray-700 p-4 rounded-lg mb-4">
-                  <div className="mb-2 text-3xl font-semibold">{PREGUNTAS[preguntaPreview]?.texto ?? "¿ .......... ?"}</div>
+                  <div className="mb-5 text-3xl font-semibold text-center">{PREGUNTAS[preguntaPreview]?.texto ?? "¿ .......... ?"}</div>
                   <ul className="pl-4">
                      {preguntaPreview !== null
                         ? PREGUNTAS[preguntaPreview]?.respuestas.map((r, i) => (
@@ -123,30 +134,46 @@ export default function Panel() {
                              </li>
                           ))}
                   </ul>
-                  {preguntaPreview !== null ? (
+                  <div className="flex justify-between">
+                     {preguntaPreview !== null ? (
+                        <button
+                           className="btn btn-info px-4 py-2 rounded font-bold"
+                           onClick={() => send({ action: "setQuestion", questionIdx: preguntaPreview })}
+                           disabled={preguntasEnviadas.includes(preguntaPreview)}
+                        >
+                           {preguntasEnviadas.includes(preguntaPreview) ? "Ya enviada" : "Enviar al tablero"}
+                        </button>
+                     ) : (
+                        <button className="btn" disabled>
+                           Selecciona una pregunta
+                        </button>
+                     )}
                      <button
-                        className="btn btn-info px-4 py-2 rounded font-bold"
-                        onClick={() => send({ action: "setQuestion", questionIdx: preguntaPreview })}
-                        disabled={preguntasEnviadas.includes(preguntaPreview)}
+                        className="btn"
+                        onClick={() => {
+                           // Filtrar preguntas no enviadas
+                           const noEnviadas = PREGUNTAS.map((_, idx) => idx).filter((idx) => !preguntasEnviadas.includes(idx));
+                           if (noEnviadas.length === 0) return;
+                           // Elegir una al azar
+                           const randomIdx = noEnviadas[Math.floor(Math.random() * noEnviadas.length)];
+                           setPregunta(randomIdx);
+                        }}
+                        disabled={PREGUNTAS.length === preguntasEnviadas.length}
                      >
-                        {preguntasEnviadas.includes(preguntaPreview) ? "Ya enviada" : "Enviar al tablero"}
+                        Pregunta Random
                      </button>
-                  ) : (
-                     <button className="btn" disabled>
-                        Selecciona una pregunta
-                     </button>
-                  )}
+                  </div>
                </div>
             </div>
 
             {/* CONTROLES */}
-            <div className="col-span-2 w-full">
+            <div className="col-span-2 w-full h-full overflow-scroll">
                <h2 className="text-2xl text-center font-bold mb-4">Controles</h2>
 
                <div className="mt-4 flex gap-4 flex-wrap">
                   {/* MARCAR ERRORES */}
                   <div className="flex flex-col gap-2 justify-center items-center bg-gray-700 p-4 rounded-lg">
-                     <p className="font-medium text-2xl">Marcar Errores</p>
+                     <p className="font-medium text-2xl sm:text-base ">Marcar Errores</p>
                      <div className="flex gap-2">
                         {Array.from({ length: 3 }).map((_, i) => (
                            <button
@@ -157,8 +184,8 @@ export default function Panel() {
                                     slot: i + 1
                                  })
                               }
-                              className={`btn btn-error btn-circle font-black btn-xl`}
-                              disabled={errores.e1 >= i + 1 || errores.e2 >= i + 1}
+                              className={`btn btn-error btn-circle font-black btn-xl sm:btn-md`}
+                              disabled={errores.e1 >= i + 1 || errores.e2 >= i + 1 || unoVsUno}
                            >
                               {i + 1}
                            </button>
@@ -206,6 +233,25 @@ export default function Panel() {
                            </button>
                         ))}
                      </div>
+                  </div>
+                  {/* CONTADOR */}
+                  <div className="flex flex-col gap-2 justify-center items-center bg-gray-700 p-4 rounded-lg">
+                     <p className="font-medium text-2xl">Contador</p>
+                     <button
+                        className={`btn btn-warning ${contadorActivo ? "btn-outline" : ""}`}
+                        onClick={() => {
+                           if (contadorActivo) {
+                              send({ action: "contador", activar: false });
+
+                              // desactivarContador();
+                           } else {
+                              send({ action: "contador", activar: true });
+                              // activarContador();
+                           }
+                        }}
+                     >
+                        {contadorActivo ? `Desactivar Contador (${tiempoRestante}s)` : "Activar Contador"}
+                     </button>
                   </div>
                   {/* RESPUESTA REPETIDA */}
                   <div className="flex flex-col gap-2 justify-center items-center bg-gray-700 p-4 rounded-lg">

@@ -15,8 +15,39 @@ export function JuegoContextProvider({ children }) {
    const [preguntasEnviadas, setPreguntasEnviadas] = useState([]);
    const [rondasJugadas, setRondasJugadas] = useState(0);
    /* NUEVO */
+   const [contadorActivo, setContadorActivo] = useState(false);
+   const [tiempoRestante, setTiempoRestante] = useState(10);
+   const contadorRef = useRef(null);
+
+   function activarContador() {
+      setContadorActivo(true);
+      console.log("🚀 ~ activarContador ~ contadorActivo:", contadorActivo);
+      setTiempoRestante(tiempoRestante);
+      if (contadorRef.current) clearInterval(contadorRef.current);
+      contadorRef.current = setInterval(() => {
+         setTiempoRestante((prev) => {
+            if (prev <= 1) {
+               clearInterval(contadorRef.current);
+               setContadorActivo(false);
+               // Marcar error según la dinámica actual
+               if (equipoActivo) {
+                  marcarError(equipoActivo === 1 ? errores.e1 + 1 : errores.e2 + 1);
+               }
+               return 0;
+            }
+            return prev - 1;
+         });
+      }, 1000);
+   }
+
+   function desactivarContador() {
+      setContadorActivo(false);
+      setTiempoRestante(tiempoRestante);
+      if (contadorRef.current) clearInterval(contadorRef.current);
+   }
    const [preguntaIdx, setPreguntaIdx] = useState(null);
    const [allowKeyboard, setAllowKeyboard] = useState(true); // keyboard optional: only activate if allowKeyboard true (toggle)
+   const [teamNames, setTeamNames] = useState({ e1: "", e2: "" });
    const [equipoActivo, setEquipoActivo] = useState(null);
    const [equipoBloqueado, setEquipoBloqueado] = useState(null);
    const [errores, setErrores] = useState({ e1: 0, e2: 0 });
@@ -28,6 +59,7 @@ export function JuegoContextProvider({ children }) {
    const [equipoEsperandoError, setEquipoEsperandoError] = useState(null); // 1 o 2
    const bloqueoTimer = useRef(null);
    const [showCelebration, setShowCelebration] = useState(false);
+   const [unoVsUno, setUnoVsUno] = useState(false);
    const [muerteSubita, setMuerteSubita] = useState(false);
    const [showLetrero, setShowLetrero] = useState(false);
 
@@ -49,7 +81,6 @@ export function JuegoContextProvider({ children }) {
             mostrarPregunta(data.questionIdx);
             break;
          case "setAnswer":
-            // setPreguntaIdx(data.questionIdx);
             destapar(data.answerIdx);
             break;
          case "markError":
@@ -57,6 +88,10 @@ export function JuegoContextProvider({ children }) {
             break;
          case "activarMuerteSubita":
             activarMuerteSubita();
+            break;
+         case "contador":
+            if (data.activar) activarContador();
+            else desactivarContador();
             break;
          case "reset":
             resetJuego();
@@ -102,22 +137,12 @@ export function JuegoContextProvider({ children }) {
    }, [preguntaIdx, preguntaPreview, reveladas, equipoActivo, equipoBloqueado, errores, animX]);
 
    const send = (data) => {
-      console.log("🚀 ~ send ~ data:", data);
+      // console.log("🚀 ~ send ~ data:", data);
       // console.log("🚀 ~ send ~ ws:", ws);
       // console.log("🚀 ~ send ~ WebSocket:", WebSocket.OPEN);
       if (ws && ws.readyState === WebSocket.OPEN) {
          ws.send(JSON.stringify(data));
       }
-   };
-
-   const handleConfirmarPregunta = () => {
-      // console.log("🚀 ~ handleConfirmarPregunta ~ handleConfirmarPregunta:", preguntaPreview);
-      // if (preguntaPreview != null) {
-      //    // send({ action: "setQuestion", questionIdx: preguntaPreview });
-      //    setPreguntasEnviadas((prev) => [...prev, preguntaPreview]);
-      //    setRondasJugadas((prev) => prev + 1);
-      //    setPreguntaPreview(null);
-      // }
    };
 
    /* NUEVO */
@@ -126,7 +151,6 @@ export function JuegoContextProvider({ children }) {
    useEffect(() => {
       // load simple sounds ( these are placeholders, include your own in public/)
       // navigation
-      console.log("🚀 ~ JuegoContextProvider ~ window:", window.location.pathname);
       if (!["/", "/tablero"].includes(window.location.pathname)) return;
       s.load("aJugar", sounds.aJugar);
       s.load("botonazo", sounds.botonazo);
@@ -138,15 +162,13 @@ export function JuegoContextProvider({ children }) {
    }, []);
 
    function mostrarPregunta(i) {
-      console.log("🚀 ~ mostrarPregunta ~ mostrarPregunta ~ i:", i);
-      console.log("🚀 ~ handleConfirmarPregunta ~ reveladas:", reveladas);
-
       s.play("aJugar");
       setPreguntaIdx(i);
       setEnRobo(false);
       setEquipoActivo(null);
       setEquipoBloqueado(null);
       setAcumuladoRonda(0);
+      setUnoVsUno(true);
       if (bloqueoTimer.current) {
          clearTimeout(bloqueoTimer.current);
          bloqueoTimer.current = null;
@@ -169,7 +191,7 @@ export function JuegoContextProvider({ children }) {
       console.log("🚀 ~ activarEquipo ~ n:", n);
       // Solo permite activar si no hay equipo activo
       if (equipoActivo) return;
-      s.play("botonazo");
+      // s.play("botonazo");
       setEquipoActivo(n);
       const contrario = n === 1 ? 2 : 1;
       setEquipoBloqueado(contrario);
@@ -183,34 +205,22 @@ export function JuegoContextProvider({ children }) {
       if (preguntaIdx == null) return;
       const key = `${preguntaIdx}-${i}`;
       if (reveladas[key]) return;
-      setReveladas((prev) => ({ ...prev, [key]: true }));
+
+      const respuestasReveladas = { ...reveladas, [key]: true };
+      const destapadas = Object.keys(respuestasReveladas).filter((k) => k.startsWith(`${preguntaIdx}-`)).length;
+      setReveladas(respuestasReveladas);
+      // setReveladas((prev) => ({ ...prev, [key]: true }));
       const puntos = PREGUNTAS[preguntaIdx].respuestas[i].puntos || 0;
       s.play("correcto");
+      const puntosAcumulados = acumuladoRonda + puntos;
       await sleep(3000);
-      setAcumuladoRonda((prev) => prev + puntos);
-
-      // Si estamos en robo
-      if (enRobo) {
-         if (puntos > 0) {
-            // El equipo que roba suma el acumulado + el puntaje de la respuesta que destapó
-            setPuntosEquipo((prev) => {
-               const copy = { ...prev };
-               if (equipoActivo === 1) copy.e1 += acumuladoRonda + puntos;
-               else copy.e2 += acumuladoRonda + puntos;
-               return copy;
-            });
-         }
-         setEnRobo(false);
-         setAcumuladoRonda(0);
-         setTimeout(() => {}, 600);
-         return;
-      }
+      setAcumuladoRonda(puntosAcumulados);
 
       // Si hay equipo activo, aplicar lógica de escenario 1
       if (equipoActivo) {
          // ¿Ya se destaparon todas las respuestas?
          const totalRespuestas = PREGUNTAS[preguntaIdx].respuestas.length;
-         const destapadas = Object.keys(reveladas).filter((k) => k.startsWith(`${preguntaIdx}-`)).length + 1; // +1 por la actual
+         // const destapadas = Object.keys(reveladas).filter((k) => k.startsWith(`${preguntaIdx}-`)).length + 1; // +1 por la actual
          if (destapadas === totalRespuestas) {
             // El equipo activo suma el acumulado
             s.play("triunfo");
@@ -219,31 +229,70 @@ export function JuegoContextProvider({ children }) {
 
             setPuntosEquipo((prev) => {
                const copy = { ...prev };
-               if (equipoActivo === 1) copy.e1 += acumuladoRonda + puntos;
-               else copy.e2 += acumuladoRonda + puntos;
+               if (equipoActivo === 1) copy.e1 += puntosAcumulados;
+               else copy.e2 += puntosAcumulados;
                return copy;
             });
+            await sleep(1000);
             setAcumuladoRonda(0);
          }
 
-         // ¿Es la respuesta de mayor puntaje?
-         const maxPuntos = Math.max(...PREGUNTAS[preguntaIdx].respuestas.map((r) => r.puntos || 0));
-         if (puntos === maxPuntos) {
-            setEquipoEsperandoError(equipoActivo);
-            setMuerteSubita(false);
-         } else {
-            const totalRespuestas = PREGUNTAS[preguntaIdx].respuestas.length;
-            const destapadas = Object.keys(reveladas).filter((k) => k.startsWith(`${preguntaIdx}-`)).length + 1;
-            if (destapadas === 1 || muerteSubita) {
-               // Permitir que el equipo contrario intente responder
-               setEquipoActivo(equipoActivo === 1 ? 2 : 1);
-               setEquipoBloqueado(equipoActivo);
-               setEquipoEsperandoError(null);
+         if (unoVsUno || muerteSubita) {
+            if (enRobo) {
+               if (puntos < puntosAcumulados - puntos) {
+                  setEquipoActivo(equipoActivo === 1 ? 2 : 1);
+               }
+               setUnoVsUno(false);
+               setMuerteSubita(false);
+               setEnRobo(false);
+               return;
+            }
+            // ¿Es la respuesta de mayor puntaje?
+            const maxPuntos = Math.max(...PREGUNTAS[preguntaIdx].respuestas.map((r) => r.puntos || 0));
+            if (puntos === maxPuntos) {
+               setEquipoEsperandoError(equipoActivo);
+               setUnoVsUno(false);
                setMuerteSubita(false);
             } else {
-               setEquipoBloqueado(null);
-               setEquipoEsperandoError(null);
+               if (unoVsUno || muerteSubita) {
+                  // Permitir que el equipo contrario intente responder
+                  activarRobo(equipoActivo === 1 ? 2 : 1);
+                  setEquipoBloqueado(equipoActivo);
+                  setEquipoEsperandoError(null);
+                  setMuerteSubita(false);
+               } else {
+                  setEquipoBloqueado(null);
+                  setEquipoEsperandoError(null);
+               }
             }
+         }
+
+         // Si estamos en robo
+         if (enRobo) {
+            if (unoVsUno || muerteSubita) {
+               return;
+            }
+            if (puntos > 0) {
+               // El equipo que roba suma el acumulado + el puntaje de la respuesta que destapó
+               setPuntosEquipo((prev) => {
+                  const copy = { ...prev };
+                  if (equipoActivo === 1) copy.e1 += puntosAcumulados;
+                  else copy.e2 += puntosAcumulados;
+                  return copy;
+               });
+            } else {
+               // si el equipo conrario se equivoca en el robo de puntos, el equipo original se queda con los puntos
+               setPuntosEquipo((prev) => {
+                  const copy = { ...prev };
+                  if (equipoActivo === 1) copy.e2 += puntosAcumulados;
+                  else copy.e1 += puntosAcumulados;
+                  return copy;
+               });
+            }
+            setEnRobo(false);
+            setAcumuladoRonda(0);
+            setTimeout(() => {}, 600);
+            return;
          }
       }
    }
@@ -266,11 +315,22 @@ export function JuegoContextProvider({ children }) {
          s.play("incorrecto");
          setAnimX((prev) => ({ ...prev, ind: true }));
          setTimeout(() => setAnimX((prev) => ({ ...prev, ind: false })), 2000);
-         // Si ambos equipos fallan, activar muerte súbita
-         setEquipoActivo(null);
-         setEquipoBloqueado(null);
-         setEquipoEsperandoError(null);
-         setMuerteSubita(true);
+         if (!equipoActivo) return;
+         // Si ambos equipos fallan, activar muerte súbita (Muerte subita se activara solo manual)
+         if (unoVsUno || muerteSubita) {
+            if (enRobo) {
+               if (unoVsUno && Object.keys(reveladas).length > 0) {
+                  setEquipoActivo(equipoActivo === 1 ? 2 : 1);
+                  setUnoVsUno(false);
+               } else setEquipoActivo(null);
+               setEquipoBloqueado(null);
+               setEquipoEsperandoError(null);
+               setEnRobo(false);
+               setMuerteSubita(false);
+            } else {
+               activarRobo(equipoActivo === 1 ? 2 : 1);
+            }
+         }
          return;
       }
       if (!equipoActivo) return;
@@ -322,6 +382,9 @@ export function JuegoContextProvider({ children }) {
       setPreguntasEnviadas([]);
       setPreguntaPreview(null);
       setShowLetrero(false);
+      setUnoVsUno(false);
+      setMuerteSubita(false);
+      setTeamNames({ e1: "", e2: "" });
    }
    /* NUEVO */
 
@@ -339,8 +402,15 @@ export function JuegoContextProvider({ children }) {
             rondasJugadas,
             setRondasJugadas,
             send,
-            handleConfirmarPregunta,
+            teamNames,
+            setTeamNames,
             /* NUEVO */
+            contadorActivo,
+            setContadorActivo,
+            tiempoRestante,
+            setTiempoRestante,
+            activarContador,
+            desactivarContador,
             mostrarPregunta,
             activarEquipo,
             destapar,
@@ -352,6 +422,8 @@ export function JuegoContextProvider({ children }) {
             setLog,
             showCelebration,
             setShowCelebration,
+            unoVsUno,
+            setUnoVsUno,
             muerteSubita,
             setMuerteSubita,
             activarMuerteSubita,
@@ -394,3 +466,15 @@ export function JuegoContextProvider({ children }) {
 export function useJuegoContext() {
    return useContext(JuegoContext);
 }
+
+// NOTAS:
+// 0.- FALTA agregar un modal al iniciar el juego para explicar reglas y controles
+// ✅ 0.1 .- asignar nombres a los equipos
+// ✅ 1.- FALTA agregar animacion de mensaje anunciando para quien son los puntos de la ronda
+// ✅ 2.- FALTA agregar animacion de mensaje cuando hay robo de puntos
+// ✅ 3.- FALTA indicar con el boton error independiente, para cuando se estan enfrentando los equipos 1vs1 en la primer pregunta de cada ronda, que no se activan errores en el equipo que esta activo, pero si se puede marcar error con el boton independiente para darle oportunidad al equipo contrario de responder, si no respondio ninguno de los 2 bien, pasan los siguiente participantes a si que se vuelven a ahabilitar los botones para activar el equipoActivo
+// 4.- FALTA agregar animacion de mensaje cuando un equipo llega a 300 puntos y gana el juego
+// 5.- FALTA indicar que si en el robo de puntos, si el equipo que roba responde mal, se le suman los puntos acumulados a el equipo contrario y se pueden destapar las otras respuestas restantes pero ya no sumaran puntos para el acumulado solo para saber cuales eran las respuestas correctas.
+// ✅ 6.- FALTA agregarun boton, para activar un contador de 5s para que el equipo activo responda,
+// 6.1 .- si no responde en ese tiempo, se le acumulara un error
+// 6.2.- si responde bien, hay que cancelar el contador
