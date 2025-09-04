@@ -3,6 +3,7 @@ import useSound from "../hooks/useSound";
 import sounds from "../const/sounds";
 import { PREGUNTAS } from "../data";
 import { sleep } from "../utils/helpers";
+import env from "../const/env";
 
 const JuegoContext = createContext();
 
@@ -110,7 +111,7 @@ export function JuegoContextProvider({ children }) {
       let socket;
       let reconnectTimer;
       function connectWS() {
-         socket = new WebSocket("ws://localhost:8080");
+         socket = new WebSocket(env.VITE_WS_URL);
          setWs(socket);
          socket.onopen = () => {
             console.log("WebSocket conectado");

@@ -1,12 +1,12 @@
 import { WebSocketServer } from "ws";
-
-const wss = new WebSocketServer({ port: 8080 });
+const WS_PORT = 3001;
+const wss = new WebSocketServer({ port: WS_PORT });
 
 wss.on("connection", (ws) => {
-   console.log("Cliente conectado");
+   console.log("🟢 Cliente conectado");
 
    ws.on("message", (msg) => {
-      console.log("Mensaje recibido:", msg.toString());
+      console.log("📩 Mensaje recibido:", msg.toString());
 
       // reenvía a todos los clientes conectados (tablero, panel, controladores)
       wss.clients.forEach((client) => {
@@ -15,6 +15,8 @@ wss.on("connection", (ws) => {
          }
       });
    });
+
+   ws.on("close", () => console.log("🔴 Cliente desconectado"));
 });
 
-console.log("Servidor WebSocket en ws://localhost:8080 🚀");
+console.log(`Servidor WebSocket en ws://localhost:${WS_PORT} 🚀`);

@@ -21,6 +21,7 @@ export const PREGUNTAS = [
       ],
       categoria: "comida"
    },
+   
    {
       texto: "¿Cuál es una serie de streaming popular?",
       respuestas: [

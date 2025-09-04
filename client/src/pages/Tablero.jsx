@@ -12,6 +12,7 @@ import { useJuegoContext } from "../contexts/JuegoContext";
 import Celebration from "../components/Celebracion";
 import FormEquipos from "../components/FormEquipos";
 import Letrero from "../components/Letrero";
+import env from "../const/env";
 
 export default function Tablero() {
    const {
@@ -79,7 +80,7 @@ export default function Tablero() {
 
    useEffect(() => {
       if (!ws) {
-         const socket = new WebSocket("ws://localhost:8080");
+         const socket = new WebSocket(env.VITE_WS_URL);
          setWs(socket);
          return () => socket.close();
       }
@@ -89,7 +90,7 @@ export default function Tablero() {
       function handler(e) {
          if (!allowKeyboard) return;
          if (!ws) {
-            const socket = new WebSocket("ws://localhost:8080");
+            const socket = new WebSocket(env.VITE_WS_URL);
             setWs(socket);
             return () => socket.close();
          }

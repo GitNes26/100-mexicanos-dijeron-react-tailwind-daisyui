@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useJuegoContext } from "../contexts/JuegoContext";
+import env from "../const/env";
 
 export default function Control() {
    const { team } = useParams();
@@ -14,7 +15,7 @@ export default function Control() {
 
    useEffect(() => {
       if (!ws) {
-         const socket = new WebSocket("ws://localhost:8080");
+         const socket = new WebSocket(env.VITE_WS_URL);
          setWs(socket);
          return () => socket.close();
       }

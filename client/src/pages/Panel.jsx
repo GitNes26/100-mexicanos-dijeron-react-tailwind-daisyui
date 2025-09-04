@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
-import { PREGUNTAS } from "../data";
+import { PREGUNTAS } from "../data.js";
 import { useJuegoContext } from "../contexts/JuegoContext.jsx";
 import ControlPanel from "../components/ControlPanel.jsx";
 import icons from "../const/icons.js";
+import env from "../const/env.js";
 
 export default function Panel() {
    const {
@@ -48,7 +49,7 @@ export default function Panel() {
 
    useEffect(() => {
       if (!ws) {
-         const socket = new WebSocket("ws://localhost:8080");
+         const socket = new WebSocket(env.VITE_WS_URL);
          setWs(socket);
          return () => socket.close();
       }

@@ -1,8 +1,8 @@
 import React from "react";
-import Tablero from "./pages/Tablero";
+import Tablero from "./pages/Tablero.jsx";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Panel from "./pages/Panel";
-import Control from "./pages/Control";
+import Panel from "./pages/Panel.jsx";
+import Control from "./pages/Control.jsx";
 import { JuegoContextProvider } from "./contexts/JuegoContext.jsx";
 
 export default function App() {
