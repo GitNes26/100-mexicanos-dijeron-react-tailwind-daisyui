@@ -218,14 +218,16 @@ export function JuegoContextProvider({ children }) {
       return { destapadas, puntosAcumulados };
    }
 
-   async function ganaRonda(puntosAcumulados) {
+   async function ganaRonda(puntosAcumulados, equipoGanador = null) {
       s.play("triunfo");
       setShowCelebration(true);
       await sleep(4000);
 
+      const ganador = equipoGanador ? equipoGanador : equipoActivo;
+
       setPuntosEquipo((prev) => {
          const copy = { ...prev };
-         if (equipoActivo === 1) copy.e1 += puntosAcumulados;
+         if (ganador === 1) copy.e1 += puntosAcumulados;
          else copy.e2 += puntosAcumulados;
          return copy;
       });
@@ -252,7 +254,9 @@ export function JuegoContextProvider({ children }) {
       setAcumuladoRonda(puntosAcumulados);
 
       // esta bandera ayuda para poder destapar las respuestas sin que se le sumen puntos a ningun equipo
-      if (!rondaActiva) return;
+      if (!rondaActiva) return console.log("hasta aqui para el robo noams destapar");
+
+      console.log("ya se paso el destape con ronda inactiva", rondaActiva ? "activa" : "inactiva");
 
       // Si hay equipo activo, aplicar lógica de escenario 1
       if (equipoActivo) {
@@ -336,6 +340,7 @@ export function JuegoContextProvider({ children }) {
                   return copy;
                });
             }
+            setRondaActiva(false);
             setEnRobo(false);
             setAcumuladoRonda(0);
             setTimeout(() => {}, 600);
@@ -356,7 +361,7 @@ export function JuegoContextProvider({ children }) {
       // Aquí podrías disparar una animación en Tablero
    }
 
-   function marcarError(slot) {
+   async function marcarError(slot) {
       console.log("🚀 ~ marcarError ~ slot:", slot);
       if (slot === 0) {
          s.play("incorrecto");
@@ -381,7 +386,10 @@ export function JuegoContextProvider({ children }) {
          }
 
          if (enRobo) {
-            setEquipoActivo(equipoActivo === 1 ? 2 : 1);
+            const equipoGanador = equipoActivo === 1 ? 2 : 1;
+            setEquipoActivo(equipoGanador);
+            const { destapadas, puntosAcumulados } = await actualizarPuntaje();
+            ganaRonda(puntosAcumulados, equipoGanador);
             setRondaActiva(false); // para destapar respuestas en caso de que falte destapar
          }
          return;
@@ -440,6 +448,7 @@ export function JuegoContextProvider({ children }) {
       setShowCelebration(false);
       setContadorActivo(false);
       setTeamNames({ e1: "", e2: "" });
+      setRondaActiva(false);
    }
    /* NUEVO */
 

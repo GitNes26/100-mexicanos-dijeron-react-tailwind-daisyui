@@ -113,11 +113,15 @@ export default function Tablero() {
       return () => window.removeEventListener("keydown", handler);
    }, [allowKeyboard, equipoActivo, equipoBloqueado, ws]);
 
+   const onCloseCelebration = () => {
+      setShowCelebration(false);
+   };
+
    return (
       <>
          {showNameModal && <FormEquipos teamNames={teamNames} setTeamNames={setTeamNames} setShowNameModal={setShowNameModal} />}
 
-         {showCelebration && <Celebration teamNumber={equipoActivo} teamName={equipoActivo === 1 ? teamNames.e1 : teamNames.e2} onClose={showCelebration} />}
+         {showCelebration && <Celebration teamNumber={equipoActivo} teamName={equipoActivo === 1 ? teamNames.e1 : teamNames.e2} onClose={onCloseCelebration} />}
 
          {/* CONTADOR DE TIEMPO */}
          {contadorActivo && (
