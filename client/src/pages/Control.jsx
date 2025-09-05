@@ -5,11 +5,10 @@ import env from "../const/env";
 
 export default function Control() {
    const { team } = useParams();
-   const { ws, setWs, send } = useJuegoContext();
-   // const [ws, setWs] = useState(null);
+   const { ws, setWs, send, equipoActivo, teamNames } = useJuegoContext();
    const [animando, setAnimando] = useState(false);
    const equipo = {
-      nombre: "Nombre del equipo",
+      nombre: team === 1 ? teamNames.e1 : team === 2 ? teamNames.e2 : "Nombre del equipo",
       numero: team
    };
 
