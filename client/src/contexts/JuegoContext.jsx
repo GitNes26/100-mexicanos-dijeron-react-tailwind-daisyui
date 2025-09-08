@@ -86,7 +86,7 @@ export function JuegoContextProvider({ children }) {
       console.log("🚀 ~ handleWSMessage ~ data:", data);
       switch (data.action) {
          case "press":
-            if (equipoActivo) s.play("botonazo");
+            if (!equipoActivo) s.play("botonazo");
             if (!equipoActivo) activarEquipo(Number(data.team));
             break;
          case "activateTeam":
