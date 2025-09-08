@@ -66,14 +66,27 @@ export function JuegoContextProvider({ children }) {
       setTiempoRestante(tiempoRestante);
       if (contadorRef.current) clearInterval(contadorRef.current);
    }
-   /* NUEVO */
 
-   // Puedes agregar aquí más estados y funciones globales
+   // sounds
+   const s = useSound();
+   useEffect(() => {
+      // load simple sounds ( these are placeholders, include your own in public/)
+      // navigation
+      if (!["/", "/tablero"].includes(window.location.pathname)) return;
+      s.load("aJugar", sounds.aJugar);
+      s.load("botonazo", sounds.botonazo);
+      s.load("correcto", sounds.correcto);
+      s.load("incorrecto", sounds.incorrecto);
+      s.load("RE", sounds.RE);
+      s.load("triunfo", sounds.triunfo);
+      s.load("robo", sounds.robo);
+   }, []);
 
    function handleWSMessage(data) {
       console.log("🚀 ~ handleWSMessage ~ data:", data);
       switch (data.action) {
          case "press":
+            if (equipoActivo) s.play("botonazo");
             if (!equipoActivo) activarEquipo(Number(data.team));
             break;
          case "activateTeam":
@@ -146,22 +159,6 @@ export function JuegoContextProvider({ children }) {
          ws.send(JSON.stringify(data));
       }
    };
-
-   /* NUEVO */
-   // sounds
-   const s = useSound();
-   useEffect(() => {
-      // load simple sounds ( these are placeholders, include your own in public/)
-      // navigation
-      if (!["/", "/tablero"].includes(window.location.pathname)) return;
-      s.load("aJugar", sounds.aJugar);
-      s.load("botonazo", sounds.botonazo);
-      s.load("correcto", sounds.correcto);
-      s.load("incorrecto", sounds.incorrecto);
-      s.load("RE", sounds.RE);
-      s.load("triunfo", sounds.triunfo);
-      s.load("robo", sounds.robo);
-   }, []);
 
    function mostrarPregunta(i) {
       s.play("aJugar");
