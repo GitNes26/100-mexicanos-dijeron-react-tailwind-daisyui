@@ -78,9 +78,11 @@ export default function Control() {
          onClick={() => press(equipo.numero)}
          style={{ cursor: animando ? "not-allowed" : "pointer" }}
       >
-         <h2 className="card-title font-black flex flex-col text-4xl">
+         <h2 className="card-title font-black flex flex-col text-4xl" onClick={() => press(equipo.numero)}>
             {equipo.nombre.toUpperCase() ?? "Equipo"}
-            <div className="-mt-3 text-sm font-medium">Equipo {equipo.numero}</div>
+            <div className="-mt-3 text-sm font-medium" onClick={() => press(equipo.numero)}>
+               Equipo {equipo.numero}
+            </div>
          </h2>
       </div>
    );
