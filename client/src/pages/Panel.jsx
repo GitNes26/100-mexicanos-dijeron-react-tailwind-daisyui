@@ -10,12 +10,19 @@ export default function Panel() {
       ws,
       setWs,
       send,
+      teamNames,
+      setTeamNames,
+      puntosEquipo,
+      setPuntosEquipo,
+      acumuladoRonda,
       preguntaPreview,
       setPreguntaPreview,
       preguntasEnviadas,
       setPreguntasEnviadas,
       rondasJugadas,
       setRondasJugadas,
+      rondaActiva,
+      setRondaActiva,
       handleConfirmarPregunta,
       mostrarPregunta,
       preguntaIdx,
@@ -46,6 +53,7 @@ export default function Panel() {
    const preguntasFiltradas = PREGUNTAS.filter(
       (p) => (!search || p.texto.toLowerCase().includes(search.toLowerCase())) && (!categoriaSeleccionada || p.categoria === categoriaSeleccionada)
    );
+   let debounceTimer = null;
 
    useEffect(() => {
       if (!ws) {
@@ -60,9 +68,9 @@ export default function Panel() {
    }
 
    function destaparRespuesta(answerIdx) {
-      console.log("🚀 ~ destaparRespuesta ~ answerIdx:", answerIdx);
-      console.log("🚀 ~ destaparRespuesta ~ preguntaIdx:", preguntaIdx);
-      console.log("🚀 ~ destaparRespuesta ~ preguntaPreview:", preguntaPreview);
+      // console.log("🚀 ~ destaparRespuesta ~ answerIdx:", answerIdx);
+      // console.log("🚀 ~ destaparRespuesta ~ preguntaIdx:", preguntaIdx);
+      // console.log("🚀 ~ destaparRespuesta ~ preguntaPreview:", preguntaPreview);
       if (preguntaIdx === null && preguntaPreview === null) return;
       const action = "setAnswer";
       const payload = { answerIdx };
@@ -74,48 +82,53 @@ export default function Panel() {
    }
 
    return (
-      <div className="h-screen max-h-12/12 w-full p-4 bg-gray-900 text-white gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+      <div className="flex flex-col h-screen w-full bg-gray-900 text-white p-2 gap-2">
          {/* HEADER */}
-         <div className="card w-full h-1/12 bg-orange-500 mb-2 ">
+         <div className="card bg-orange-500 h-16 flex-shrink-0">
             <div className="flex justify-between items-center h-full">
-               <h1 className="text-2xl font-bold bg-warning-content h-full rounded-l-lg p-1">🕹️ Panel de Control</h1>
+               <h1 className="flex text-center items-center text-xl font-bold bg-warning-content rounded-l-lg px-2 h-full">
+                  🕹️ <br /> Panel de Control
+               </h1>
 
-               <div className="w-full grid grid-cols-2 md:grid-cols-5 gap-4 p-4 rounded-lg  font-bold">
-                  <div className="text-lg font-semibold">
-                     Rondas jugadas: <span className="bg-warning-content font-black  px-2 rounded">{rondasJugadas}</span>
-                  </div>
-                  <div className="text-lg font-semibold">
-                     Equipo Activo: <span className="bg-warning-content font-black  px-2 rounded">{equipoActivo ?? "-"}</span>
-                  </div>
-                  <div className="text-lg font-semibold">
-                     Equipo En Robo: <span className="bg-warning-content font-black  px-2 rounded">{enRobo ? "SI" : "NO"}</span>
-                  </div>
-                  <div className="text-lg font-semibold">
-                     Muerte Subita: <span className="bg-warning-content font-black  px-2 rounded">{muerteSubita ? "SI" : "NO"}</span>
-                  </div>
-                  <div className="text-lg font-semibold">
-                     1 vs 1: <span className="bg-warning-content font-black  px-2 rounded">{unoVsUno ? "SI" : "NO"}</span>
-                  </div>
-                  {/* <div className="text-lg font-semibold">
+               <div className="flex gap-6 text-sm font-bold">
+                  <span>
+                     Rondas: <span className="bg-warning-content px-1 rounded">{rondasJugadas}</span>
+                  </span>
+                  <span>
+                     Equipo: <span className="bg-warning-content px-1 rounded">{equipoActivo ?? "-"}</span>
+                  </span>
+                  <span>
+                     Ronda Activa: <span className="bg-warning-content px-1 rounded">{rondaActiva ? "SI" : "NO"}</span>
+                  </span>
+                  <span>
+                     1 vs 1: <span className="bg-warning-content px-1 rounded">{unoVsUno ? "SI" : "NO"}</span>
+                  </span>
+                  <span>
+                     Robo: <span className="bg-warning-content px-1 rounded">{enRobo ? "SI" : "NO"}</span>
+                  </span>
+                  <span>
+                     Muerte Subita: <span className="bg-warning-content px-1 rounded">{muerteSubita ? "SI" : "NO"}</span>
+                  </span>
+               </div>
+
+               <button onClick={() => send({ action: "reset" })} className="btn btn-soft h-full rounded-l-none">
+                  Reset Juego
+               </button>
+               {/* <div className="text-lg font-semibold">
                      Permitir Teclado: <input className="checkbox checkbox-warning" type="checkbox" checked={true} onChange={() => {}} readOnly />
                   </div> */}
-               </div>
-
-               <div className="bg-warning-content h-full rounded-r-lg p-4">
-                  <button onClick={() => send({ action: "reset" })} className="btn btn-soft">
-                     Reset Juego
-                  </button>
-               </div>
+               {/* </div> */}
             </div>
          </div>
 
          {/* CUERPO */}
-         <div className="card py-2 px-4 w-full max-w-screen h-7/12 wrap-anywhere bg-gray-800 grid grid-cols-1 md:grid-cols-5 gap-4 mb-2 ">
-            {/* VISTA PREVIA PREGUNTA */}
-            <div className="col-span-3 h-full">
-               <h2 className="text-2xl font-bold mb-4 text-center">Vista Previa de la Pregunta</h2>
-               <div className="bg-gray-700 p-4 rounded-lg mb-4">
-                  <div className="mb-5 text-3xl font-semibold text-center">{PREGUNTAS[preguntaPreview]?.texto ?? "¿ .......... ?"}</div>
+         <div className="flex-grow flex gap-2 min-h-0">
+            {/* VISTA PREVIA TABLERO Y MARCADOR */}
+            <div className="card bg-gray-800 flex-1 p-4 overflow-y-auto min-h-0">
+               {/* VISTA PREVIA TABLERO */}
+               {/* <h2 className="text-lg font-bold text-center mb-2">Vista Previa</h2> */}
+               <div className="bg-gray-700 p-2 rounded-lg mb-4">
+                  <div className="text-3xl font-semibold text-center mb-2">{PREGUNTAS[preguntaPreview]?.texto ?? "Selecciona una pregunta"}</div>
                   <ul className="pl-4">
                      {preguntaPreview !== null
                         ? PREGUNTAS[preguntaPreview]?.respuestas.map((r, i) => (
@@ -126,7 +139,7 @@ export default function Panel() {
                                 }`}
                                 onClick={() => (reveladas[`${preguntaPreview}-${i}`] === true ? null : destaparRespuesta(i))}
                              >
-                                <span className="font-semibold">{i + 1}.</span> {r.texto} <span className="text-yellow-400 font-bold">{r.puntos}</span>
+                                {i + 1}. {r.texto} <span className="text-yellow-400 font-bold">{r.puntos}</span>
                              </li>
                           ))
                         : Array.from({ length: 5 }).map((_, i) => (
@@ -177,148 +190,13 @@ export default function Panel() {
                      </button>
                   </div>
                </div>
-            </div>
-
-            {/* CONTROLES */}
-            <div className="col-span-2 w-full h-full overflow-scroll">
-               <h2 className="text-2xl text-center font-bold mb-4">Controles</h2>
-
-               <div className="mt-4 flex gap-4 flex-wrap">
-                  {/* MARCAR ERRORES */}
-                  <div className="flex flex-col gap-2 justify-center items-center bg-gray-700 p-4 rounded-lg">
-                     <p className="font-medium text-2xl sm:text-base ">Marcar Errores</p>
-                     <div className="flex gap-2">
-                        {Array.from({ length: 3 }).map((_, i) => (
-                           <button
-                              key={`btn-error-${i + 1}`}
-                              onClick={() =>
-                                 send({
-                                    action: "markError",
-                                    slot: i + 1
-                                 })
-                              }
-                              className={`btn btn-error btn-circle font-black btn-xl sm:btn-md`}
-                              disabled={errores.e1 >= i + 1 || errores.e2 >= i + 1 || unoVsUno}
-                           >
-                              {i + 1}
-                           </button>
-                        ))}
-                     </div>
-                     {/* <button
-                        onClick={() =>
-                           send({
-                              action: "markError",
-                              slot: 2
-                           })
-                        }
-                        className={`btn btn-error`}
-                        disabled={errores.e1 >= 2 || errores.e2 >= 2}
-                     >
-                        Err 2
-                     </button>
-                     <button
-                        onClick={() =>
-                           send({
-                              action: "markError",
-                              slot: 3
-                           })
-                        }
-                        className={`btn btn-error`}
-                        disabled={errores.e1 >= 3 || errores.e2 >= 3}
-                     >
-                        Err 3
-                     </button> */}
-                  </div>
-                  {/* SELECCION DE EQUIPOS */}
-                  <div className="flex flex-col gap-2 justify-center items-center bg-gray-700 p-4 rounded-lg">
-                     <p className="font-medium text-2xl">Activar Equipo</p>
-                     <div className="flex gap-2">
-                        {Array.from({ length: 2 }).map((_, i) => (
-                           <button
-                              key={`btn-activar-equipo-${i}`}
-                              onClick={() => send({ action: "activateTeam", team: i + 1 })}
-                              disabled={equipoBloqueado === i + 1 || equipoActivo !== null}
-                              className={`btn btn-soft btn-xl ${i + 1 === 1 ? "bg-red-500" : "bg-blue-500"} font-bold disabled:${
-                                 equipoBloqueado === i + 1 ? "opacity-10" : equipoActivo === i + 1 ? "opacity-50" : "opacity-100"
-                              }`}
-                           >
-                              E{i + 1} <kbd className="kbd">{i + 1}</kbd>
-                           </button>
-                        ))}
-                     </div>
-                  </div>
-                  {/* CONTADOR */}
-                  <div className="flex flex-col gap-2 justify-center items-center bg-gray-700 p-4 rounded-lg">
-                     <p className="font-medium text-2xl">Contador</p>
-                     <button
-                        className={`btn btn-warning ${contadorActivo ? "btn-outline" : ""}`}
-                        onClick={() => {
-                           if (contadorActivo) {
-                              send({ action: "contador", activar: false });
-
-                              // desactivarContador();
-                           } else {
-                              send({ action: "contador", activar: true });
-                              // activarContador();
-                           }
-                        }}
-                     >
-                        {contadorActivo ? `Desactivar Contador (${tiempoRestante}s)` : "Activar Contador"}
-                     </button>
-                  </div>
-                  {/* RESPUESTA REPETIDA */}
-                  <div className="flex flex-col gap-2 justify-center items-center bg-gray-700 p-4 rounded-lg">
-                     <p className="font-medium text-2xl">Resp. Repetida</p>
-                     <button className="btn btn-warning btn-xl text-lg font-bold px-6 py-2 rounded-xl shadow" onClick={() => send({ action: "repetida" })}>
-                        R/E
-                     </button>
-                  </div>
-                  {/* MUERTE SUBITA */}
-                  <div className="flex flex-col gap-2 justify-center items-center bg-gray-700 p-4 rounded-lg">
-                     <p className="font-medium text-2xl">Muerte Súbita</p>
-                     <button
-                        onClick={() => send({ action: "activarMuerteSubita" })}
-                        className="btn btn-error btn-xl text-white text-lg font-bold px-6 py-2 rounded-xl shadow"
-                     >
-                        Activar
-                     </button>
-                  </div>
-                  {/* ERROR INDEPENDIENTE */}
-                  <div className="flex flex-col gap-2 justify-center items-center bg-gray-700 p-4 rounded-lg">
-                     <p className="font-medium text-2xl">Error Independiente</p>
-                     <button
-                        className="btn btn-error btn-xl text-white text-lg font-bold px-6 py-2 rounded-xl shadow"
-                        onClick={() =>
-                           send({
-                              action: "markError",
-                              slot: 0
-                           })
-                        }
-                     >
-                        X
-                     </button>
-                     {/* <button
-                        key={`btn-error-${i + 1}`}
-                        onClick={() =>
-                           send({
-                              action: "markError",
-                              slot: i + 1
-                           })
-                        }
-                        className={`btn btn-error btn-circle font-black btn-xl`}
-                        disabled={errores.e1 >= i + 1 || errores.e2 >= i + 1}
-                     >
-                        {i + 1}
-                     </button> */}
-                  </div>
-               </div>
-               <div className="divider divider-warning font-bold text-2xl">FILTROS DE BUSQUEDA PREGUNTAS</div>
 
                {/* FILTROS RESPUESTA */}
+               <div className="divider divider-warning font-bold text-2xl sm:text-base">FILTROS DE BUSQUEDA PREGUNTAS</div>
                <div className="flex gap-2 w-full justify-center items-center bg-gray-700 p-4 rounded-lg">
                   <fieldset className="fieldset w-full">
                      <legend className="fieldset-legend">Buscador General</legend>
-                     <input type="text" className="input" placeholder="Ingresa tu busqueda..." value={search} onChange={(e) => setSearch(e.target.value)} />
+                     <input type="text" className="input w-full" placeholder="Ingresa tu busqueda..." value={search} onChange={(e) => setSearch(e.target.value)} />
                      {/* <p className="label">Optional</p> */}
                   </fieldset>
                   <fieldset className="fieldset w-full">
@@ -342,11 +220,219 @@ export default function Panel() {
                   </fieldset>
                </div>
             </div>
+
+            {/* CONTROLES */}
+            <div className="card bg-gray-800 w-2/5 p-4 overflow-y-auto min-h-0">
+               {/* MARCADOR */}
+               <h2 className="text-lg font-bold text-center mb-2">MARCADOR</h2>
+               <div className="bg-gray-700 p-2 rounded-lg mb-4">
+                  <div className=" flex gap-2 w-full">
+                     {/* EQUIPO 1 */}
+                     <div className={`flex-grow flex justify-center items-center card card-body gap-2 bg-red-500 ${equipoActivo === 1 ? "skeleton" : "opacity-75"}`}>
+                        <div className="font-medium text-lg">
+                           Equipo 1
+                           <button
+                              onClick={() => send({ action: "activateTeam", team: 1 })}
+                              disabled={equipoBloqueado === 1 || equipoActivo !== null}
+                              className={`btn btn-sm ml-3 bg-red-600 font-bold disabled:${
+                                 equipoBloqueado === 1 ? "opacity-10" : equipoActivo === 1 ? "opacity-50" : "opacity-100"
+                              }`}
+                           >
+                              ACTIVAR
+                           </button>
+                        </div>
+                        <div className="flex gap-2">
+                           <input
+                              className="input"
+                              placeholder="Escribe el Nombre del equipo 1"
+                              type="search"
+                              value={teamNames.e1}
+                              onChange={(e) => {
+                                 const nuevoNombre = e.target.value.toUpperCase();
+
+                                 send({ action: "updateTeamName", team: "e1", name: nuevoNombre });
+                              }}
+                           />
+                           <input
+                              className="input"
+                              placeholder="Puntaje del equipo 1"
+                              type="number"
+                              value={puntosEquipo.e1}
+                              onChange={(e) => {
+                                 const puntaje = parseInt(e.target.value, 10) || 0;
+
+                                 send({ action: "updateTeamScore", team: "e1", score: puntaje });
+                              }}
+                           />
+                        </div>
+                        <button className="btn btn-wide" type="button" onClick={() => send({ action: "darVictoria", team: 1 })}>
+                           DAR VICTORIA 🎉
+                        </button>
+                     </div>
+
+                     {/* PUNTOS */}
+                     <div className="flex-grow flex justify-center items-center card card-body gap-2 bg-black text-success font-black ">
+                        Puntaje
+                        <span className="text-5xl">{acumuladoRonda}</span>
+                     </div>
+
+                     {/* EQUIPO 2 */}
+                     <div className={`flex-grow flex justify-center items-center card card-body gap-2 bg-blue-500 ${equipoActivo === 2 ? "skeleton" : "opacity-75"}`}>
+                        <div className="font-medium text-lg">
+                           Equipo 2
+                           <button
+                              onClick={() => send({ action: "activateTeam", team: 2 })}
+                              disabled={equipoBloqueado === 2 || equipoActivo !== null}
+                              className={`btn btn-sm ml-3 bg-blue-600 font-bold disabled:${
+                                 equipoBloqueado === 2 ? "opacity-10" : equipoActivo === 2 ? "opacity-50" : "opacity-100"
+                              }`}
+                           >
+                              ACTIVAR
+                           </button>
+                        </div>
+                        <div className="flex gap-2">
+                           <input
+                              className="input"
+                              placeholder="Escribe el Nombre del equipo 2"
+                              type="search"
+                              value={teamNames.e2}
+                              onChange={(e) => {
+                                 const nuevoNombre = e.target.value.toUpperCase();
+
+                                 // setTeamNames((prev) => ({
+                                 //    ...prev,
+                                 //    e2: nuevoNombre
+                                 // }));
+                                 send({ action: "updateTeamName", team: "e2", name: nuevoNombre });
+                              }}
+                           />
+                           <input
+                              className="input"
+                              placeholder="Puntaje del equipo 2"
+                              type="number"
+                              value={puntosEquipo.e2}
+                              onChange={(e) => {
+                                 const puntaje = parseInt(e.target.value, 10) || 0;
+
+                                 // setPuntosEquipo((prev) => ({
+                                 //    ...prev,
+                                 //    e2: puntaje
+                                 // }));
+                                 // // Limpiamos cualquier timeout previo
+                                 // if (debounceTimer) clearTimeout(debounceTimer);
+
+                                 // // Creamos un nuevo timeout de 500ms
+                                 // debounceTimer = setTimeout(() => {
+                                 send({ action: "updateTeamScore", team: "e2", score: puntaje });
+                                 // }, 500); // retrazo de medio segundo
+                              }}
+                           />
+                        </div>
+                        <button className="btn btn-wide" type="button" onClick={() => send({ action: "darVictoria", team: 2 })}>
+                           DAR VICTORIA 🎉
+                        </button>
+                     </div>
+                  </div>
+               </div>
+
+               <h2 className="text-lg font-bold text-center mb-2">CONTROLES</h2>
+               <div className="mt-4 flex gap-4 flex-wrap">
+                  {/* MARCAR ERRORES */}
+                  <div className="flex flex-col flex-grow gap-2 justify-center items-center bg-gray-700 p-4 rounded-lg">
+                     <p className="font-medium text-2xl sm:text-base ">Marcar Errores</p>
+                     <div className="flex gap-2">
+                        {Array.from({ length: 3 }).map((_, i) => (
+                           <button
+                              key={`btn-error-${i + 1}`}
+                              onClick={() =>
+                                 send({
+                                    action: "markError",
+                                    slot: i + 1
+                                 })
+                              }
+                              className={`btn btn-error btn-circle font-black btn-xl sm:btn-md`}
+                              disabled={errores.e1 >= i + 1 || errores.e2 >= i + 1 || unoVsUno || enRobo || muerteSubita || !rondaActiva}
+                           >
+                              {i + 1}
+                           </button>
+                        ))}
+                     </div>
+                  </div>
+                  {/* SELECCION DE EQUIPOS */}
+                  <div className="flex flex-col flex-grow gap-2 justify-center items-center bg-gray-700 p-4 rounded-lg" style={{ display: "none" }}>
+                     <p className="font-medium text-2xl sm:text-base">Activar Equipo</p>
+                     <div className="flex gap-2">
+                        {Array.from({ length: 2 }).map((_, i) => (
+                           <button
+                              key={`btn-activar-equipo-${i}`}
+                              onClick={() => send({ action: "activateTeam", team: i + 1 })}
+                              disabled={equipoBloqueado === i + 1 || equipoActivo !== null}
+                              className={`btn btn-soft btn-xl sm:btn-md ${i + 1 === 1 ? "bg-red-500" : "bg-blue-500"} font-bold disabled:${
+                                 equipoBloqueado === i + 1 ? "opacity-10" : equipoActivo === i + 1 ? "opacity-50" : "opacity-100"
+                              }`}
+                           >
+                              E{i + 1} <kbd className="kbd">{i + 1}</kbd>
+                           </button>
+                        ))}
+                     </div>
+                  </div>
+                  {/* CONTADOR */}
+                  <div className="flex flex-col flex-grow gap-2 justify-center items-center bg-gray-700 p-4 rounded-lg">
+                     <p className="font-medium text-2xl sm:text-base">Contador (10 seg)</p>
+                     <button
+                        className={`btn btn-warning ${contadorActivo ? "btn-outline" : ""}`}
+                        onClick={() => {
+                           if (contadorActivo) {
+                              send({ action: "contador", activar: false });
+                              // desactivarContador();
+                           } else {
+                              send({ action: "contador", activar: true });
+                              // activarContador();
+                           }
+                        }}
+                     >
+                        {contadorActivo ? `Desactivar Contador (${tiempoRestante}s)` : "Activar Contador"}
+                     </button>
+                  </div>
+                  {/* RESPUESTA REPETIDA */}
+                  <div className="flex flex-col flex-grow gap-2 justify-center items-center bg-gray-700 p-4 rounded-lg">
+                     <p className="font-medium text-2xl sm:text-base">Especificar Resp.</p>
+                     <button className="btn btn-warning btn-xl sm:btn-md text-lg font-bold px-6 py-2 rounded-xl shadow" onClick={() => send({ action: "repetida" })}>
+                        E/R
+                     </button>
+                  </div>
+                  {/* MUERTE SUBITA */}
+                  <div className="flex flex-col flex-grow gap-2 justify-center items-center bg-gray-700 p-4 rounded-lg">
+                     <p className="font-medium text-2xl sm:text-base">Muerte Súbita</p>
+                     <button
+                        onClick={() => send({ action: "activarMuerteSubita" })}
+                        className="btn btn-error btn-xl sm:btn-md text-white text-lg font-bold px-6 py-2 rounded-xl shadow"
+                     >
+                        Activar
+                     </button>
+                  </div>
+                  {/* ERROR INDEPENDIENTE */}
+                  <div className="flex flex-col flex-grow gap-2 justify-center items-center bg-gray-700 p-4 rounded-lg">
+                     <p className="font-medium text-2xl sm:text-base">Mostrar X</p>
+                     <button
+                        className="btn btn-error btn-xl sm:btn-md text-white text-lg font-bold px-6 py-2 rounded-xl shadow"
+                        onClick={() =>
+                           send({
+                              action: "markError",
+                              slot: 0
+                           })
+                        }
+                     >
+                        X
+                     </button>
+                  </div>
+               </div>
+            </div>
          </div>
 
          {/* CATALOGO DE PREGUNTAS */}
-         <div className="card p-4 w-full max-w-screen h-4/12  bg-gray-800 rounded-lg overflow-auto">
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+         <div className="card bg-gray-800 p-4 h-48 flex-shrink-0 overflow-y-auto">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                {preguntasFiltradas.map((pregunta, idx) => (
                   <div
                      key={idx}
@@ -356,18 +442,18 @@ export default function Panel() {
                   `}
                      onClick={() => setPregunta(idx)}
                   >
-                     <div className="flex justify-between items-center mb-1">
-                        <div className="flex gap-1 items-center">
-                           <span className="badge badge-soft badge-warning">{idx}</span>
-                           <span className="font-bold text-lg">{pregunta.texto}</span>
-                           {preguntasEnviadas.includes(idx) && (
-                              <span className="ml-2 text-green-300 font-bold">{<icons.io.IoMdCheckmarkCircleOutline size={30} color="white" />} </span>
-                           )}
-                        </div>
+                     <div className="flex justify-between w-full">
+                        <span className="badge badge-soft badge-warning">{idx}</span>
                         <div className="flex items-center">
                            <span className="badge badge-soft badge-warning">{pregunta.respuestas.reduce((total, r) => total + r.puntos, 0)} Pts.</span>
                            <span className="badge badge-soft badge-warning">{pregunta.categoria}</span>
                         </div>
+                     </div>
+                     <div className="flex gap-1 items-center">
+                        <span className="font-bold text-lg">{pregunta.texto}</span>
+                        {preguntasEnviadas.includes(idx) && (
+                           <span className="ml-2 text-green-300 font-bold">{<icons.io.IoMdCheckmarkCircleOutline size={30} color="white" />} </span>
+                        )}
                      </div>
                      <ul className="text-sm pl-4">
                         {pregunta.respuestas.map((r, i) => (

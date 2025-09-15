@@ -126,7 +126,7 @@ export default function Tablero() {
          {/* CONTADOR DE TIEMPO */}
          {contadorActivo && (
             <div className="fixed top-10 left-1/2 transform -translate-x-1/2 z-50">
-               <div className="bg-red-700 text-white text-5xl font-bold p-6 rounded-full shadow-xl border-4 border-yellow-400 animate-pulse">{tiempoRestante}s</div>
+               <div className="bg-red-700 text-white text-6xl font-bold p-6 rounded-full shadow-xl border-4 border-yellow-400 animate-pulse">{tiempoRestante}s</div>
             </div>
          )}
          {/* ANIMACIÓN/MENSAJE DE MUERTE SÚBITA */}

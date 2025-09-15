@@ -5,6 +5,7 @@ import incorrecto from "../assets/sounds/incorrecto.mp3";
 import RE from "../assets/sounds/r-e.mp3";
 import triunfo from "../assets/sounds/triunfo.mp3";
 import robo from "../assets/sounds/alerte-robo.mp3";
+import temporizador from "../assets/sounds/temporizador.mp3";
 
 const sounds = {
    aJugar,
@@ -13,6 +14,7 @@ const sounds = {
    incorrecto,
    RE,
    triunfo,
-   robo
+   robo,
+   temporizador
 };
 export default sounds;

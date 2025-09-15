@@ -35,37 +35,12 @@ export function JuegoContextProvider({ children }) {
    const [muerteSubita, setMuerteSubita] = useState(false);
    const [showLetrero, setShowLetrero] = useState(false);
    const [rondaActiva, setRondaActiva] = useState(false);
+   const [teamVictoria, setTeamVictoria] = useState(null);
 
    const [log, setLog] = useState([]);
    const [contadorActivo, setContadorActivo] = useState(false);
    const [tiempoRestante, setTiempoRestante] = useState(10);
    const contadorRef = useRef(null);
-
-   function activarContador() {
-      setContadorActivo(true);
-      console.log("🚀 ~ activarContador ~ contadorActivo:", contadorActivo);
-      setTiempoRestante(tiempoRestante);
-      if (contadorRef.current) clearInterval(contadorRef.current);
-      contadorRef.current = setInterval(() => {
-         setTiempoRestante((prev) => {
-            if (prev <= 1) {
-               clearInterval(contadorRef.current);
-               setContadorActivo(false);
-               // Marcar error según la dinámica actual
-               if (equipoActivo) {
-                  marcarError(equipoActivo === 1 ? errores.e1 + 1 : errores.e2 + 1);
-               }
-               return 0;
-            }
-            return prev - 1;
-         });
-      }, 1000);
-   }
-   function desactivarContador() {
-      setContadorActivo(false);
-      setTiempoRestante(tiempoRestante);
-      if (contadorRef.current) clearInterval(contadorRef.current);
-   }
 
    // sounds
    const s = useSound();
@@ -80,11 +55,18 @@ export function JuegoContextProvider({ children }) {
       s.load("RE", sounds.RE);
       s.load("triunfo", sounds.triunfo);
       s.load("robo", sounds.robo);
+      s.load("temporizador", sounds.temporizador);
    }, []);
 
    function handleWSMessage(data) {
       console.log("🚀 ~ handleWSMessage ~ data:", data);
       switch (data.action) {
+         case "updateTeamName":
+            updateTeamName(data.team, data.name);
+            break;
+         case "updateTeamScore":
+            updateTeamScore(data.team, data.score);
+            break;
          case "press":
             if (!equipoActivo) s.play("botonazo");
             if (!equipoActivo) activarEquipo(Number(data.team));
@@ -107,6 +89,9 @@ export function JuegoContextProvider({ children }) {
          case "contador":
             if (data.activar) activarContador();
             else desactivarContador();
+            break;
+         case "darVictoria":
+            victoria(data.team);
             break;
          case "reset":
             resetJuego();
@@ -149,7 +134,7 @@ export function JuegoContextProvider({ children }) {
          if (socket) socket.close();
          if (reconnectTimer) clearTimeout(reconnectTimer);
       };
-   }, [preguntaIdx, preguntaPreview, reveladas, equipoActivo, equipoBloqueado, errores, animX, enRobo, unoVsUno]);
+   }, [preguntaIdx, preguntaPreview, reveladas, equipoActivo, equipoBloqueado, errores, animX, enRobo, unoVsUno, muerteSubita, rondaActiva]); // Agrega más dependencias si es necesario
 
    const send = (data) => {
       // console.log("🚀 ~ send ~ data:", data);
@@ -159,6 +144,48 @@ export function JuegoContextProvider({ children }) {
          ws.send(JSON.stringify(data));
       }
    };
+
+   function activarContador() {
+      setContadorActivo(true);
+      setTiempoRestante(tiempoRestante);
+      if (contadorRef.current) clearInterval(contadorRef.current);
+      s.play("temporizador");
+      contadorRef.current = setInterval(() => {
+         setTiempoRestante((prev) => {
+            console.log("tiempoRestante:", tiempoRestante);
+            if (prev <= 1) {
+               clearInterval(contadorRef.current);
+               setContadorActivo(false);
+               // Marcar error según la dinámica actual
+               if (equipoActivo) {
+                  // marcarError(equipoActivo === 1 ? errores.e1 + 1 : errores.e2 + 1);
+               }
+               s.stop("temporizador");
+               return 0;
+            }
+            return prev - 1;
+         });
+      }, 1000);
+   }
+   function desactivarContador() {
+      s.stop("temporizador");
+      setContadorActivo(false);
+      setTiempoRestante(tiempoRestante);
+      if (contadorRef.current) clearInterval(contadorRef.current);
+   }
+
+   function updateTeamName(team, name) {
+      setTeamNames((prev) => ({
+         ...prev,
+         [team]: name
+      }));
+   }
+   function updateTeamScore(team, score) {
+      setPuntosEquipo((prev) => ({
+         ...prev,
+         [team]: score
+      }));
+   }
 
    function mostrarPregunta(i) {
       s.play("aJugar");
@@ -230,6 +257,12 @@ export function JuegoContextProvider({ children }) {
       });
       await sleep(1000);
       setAcumuladoRonda(0);
+      setRondaActiva(false);
+   }
+   function victoria(team) {
+      s.play("triunfo");
+      setTeamVictoria(team);
+      setShowCelebration(true);
    }
 
    async function destapar(i) {
@@ -427,7 +460,6 @@ export function JuegoContextProvider({ children }) {
    }
 
    function resetJuego() {
-      console.log("🚀 ~ resetJuego ~ resetJuego:");
       setPreguntaIdx(null);
       setEquipoActivo(null);
       setEquipoBloqueado(null);
@@ -446,6 +478,7 @@ export function JuegoContextProvider({ children }) {
       setContadorActivo(false);
       setTeamNames({ e1: "", e2: "" });
       setRondaActiva(false);
+      setTeamVictoria(null);
    }
    /* NUEVO */
 
@@ -465,9 +498,13 @@ export function JuegoContextProvider({ children }) {
             send,
             teamNames,
             setTeamNames,
+            teamVictoria,
+            setTeamVictoria,
             /* NUEVO */
             contadorActivo,
             setContadorActivo,
+            rondaActiva,
+            setRondaActiva,
             tiempoRestante,
             setTiempoRestante,
             activarContador,
@@ -535,7 +572,7 @@ export function useJuegoContext() {
 // ✅ 2.- FALTA agregar animacion de mensaje cuando hay robo de puntos
 // ✅ 3.- FALTA indicar con el boton error independiente, para cuando se estan enfrentando los equipos 1vs1 en la primer pregunta de cada ronda, que no se activan errores en el equipo que esta activo, pero si se puede marcar error con el boton independiente para darle oportunidad al equipo contrario de responder, si no respondio ninguno de los 2 bien, pasan los siguiente participantes a si que se vuelven a ahabilitar los botones para activar el equipoActivo
 // 4.- FALTA agregar animacion de mensaje cuando un equipo llega a 300 puntos y gana el juego
-// 5.- FALTA indicar que si en el robo de puntos, si el equipo que roba responde mal, se le suman los puntos acumulados a el equipo contrario y se pueden destapar las otras respuestas restantes pero ya no sumaran puntos para el acumulado solo para saber cuales eran las respuestas correctas.
+// ✅ 5.- FALTA indicar que si en el robo de puntos, si el equipo que roba responde mal, se le suman los puntos acumulados a el equipo contrario y se pueden destapar las otras respuestas restantes pero ya no sumaran puntos para el acumulado solo para saber cuales eran las respuestas correctas.
 // ✅ 6.- FALTA agregarun boton, para activar un contador de 5s para que el equipo activo responda,
 // 6.1 .- si no responde en ese tiempo, se le acumulara un error
 // 6.2.- si responde bien, hay que cancelar el contador

@@ -12,6 +12,7 @@ import { useJuegoContext } from "../contexts/JuegoContext";
 export default function Celebration({ teamName, teamNumber, onClose }) {
    // const { s } = useJuegoContext();
    const [isVisible, setIsVisible] = useState(false);
+   const { teamNames, puntosEquipo, teamVictoria } = useJuegoContext();
 
    useEffect(() => {
       setIsVisible(true);
@@ -113,15 +114,24 @@ export default function Celebration({ teamName, teamNumber, onClose }) {
       createSparkles();
 
       // Auto close after 5 seconds
-      const timer = setTimeout(() => {
-         setIsVisible(false);
-         setTimeout(onClose, 500);
-      }, 5000);
+      const timer = setTimeout(
+         () => {
+            setIsVisible(false);
+            setTimeout(onClose, 500);
+         },
+         teamVictoria ? 10000 : 4000
+      );
 
       return () => clearTimeout(timer);
    }, [onClose]);
 
-   const teamColor = teamNumber === 1 ? "from-red-400 to-red-600" : "from-blue-400 to-blue-600";
+   const teamColor = !teamVictoria
+      ? teamNumber === 1
+         ? "from-red-400 to-red-600"
+         : "from-blue-400 to-blue-600"
+      : teamVictoria == 1
+      ? "from-red-400 to-red-600"
+      : "from-blue-400 to-blue-600";
 
    return (
       <div className={`fixed inset-0 z-50 flex items-center justify-center transition-all duration-500 ${isVisible ? "opacity-100" : "opacity-0"}`}>
@@ -131,21 +141,43 @@ export default function Celebration({ teamName, teamNumber, onClose }) {
          {/* Main celebration message */}
          <div className={`relative z-10 text-center transform transition-all duration-1000 ${isVisible ? "scale-100 rotate-0" : "scale-0 rotate-180"}`}>
             <div className="bg-white/20 backdrop-blur-md rounded-4xl p-12 border-8 border-yellow-400 shadow-2xl">
-               <div className="animate-bounce">
-                  <h1 className="text-8xl font-black text-yellow-300 mb-4 drop-shadow-2xl animate-pulse">🎉 PUNTOS 🎉</h1>
-               </div>
+               {teamVictoria ? (
+                  <div className="animate-bounce">
+                     <h1 className="text-8xl font-black text-yellow-300 mb-4 drop-shadow-2xl animate-pulse">🎉 EQUIPO GANADOR 🎉</h1>
+                  </div>
+               ) : (
+                  <>
+                     <div className="animate-bounce">
+                        <h1 className="text-8xl font-black text-yellow-300 mb-4 drop-shadow-2xl animate-pulse">🎉 PUNTOS 🎉</h1>
+                     </div>
 
-               <div className="animate-pulse">
-                  <h2 className="text-6xl font-bold text-white mb-6 drop-shadow-lg">PARA EL</h2>
-               </div>
+                     <div className="animate-pulse">
+                        <h2 className="text-6xl font-bold text-white mb-6 drop-shadow-lg">PARA EL</h2>
+                     </div>
+                  </>
+               )}
 
                <div className="animate-bounce delay-300">
-                  <h3 className="text-7xl font-black text-yellow-300 mb-8 drop-shadow-2xl">EQUIPO {teamNumber}</h3>
+                  <h3 className="text-7xl font-black text-yellow-300 mb-8 drop-shadow-2xl">EQUIPO {teamVictoria ? teamVictoria : teamNumber}</h3>
                </div>
 
-               <div className="animate-pulse delay-500">
-                  <p className="text-4xl font-bold text-white drop-shadow-lg">{teamName}</p>
+               <div className={`delay-500 ${teamVictoria ? `animate-bounce` : "animate-pulse"}`}>
+                  <p
+                     className={`${teamVictoria ? "text-7xl" : "text-4xl"} font-bold ${
+                        teamVictoria ? (teamVictoria == 1 ? "text-red-300" : "text-blue-300") : "text-white"
+                     } drop-shadow-lg`}
+                  >
+                     {teamVictoria ? (teamVictoria == 1 ? teamNames.e1 : teamNames.e2) : teamName}
+                  </p>
                </div>
+
+               {teamVictoria && (
+                  <div className="animate-bounce">
+                     <h1 className="text-8xl font-black text-yellow-300 mb-4 drop-shadow-2xl animate-pulse">
+                        CON: {teamVictoria == 1 ? puntosEquipo.e1 : puntosEquipo.e2} PTS.
+                     </h1>
+                  </div>
+               )}
 
                <div className="mt-8 animate-bounce delay-700">
                   <div className="text-6xl">🏆✨🎊</div>

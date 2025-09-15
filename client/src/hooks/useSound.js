@@ -11,5 +11,15 @@ export default function useSound() {
          audioRef.current[name] && audioRef.current[name].play();
       } catch (e) {}
    };
-   return { load, play };
+   const stop = (name) => {
+      try {
+         if (audioRef.current[name]) {
+            audioRef.current[name].pause();
+            audioRef.current[name].currentTime = 0; // Reinicia al inicio
+         }
+      } catch (e) {
+         console.error("Error deteniendo sonido:", e);
+      }
+   };
+   return { load, play, stop };
 }

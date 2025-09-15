@@ -79,7 +79,7 @@ export default function Control() {
          style={{ cursor: animando ? "not-allowed" : "pointer" }}
       >
          <h2 className="card-title font-black flex flex-col text-4xl" onClick={() => press(equipo.numero)}>
-            {equipo.nombre.toUpperCase() ?? "Equipo"}
+            {team == 1 ? teamNames.e1 : teamNames.e2}
             <div className="-mt-3 text-sm font-medium" onClick={() => press(equipo.numero)}>
                Equipo {equipo.numero}
             </div>
