@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import images from "../const/images";
-import { b } from "framer-motion/client";
 
 export default function EquipoPanel({ numero, nombre, puntos, errores, MAX_ERRORES, activo, bloqueado }) {
    const bg = numero == 1 ? `bg-neutral` : `bg-neutral-content text-neutral`;

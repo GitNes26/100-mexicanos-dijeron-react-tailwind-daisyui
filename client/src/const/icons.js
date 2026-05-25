@@ -1,10 +1,10 @@
-import * as FaIcons from "react-icons/fa";
-import * as IoIcons from "react-icons/io";
-import * as MdIcons from "react-icons/md";
+import { FaRandom } from "react-icons/fa";
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
+import { MdConnectedTv } from "react-icons/md";
 
 const icons = {
-   fa: FaIcons,
-   io: IoIcons,
-   md: MdIcons
+   fa: { FaRandom },
+   io: { IoMdCheckmarkCircleOutline },
+   md: { MdConnectedTv }
 };
 export default icons;

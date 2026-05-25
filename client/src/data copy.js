@@ -1,1157 +1,1806 @@
 export const PREGUNTAS = [
    {
-      texto: "¿Cuáles son los libros más populares de la Biblia?",
+      texto: "Menciona un platillo típico que se come en Torreón",
+      categoria: "comida",
       respuestas: [
-         { texto: "Génesis", puntos: 40 },
-         { texto: "Salmos", puntos: 35 },
-         { texto: "Proverbios", puntos: 30 },
-         { texto: "Apocalipsis", puntos: 25 },
-         { texto: "Juan", puntos: 20 }
-      ],
-      categoria: "biblia"
+         { texto: "Discada", puntos: 40 },
+         { texto: "Carne asada", puntos: 25 },
+         { texto: "Gorditas", puntos: 15 },
+         { texto: "Menudo", puntos: 10 },
+         { texto: "Tacos al carbón", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Comida típica mexicana?",
+      texto: "Personaje bíblico que enfrentó una gran batalla",
+      categoria: "bíblicas",
       respuestas: [
-         { texto: "Tacos", puntos: 50 },
-         { texto: "Tamales", puntos: 30 },
-         { texto: "Pozole", puntos: 25 },
-         { texto: "Mole", puntos: 20 },
-         { texto: "Chiles en nogada", puntos: 15 }
-      ],
-      categoria: "comida"
+         { texto: "David", puntos: 50 },
+         { texto: "Josué", puntos: 20 },
+         { texto: "Sansón", puntos: 15 },
+         { texto: "Gedeón", puntos: 10 },
+         { texto: "Moisés", puntos: 5 }
+      ]
    },
    {
-      texto: "¿Cuál es una serie de streaming popular?",
+      texto: "Equipo de fútbol mexicano más popular en el norte",
+      categoria: "deportes",
       respuestas: [
-         { texto: "Stranger Things", puntos: 40 },
-         { texto: "The Crown", puntos: 20 },
+         { texto: "Santos Laguna", puntos: 60 },
+         { texto: "Rayados", puntos: 15 },
+         { texto: "Tigres", puntos: 10 },
+         { texto: "Chivas", puntos: 10 },
+         { texto: "América", puntos: 5 }
+      ]
+   },
+   {
+      texto: "Serie de Netflix que todos han visto",
+      categoria: "entretenimiento",
+      respuestas: [
          { texto: "La Casa de Papel", puntos: 30 },
-         { texto: "Breaking Bad", puntos: 25 },
-         { texto: "Friends", puntos: 35 }
-      ],
-      categoria: "entretenimiento"
+         { texto: "Stranger Things", puntos: 25 },
+         { texto: "Élite", puntos: 20 },
+         { texto: "Wednesday", puntos: 15 },
+         { texto: "Dark", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Deporte con balón?",
+      texto: "Cantante de música regional mexicana famoso en 2020s",
+      categoria: "música",
       respuestas: [
-         { texto: "Fútbol", puntos: 60 },
-         { texto: "Baloncesto", puntos: 20 },
-         { texto: "Voleibol", puntos: 10 },
-         { texto: "Rugby", puntos: 5 },
-         { texto: "Golf", puntos: 2 }
-      ],
-      categoria: "deportes"
+         { texto: "Peso Pluma", puntos: 40 },
+         { texto: "Natanael Cano", puntos: 25 },
+         { texto: "Carín León", puntos: 15 },
+         { texto: "Grupo Frontera", puntos: 10 },
+         { texto: "Christian Nodal", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Algo que encuentras en la escuela?",
+      texto: "Algo que nunca falta en una carne asada norteña",
+      categoria: "comida",
       respuestas: [
-         { texto: "Libros", puntos: 50 },
-         { texto: "Pupitres", puntos: 30 },
-         { texto: "Maestros", puntos: 40 },
-         { texto: "Receso", puntos: 20 },
-         { texto: "Exámenes", puntos: 10 }
-      ],
-      categoria: "educacion"
+         { texto: "Cerveza fría", puntos: 35 },
+         { texto: "Salsa roja", puntos: 25 },
+         { texto: "Tortillas de harina", puntos: 20 },
+         { texto: "Guacamole", puntos: 10 },
+         { texto: "Refrescos", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Animal de granja común?",
+      texto: "Personaje bíblico que fue probado en su fe",
+      categoria: "bíblicas",
       respuestas: [
-         { texto: "Vaca", puntos: 50 },
-         { texto: "Cerdo", puntos: 30 },
-         { texto: "Gallina", puntos: 25 },
-         { texto: "Caballo", puntos: 20 },
-         { texto: "Oveja", puntos: 15 }
-      ],
-      categoria: "animales"
+         { texto: "Job", puntos: 40 },
+         { texto: "Abraham", puntos: 25 },
+         { texto: "Pedro", puntos: 15 },
+         { texto: "Daniel", puntos: 10 },
+         { texto: "Jonás", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Bebida caliente popular?",
+      texto: "Aplicación que los jóvenes usan diario",
+      categoria: "cultura digital",
       respuestas: [
-         { texto: "Café", puntos: 60 },
-         { texto: "Té", puntos: 40 },
-         { texto: "Chocolate caliente", puntos: 35 },
-         { texto: "Atole", puntos: 25 },
-         { texto: "Champurrado", puntos: 20 }
-      ],
-      categoria: "comida"
+         { texto: "WhatsApp", puntos: 35 },
+         { texto: "TikTok", puntos: 25 },
+         { texto: "Instagram", puntos: 20 },
+         { texto: "Facebook", puntos: 10 },
+         { texto: "Spotify", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Planeta del sistema solar?",
+      texto: "Frase que grita la raza en el estadio Corona",
+      categoria: "deportes",
       respuestas: [
-         { texto: "Tierra", puntos: 50 },
-         { texto: "Marte", puntos: 40 },
-         { texto: "Júpiter", puntos: 30 },
+         { texto: "¡Santos! ¡Santos!", puntos: 40 },
+         { texto: "¡Arriba la Laguna!", puntos: 25 },
+         { texto: "¡Sí se puede!", puntos: 15 },
+         { texto: "¡Vamos Guerreros!", puntos: 10 },
+         { texto: "¡Golazo!", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Algo que todos compran en el Hot Sale",
+      categoria: "cultura general",
+      respuestas: [
+         { texto: "Celulares", puntos: 35 },
+         { texto: "Laptops", puntos: 25 },
+         { texto: "Pantallas", puntos: 20 },
+         { texto: "Tenis", puntos: 10 },
+         { texto: "Videojuegos", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Canción que prende la fiesta",
+      categoria: "música",
+      respuestas: [
+         { texto: "Ella Baila Sola", puntos: 35 },
+         { texto: "AMG", puntos: 25 },
+         { texto: "El Azul", puntos: 20 },
+         { texto: "Botella Tras Botella", puntos: 10 },
+         { texto: "Un x100to", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Algo que representa a Torreón",
+      categoria: "cultura local",
+      respuestas: [
+         { texto: "Cristo de las Noas", puntos: 40 },
+         { texto: "Estadio Corona", puntos: 25 },
+         { texto: "Canal del Sacramento", puntos: 15 },
+         { texto: "Puente Plateado", puntos: 10 },
+         { texto: "La Perla de La Laguna", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Personaje bíblico que estuvo en un horno de fuego",
+      categoria: "bíblicas",
+      respuestas: [
+         { texto: "Sadrac", puntos: 30 },
+         { texto: "Mesac", puntos: 25 },
+         { texto: "Abed-nego", puntos: 20 },
+         { texto: "Daniel", puntos: 15 },
+         { texto: "El rey Nabucodonosor", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Algo que todos hacen en TikTok",
+      categoria: "entretenimiento juvenil",
+      respuestas: [
+         { texto: "Bailes", puntos: 35 },
+         { texto: "Memes", puntos: 25 },
+         { texto: "Retos", puntos: 20 },
+         { texto: "Lip sync", puntos: 10 },
+         { texto: "Storytimes", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Juego de consola que todos han jugado",
+      categoria: "videojuegos",
+      respuestas: [
+         { texto: "FIFA", puntos: 35 },
+         { texto: "Call of Duty", puntos: 25 },
+         { texto: "Fortnite", puntos: 20 },
+         { texto: "GTA V", puntos: 10 },
+         { texto: "Minecraft", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Menciona un antojito que venden en la feria de Torreón",
+      categoria: "comida",
+      respuestas: [
+         { texto: "Algodón de azúcar", puntos: 30 },
+         { texto: "Elotes preparados", puntos: 25 },
+         { texto: "Churros", puntos: 20 },
+         { texto: "Tostadas", puntos: 15 },
+         { texto: "Aguas frescas", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Un profeta del Antiguo Testamento",
+      categoria: "bíblicas",
+      respuestas: [
+         { texto: "Isaías", puntos: 30 },
+         { texto: "Jeremías", puntos: 25 },
+         { texto: "Ezequiel", puntos: 20 },
+         { texto: "Daniel", puntos: 15 },
+         { texto: "Oseas", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Algo que todos hacen en una peda",
+      categoria: "entretenimiento juvenil",
+      respuestas: [
+         { texto: "Cantar a gritos", puntos: 35 },
+         { texto: "Tomar shots", puntos: 25 },
+         { texto: "Bailar", puntos: 20 },
+         { texto: "Contar chismes", puntos: 10 },
+         { texto: "Grabar TikToks", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Deporte que más practican los jóvenes en Torreón",
+      categoria: "deportes",
+      respuestas: [
+         { texto: "Fútbol", puntos: 40 },
+         { texto: "Básquetbol", puntos: 25 },
+         { texto: "Béisbol", puntos: 15 },
+         { texto: "Crossfit", puntos: 10 },
+         { texto: "Boxeo", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Un meme que todos han visto",
+      categoria: "cultura digital",
+      respuestas: [
+         { texto: "El perro Cheems", puntos: 30 },
+         { texto: "El gato en la mesa", puntos: 25 },
+         { texto: "Shrek sorprendido", puntos: 20 },
+         { texto: "El niño del Oxxo", puntos: 15 },
+         { texto: "El Pikachu sorprendido", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Un milagro de Jesús",
+      categoria: "bíblicas",
+      respuestas: [
+         { texto: "Multiplicar los panes", puntos: 30 },
+         { texto: "Caminar sobre el agua", puntos: 25 },
+         { texto: "Resucitar a Lázaro", puntos: 20 },
+         { texto: "Sanar a ciegos", puntos: 15 },
+         { texto: "Convertir agua en vino", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Algo que compras en el Hot Sale",
+      categoria: "cultura general",
+      respuestas: [
+         { texto: "Celulares", puntos: 30 },
+         { texto: "Pantallas", puntos: 25 },
+         { texto: "Consolas", puntos: 20 },
+         { texto: "Tenis", puntos: 15 },
+         { texto: "Audífonos", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Canción que se canta en karaoke",
+      categoria: "música",
+      respuestas: [
+         { texto: "Cielito Lindo", puntos: 30 },
+         { texto: "La Chona", puntos: 25 },
+         { texto: "Amor eterno", puntos: 20 },
+         { texto: "Payaso de rodeo", puntos: 15 },
+         { texto: "Caballo Dorado", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Algo que todos hacen en el Oxxo",
+      categoria: "cultura juvenil",
+      respuestas: [
+         { texto: "Comprar cheve", puntos: 35 },
+         { texto: "Recargar saldo", puntos: 25 },
+         { texto: "Comprar papitas", puntos: 20 },
+         { texto: "Pagar servicios", puntos: 10 },
+         { texto: "Comprar cigarros", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Un héroe bíblico del Nuevo Testamento",
+      categoria: "bíblicas",
+      respuestas: [
+         { texto: "Pedro", puntos: 30 },
+         { texto: "Pablo", puntos: 25 },
+         { texto: "Juan", puntos: 20 },
+         { texto: "Esteban", puntos: 15 },
+         { texto: "Santiago", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Algo que todos hacen en TikTok",
+      categoria: "entretenimiento juvenil",
+      respuestas: [
+         { texto: "Bailes virales", puntos: 35 },
+         { texto: "Retos", puntos: 25 },
+         { texto: "Memes", puntos: 20 },
+         { texto: "Storytimes", puntos: 10 },
+         { texto: "Lip sync", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Un lugar icónico de Torreón",
+      categoria: "cultura local",
+      respuestas: [
+         { texto: "Cristo de las Noas", puntos: 40 },
+         { texto: "Estadio Corona", puntos: 25 },
+         { texto: "Canal del Sacramento", puntos: 15 },
+         { texto: "Museo Arocena", puntos: 10 },
+         { texto: "Puente Plateado", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Un videojuego que todos han jugado",
+      categoria: "videojuegos",
+      respuestas: [
+         { texto: "FIFA", puntos: 35 },
+         { texto: "Call of Duty", puntos: 25 },
+         { texto: "Fortnite", puntos: 20 },
+         { texto: "Minecraft", puntos: 10 },
+         { texto: "GTA V", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Algo que nunca falta en una fiesta lagunera",
+      categoria: "cultura local",
+      respuestas: [
+         { texto: "Banda en vivo", puntos: 35 },
+         { texto: "Cerveza", puntos: 25 },
+         { texto: "Botanas", puntos: 20 },
+         { texto: "Baile", puntos: 10 },
+         { texto: "Shots", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Un personaje bíblico que fue rey",
+      categoria: "bíblicas",
+      respuestas: [
+         { texto: "David", puntos: 40 },
+         { texto: "Salomón", puntos: 25 },
+         { texto: "Saúl", puntos: 15 },
+         { texto: "Ezequías", puntos: 10 },
+         { texto: "Josías", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Algo que todos hacen en Instagram",
+      categoria: "cultura digital",
+      respuestas: [
+         { texto: "Subir selfies", puntos: 35 },
+         { texto: "Historias", puntos: 25 },
+         { texto: "Memes", puntos: 20 },
+         { texto: "Reels", puntos: 10 },
+         { texto: "Etiquetar amigos", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Un cantante que escuchan los jóvenes",
+      categoria: "música",
+      respuestas: [
+         { texto: "Peso Pluma", puntos: 35 },
+         { texto: "Natanael Cano", puntos: 25 },
+         { texto: "Bad Bunny", puntos: 20 },
+         { texto: "Grupo Frontera", puntos: 10 },
+         { texto: "Carín León", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Algo que todos hacen en Mercado Libre",
+      categoria: "cultura general",
+      respuestas: [
+         { texto: "Comprar celulares", puntos: 35 },
+         { texto: "Buscar ofertas", puntos: 25 },
+         { texto: "Comprar tenis", puntos: 20 },
+         { texto: "Comprar pantallas", puntos: 10 },
+         { texto: "Comprar videojuegos", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Un apóstol de Jesús",
+      categoria: "bíblicas",
+      respuestas: [
+         { texto: "Pedro", puntos: 30 },
+         { texto: "Juan", puntos: 25 },
+         { texto: "Santiago", puntos: 20 },
+         { texto: "Andrés", puntos: 15 },
+         { texto: "Felipe", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Menciona un platillo que se come en la feria de Torreón",
+      categoria: "comida",
+      respuestas: [
+         { texto: "Elotes preparados", puntos: 35 },
+         { texto: "Algodón de azúcar", puntos: 25 },
+         { texto: "Churros", puntos: 20 },
+         { texto: "Tostadas", puntos: 10 },
+         { texto: "Aguas frescas", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Un profeta del Antiguo Testamento",
+      categoria: "bíblicas",
+      respuestas: [
+         { texto: "Isaías", puntos: 30 },
+         { texto: "Jeremías", puntos: 25 },
+         { texto: "Ezequiel", puntos: 20 },
+         { texto: "Daniel", puntos: 15 },
+         { texto: "Oseas", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Algo que nunca falta en una peda universitaria",
+      categoria: "entretenimiento juvenil",
+      respuestas: [
+         { texto: "Beer pong", puntos: 35 },
+         { texto: "Shots", puntos: 25 },
+         { texto: "Cantar a gritos", puntos: 20 },
+         { texto: "Bailar", puntos: 10 },
+         { texto: "Grabar TikToks", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Deporte que más practican los jóvenes en Torreón",
+      categoria: "deportes",
+      respuestas: [
+         { texto: "Fútbol", puntos: 40 },
+         { texto: "Básquetbol", puntos: 25 },
+         { texto: "Béisbol", puntos: 15 },
+         { texto: "Crossfit", puntos: 10 },
+         { texto: "Boxeo", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Un meme que todos han visto",
+      categoria: "cultura digital",
+      respuestas: [
+         { texto: "El perro Cheems", puntos: 30 },
+         { texto: "El niño del Oxxo", puntos: 25 },
+         { texto: "El gato en la mesa", puntos: 20 },
+         { texto: "Pikachu sorprendido", puntos: 15 },
+         { texto: "Shrek sorprendido", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Un milagro de Jesús",
+      categoria: "bíblicas",
+      respuestas: [
+         { texto: "Multiplicar los panes", puntos: 30 },
+         { texto: "Caminar sobre el agua", puntos: 25 },
+         { texto: "Resucitar a Lázaro", puntos: 20 },
+         { texto: "Sanar a ciegos", puntos: 15 },
+         { texto: "Convertir agua en vino", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Canción que prende la fiesta",
+      categoria: "música",
+      respuestas: [
+         { texto: "Ella Baila Sola", puntos: 35 },
+         { texto: "AMG", puntos: 25 },
+         { texto: "El Azul", puntos: 20 },
+         { texto: "Botella Tras Botella", puntos: 10 },
+         { texto: "Un x100to", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Algo que todos hacen en el Oxxo",
+      categoria: "cultura juvenil",
+      respuestas: [
+         { texto: "Comprar cheve", puntos: 35 },
+         { texto: "Recargar saldo", puntos: 25 },
+         { texto: "Comprar papitas", puntos: 20 },
+         { texto: "Pagar servicios", puntos: 10 },
+         { texto: "Comprar cigarros", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Un lugar icónico de Torreón",
+      categoria: "cultura local",
+      respuestas: [
+         { texto: "Cristo de las Noas", puntos: 40 },
+         { texto: "Estadio Corona", puntos: 25 },
+         { texto: "Museo Arocena", puntos: 15 },
+         { texto: "Puente Plateado", puntos: 10 },
+         { texto: "Canal del Sacramento", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Un videojuego que todos han jugado",
+      categoria: "videojuegos",
+      respuestas: [
+         { texto: "FIFA", puntos: 35 },
+         { texto: "Call of Duty", puntos: 25 },
+         { texto: "Fortnite", puntos: 20 },
+         { texto: "Minecraft", puntos: 10 },
+         { texto: "GTA V", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Órgano del cuerpo que bombea la sangre",
+      categoria: "medicina",
+      respuestas: [
+         { texto: "Corazón", puntos: 50 },
+         { texto: "Cerebro", puntos: 20 },
+         { texto: "Pulmones", puntos: 15 },
+         { texto: "Hígado", puntos: 10 },
+         { texto: "Riñones", puntos: 5 }
+      ]
+   },
+   {
+      texto: "Materia que más batallan los estudiantes en la prepa",
+      categoria: "academico",
+      respuestas: [
+         { texto: "Matemáticas", puntos: 40 },
+         { texto: "Química", puntos: 25 },
+         { texto: "Física", puntos: 15 },
+         { texto: "Historia", puntos: 10 },
+         { texto: "Biología", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Síntoma común de la gripe",
+      categoria: "medicina",
+      respuestas: [
+         { texto: "Fiebre", puntos: 30 },
+         { texto: "Tos", puntos: 25 },
+         { texto: "Dolor de cabeza", puntos: 20 },
+         { texto: "Escalofríos", puntos: 15 },
+         { texto: "Dolor muscular", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Algo que todos buscan en Google",
+      categoria: "cultura digital",
+      respuestas: [
+         { texto: "Tareas", puntos: 35 },
+         { texto: "Recetas", puntos: 25 },
+         { texto: "Noticias", puntos: 20 },
+         { texto: "Memes", puntos: 10 },
+         { texto: "Horóscopo", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Un invento que cambió la historia",
+      categoria: "cultura general",
+      respuestas: [
+         { texto: "Electricidad", puntos: 30 },
+         { texto: "Internet", puntos: 25 },
+         { texto: "Automóvil", puntos: 20 },
+         { texto: "Teléfono", puntos: 15 },
+         { texto: "Imprenta", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Algo que nunca falta en un examen médico",
+      categoria: "medicina",
+      respuestas: [
+         { texto: "Chequeo de presión", puntos: 35 },
+         { texto: "Análisis de sangre", puntos: 25 },
+         { texto: "Peso y talla", puntos: 20 },
+         { texto: "Revisión de ojos", puntos: 10 },
+         { texto: "Examen de orina", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Aplicación que usan para estudiar",
+      categoria: "academico",
+      respuestas: [
+         { texto: "Google Classroom", puntos: 30 },
+         { texto: "Khan Academy", puntos: 25 },
+         { texto: "Quizlet", puntos: 20 },
+         { texto: "Duolingo", puntos: 15 },
+         { texto: "Coursera", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Algo que todos hacen en una peda juvenil",
+      categoria: "entretenimiento juvenil",
+      respuestas: [
+         { texto: "Tomar selfies", puntos: 35 },
+         { texto: "Cantar corridos", puntos: 25 },
+         { texto: "Bailar reggaetón", puntos: 20 },
+         { texto: "Jugar beer pong", puntos: 10 },
+         { texto: "Subir historias", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Un descubrimiento científico famoso",
+      categoria: "academico",
+      respuestas: [
+         { texto: "La penicilina", puntos: 30 },
+         { texto: "La teoría de la relatividad", puntos: 25 },
+         { texto: "El ADN", puntos: 20 },
+         { texto: "La vacuna", puntos: 15 },
+         { texto: "La gravedad", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Una enfermedad común en México",
+      categoria: "medicina",
+      respuestas: [
+         { texto: "Diabetes", puntos: 40 },
+         { texto: "Hipertensión", puntos: 25 },
+         { texto: "Obesidad", puntos: 15 },
+         { texto: "Gripe", puntos: 10 },
+         { texto: "Covid-19", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Algo que nunca falta en una fiesta mexicana",
+      categoria: "cultura general",
+      respuestas: [
+         { texto: "Mariachi", puntos: 35 },
+         { texto: "Comida típica", puntos: 25 },
+         { texto: "Baile", puntos: 20 },
+         { texto: "Cerveza", puntos: 10 },
+         { texto: "Decoración tricolor", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Un invento tecnológico que cambió la vida diaria",
+      categoria: "tecnología",
+      respuestas: [
+         { texto: "Smartphone", puntos: 40 },
+         { texto: "Internet", puntos: 25 },
+         { texto: "Computadora", puntos: 15 },
+         { texto: "Redes sociales", puntos: 10 },
+         { texto: "Tableta", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Algo que todos compran en el Hot Sale",
+      categoria: "cultura digital",
+      respuestas: [
+         { texto: "Celulares", puntos: 35 },
+         { texto: "Pantallas", puntos: 25 },
+         { texto: "Consolas", puntos: 20 },
+         { texto: "Tenis", puntos: 10 },
+         { texto: "Audífonos", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Un platillo típico del norte de México",
+      categoria: "comida",
+      respuestas: [
+         { texto: "Carne asada", puntos: 40 },
+         { texto: "Discada", puntos: 25 },
+         { texto: "Cabrito", puntos: 15 },
+         { texto: "Gorditas", puntos: 10 },
+         { texto: "Menudo", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Algo que todos hacen en TikTok",
+      categoria: "entretenimiento juvenil",
+      respuestas: [
+         { texto: "Bailes virales", puntos: 35 },
+         { texto: "Memes", puntos: 25 },
+         { texto: "Retos", puntos: 20 },
+         { texto: "Lip sync", puntos: 10 },
+         { texto: "Storytimes", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Un símbolo patrio de México",
+      categoria: "cultura general",
+      respuestas: [
+         { texto: "Bandera", puntos: 40 },
+         { texto: "Águila real", puntos: 25 },
+         { texto: "Himno nacional", puntos: 15 },
+         { texto: "Escudo", puntos: 10 },
+         { texto: "Independencia", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Aplicación que usan para pedir comida",
+      categoria: "tecnología",
+      respuestas: [
+         { texto: "Uber Eats", puntos: 35 },
+         { texto: "Rappi", puntos: 25 },
+         { texto: "Didi Food", puntos: 20 },
+         { texto: "Domino’s App", puntos: 10 },
+         { texto: "Pedidos Ya", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Algo que representa a Torreón",
+      categoria: "cultura local",
+      respuestas: [
+         { texto: "Cristo de las Noas", puntos: 40 },
+         { texto: "Estadio Corona", puntos: 25 },
+         { texto: "Museo Arocena", puntos: 15 },
+         { texto: "Puente Plateado", puntos: 10 },
+         { texto: "La Perla de La Laguna", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Un avance tecnológico reciente",
+      categoria: "tecnología",
+      respuestas: [
+         { texto: "Inteligencia Artificial", puntos: 35 },
+         { texto: "Autos eléctricos", puntos: 25 },
+         { texto: "Impresoras 3D", puntos: 20 },
+         { texto: "Realidad virtual", puntos: 10 },
+         { texto: "Blockchain", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Algo que todos hacen en una fiesta lagunera",
+      categoria: "cultura local",
+      respuestas: [
+         { texto: "Bailar banda", puntos: 35 },
+         { texto: "Tomar cerveza", puntos: 25 },
+         { texto: "Cantar corridos", puntos: 20 },
+         { texto: "Botanas", puntos: 10 },
+         { texto: "Shots", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Un estado de la República famoso por su playa",
+      categoria: "cultura general",
+      respuestas: [
+         { texto: "Quintana Roo", puntos: 35 },
+         { texto: "Jalisco", puntos: 25 },
+         { texto: "Baja California Sur", puntos: 20 },
+         { texto: "Guerrero", puntos: 10 },
+         { texto: "Sinaloa", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Un científico famoso en la historia",
+      categoria: "academico",
+      respuestas: [
+         { texto: "Albert Einstein", puntos: 40 },
+         { texto: "Isaac Newton", puntos: 25 },
+         { texto: "Marie Curie", puntos: 15 },
+         { texto: "Charles Darwin", puntos: 10 },
+         { texto: "Nikola Tesla", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Algo que nunca falta en el Día de Muertos",
+      categoria: "tradiciones mexicanas",
+      respuestas: [
+         { texto: "Pan de muerto", puntos: 35 },
+         { texto: "Veladoras", puntos: 25 },
+         { texto: "Flores de cempasúchil", puntos: 20 },
+         { texto: "Calaveritas de azúcar", puntos: 10 },
+         { texto: "Altares", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Un síntoma de la diabetes",
+      categoria: "medicina",
+      respuestas: [
+         { texto: "Sed excesiva", puntos: 30 },
+         { texto: "Cansancio", puntos: 25 },
+         { texto: "Visión borrosa", puntos: 20 },
+         { texto: "Orinar mucho", puntos: 15 },
+         { texto: "Hambre constante", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Algo que todos hacen en YouTube",
+      categoria: "cultura digital",
+      respuestas: [
+         { texto: "Ver música", puntos: 35 },
+         { texto: "Tutoriales", puntos: 25 },
+         { texto: "Gameplays", puntos: 20 },
+         { texto: "Noticias", puntos: 10 },
+         { texto: "Podcasts", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Un invento que revolucionó la medicina",
+      categoria: "academico",
+      respuestas: [
+         { texto: "Vacunas", puntos: 40 },
+         { texto: "Antibióticos", puntos: 25 },
+         { texto: "Rayos X", puntos: 15 },
+         { texto: "Anestesia", puntos: 10 },
+         { texto: "Marcapasos", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Algo que todos hacen en una peda juvenil",
+      categoria: "entretenimiento juvenil",
+      respuestas: [
+         { texto: "Tomar selfies", puntos: 35 },
+         { texto: "Cantar corridos", puntos: 25 },
+         { texto: "Bailar reggaetón", puntos: 20 },
+         { texto: "Jugar beer pong", puntos: 10 },
+         { texto: "Subir historias", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Un lugar turístico de Coahuila",
+      categoria: "cultura local",
+      respuestas: [
+         { texto: "Dunas de Bilbao", puntos: 35 },
+         { texto: "Cristo de las Noas", puntos: 25 },
+         { texto: "Cuatro Ciénegas", puntos: 20 },
+         { texto: "Museo Arocena", puntos: 10 },
+         { texto: "Estadio Corona", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Un avance tecnológico reciente",
+      categoria: "tecnología",
+      respuestas: [
+         { texto: "Inteligencia Artificial", puntos: 35 },
+         { texto: "Autos eléctricos", puntos: 25 },
+         { texto: "Impresoras 3D", puntos: 20 },
+         { texto: "Realidad virtual", puntos: 10 },
+         { texto: "Blockchain", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Animal más mencionado en la Biblia",
+      categoria: "bíblicas",
+      respuestas: [
+         { texto: "Cordero", puntos: 35 },
+         { texto: "León", puntos: 25 },
+         { texto: "Serpiente", puntos: 20 },
+         { texto: "Paloma", puntos: 10 },
+         { texto: "Pez", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Un cantante que escuchan los jóvenes en 2020s",
+      categoria: "música",
+      respuestas: [
+         { texto: "Peso Pluma", puntos: 35 },
+         { texto: "Bad Bunny", puntos: 25 },
+         { texto: "Natanael Cano", puntos: 20 },
+         { texto: "Grupo Frontera", puntos: 10 },
+         { texto: "Carín León", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Un deporte olímpico muy popular",
+      categoria: "deportes",
+      respuestas: [
+         { texto: "Fútbol", puntos: 35 },
+         { texto: "Atletismo", puntos: 25 },
+         { texto: "Natación", puntos: 20 },
+         { texto: "Básquetbol", puntos: 10 },
+         { texto: "Gimnasia", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Algo que todos hacen en TikTok",
+      categoria: "entretenimiento juvenil",
+      respuestas: [
+         { texto: "Bailes virales", puntos: 35 },
+         { texto: "Memes", puntos: 25 },
+         { texto: "Retos", puntos: 20 },
+         { texto: "Lip sync", puntos: 10 },
+         { texto: "Storytimes", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Un invento que revolucionó la comunicación",
+      categoria: "cultura general",
+      respuestas: [
+         { texto: "Teléfono", puntos: 35 },
+         { texto: "Internet", puntos: 25 },
+         { texto: "Correo electrónico", puntos: 20 },
+         { texto: "Radio", puntos: 10 },
+         { texto: "Televisión", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Un lugar turístico de Coahuila",
+      categoria: "cultura local",
+      respuestas: [
+         { texto: "Dunas de Bilbao", puntos: 35 },
+         { texto: "Cuatro Ciénegas", puntos: 25 },
+         { texto: "Cristo de las Noas", puntos: 20 },
+         { texto: "Museo Arocena", puntos: 10 },
+         { texto: "Estadio Corona", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Un grupo musical famoso en México",
+      categoria: "música",
+      respuestas: [
+         { texto: "Grupo Frontera", puntos: 35 },
+         { texto: "Los Tigres del Norte", puntos: 25 },
+         { texto: "Banda MS", puntos: 20 },
+         { texto: "Intocable", puntos: 10 },
+         { texto: "Bronco", puntos: 10 }
+      ]
+   },
+   {
+      texto: "Un planeta del sistema solar",
+      categoria: "academico",
+      respuestas: [
+         { texto: "Marte", puntos: 35 },
+         { texto: "Júpiter", puntos: 25 },
          { texto: "Saturno", puntos: 20 },
-         { texto: "Venus", puntos: 10 }
-      ],
-      categoria: "ciencia"
+         { texto: "Venus", puntos: 10 },
+         { texto: "Mercurio", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Algo que usas para escribir?",
+      texto: "Algo que todos hacen en una peda lagunera",
+      categoria: "entretenimiento juvenil",
       respuestas: [
-         { texto: "Lápiz", puntos: 45 },
-         { texto: "Pluma", puntos: 40 },
-         { texto: "Computadora", puntos: 30 },
-         { texto: "Marcador", puntos: 25 },
-         { texto: "Tiza", puntos: 15 }
-      ],
-      categoria: "educacion"
+         { texto: "Cantar corridos", puntos: 35 },
+         { texto: "Tomar cerveza", puntos: 25 },
+         { texto: "Bailar banda", puntos: 20 },
+         { texto: "Jugar beer pong", puntos: 10 },
+         { texto: "Subir historias", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Comida rápida muy popular?",
+      texto: "Un héroe de cómics famoso",
+      categoria: "cultura pop",
       respuestas: [
-         { texto: "Hamburguesa", puntos: 50 },
-         { texto: "Pizza", puntos: 45 },
-         { texto: "Hot dog", puntos: 35 },
-         { texto: "Tacos", puntos: 30 },
-         { texto: "Papas fritas", puntos: 25 }
-      ],
-      categoria: "comida"
+         { texto: "Spider-Man", puntos: 35 },
+         { texto: "Batman", puntos: 25 },
+         { texto: "Iron Man", puntos: 20 },
+         { texto: "Superman", puntos: 10 },
+         { texto: "Capitán América", puntos: 10 }
+      ]
    },
    {
-      texto: "¿País de Sudamérica?",
+      texto: "Un descubrimiento científico importante",
+      categoria: "academico",
       respuestas: [
-         { texto: "Brasil", puntos: 50 },
-         { texto: "Argentina", puntos: 40 },
-         { texto: "Colombia", puntos: 35 },
-         { texto: "Chile", puntos: 30 },
-         { texto: "Perú", puntos: 25 }
-      ],
-      categoria: "geografia"
+         { texto: "La penicilina", puntos: 35 },
+         { texto: "El ADN", puntos: 25 },
+         { texto: "La gravedad", puntos: 20 },
+         { texto: "La relatividad", puntos: 10 },
+         { texto: "La vacuna", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Lenguaje de programación popular?",
+      texto: "Una enfermedad que se previene con vacuna",
+      categoria: "medicina",
       respuestas: [
-         { texto: "JavaScript", puntos: 50 },
-         { texto: "Python", puntos: 45 },
-         { texto: "Java", puntos: 35 },
-         { texto: "C#", puntos: 30 },
-         { texto: "PHP", puntos: 25 }
-      ],
-      categoria: "tecnologia"
+         { texto: "Covid-19", puntos: 35 },
+         { texto: "Influenza", puntos: 25 },
+         { texto: "Sarampión", puntos: 20 },
+         { texto: "Hepatitis B", puntos: 10 },
+         { texto: "Tétanos", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un deporte olímpico?",
+      texto: "Algo que nunca falta en las fiestas patrias",
+      categoria: "tradiciones mexicanas",
       respuestas: [
-         { texto: "Atletismo", puntos: 50 },
-         { texto: "Natación", puntos: 45 },
-         { texto: "Gimnasia", puntos: 35 },
-         { texto: "Fútbol", puntos: 30 },
-         { texto: "Tenis", puntos: 25 }
-      ],
-      categoria: "deportes"
+         { texto: "Pozole", puntos: 35 },
+         { texto: "Mariachi", puntos: 25 },
+         { texto: "Grito de independencia", puntos: 20 },
+         { texto: "Decoración tricolor", puntos: 10 },
+         { texto: "Tequila", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un continente?",
+      texto: "Un deporte extremo popular",
+      categoria: "deportes",
       respuestas: [
-         { texto: "América", puntos: 50 },
-         { texto: "Europa", puntos: 45 },
-         { texto: "Asia", puntos: 40 },
-         { texto: "África", puntos: 35 },
-         { texto: "Oceanía", puntos: 30 }
-      ],
-      categoria: "geografia"
+         { texto: "Skateboarding", puntos: 35 },
+         { texto: "Snowboarding", puntos: 25 },
+         { texto: "Surf", puntos: 20 },
+         { texto: "Paracaidismo", puntos: 10 },
+         { texto: "Escalada", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Algo que se hace en la playa?",
+      texto: "Algo que todos hacen en WhatsApp",
+      categoria: "cultura digital",
       respuestas: [
-         { texto: "Nadar", puntos: 50 },
-         { texto: "Tomar sol", puntos: 40 },
-         { texto: "Jugar voleibol", puntos: 30 },
-         { texto: "Hacer castillos de arena", puntos: 25 },
-         { texto: "Surfear", puntos: 20 }
-      ],
-      categoria: "naturaleza"
+         { texto: "Mandar stickers", puntos: 35 },
+         { texto: "Mensajes de voz", puntos: 25 },
+         { texto: "Chats de grupo", puntos: 20 },
+         { texto: "Videollamadas", puntos: 10 },
+         { texto: "Compartir memes", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Red social popular?",
+      texto: "Un científico mexicano reconocido",
+      categoria: "academico",
       respuestas: [
-         { texto: "Facebook", puntos: 50 },
-         { texto: "Instagram", puntos: 45 },
-         { texto: "TikTok", puntos: 40 },
-         { texto: "Twitter", puntos: 30 },
-         { texto: "YouTube", puntos: 25 }
-      ],
-      categoria: "tecnologia"
+         { texto: "Mario Molina", puntos: 40 },
+         { texto: "José Sarukhán", puntos: 25 },
+         { texto: "Julio Frenk", puntos: 15 },
+         { texto: "Ruy Pérez Tamayo", puntos: 10 },
+         { texto: "René Drucker", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Una flor famosa?",
+      texto: "Algo que nunca falta en una boda mexicana",
+      categoria: "cultura general",
       respuestas: [
-         { texto: "Rosa", puntos: 50 },
-         { texto: "Tulipán", puntos: 40 },
-         { texto: "Girasol", puntos: 35 },
-         { texto: "Orquídea", puntos: 30 },
-         { texto: "Clavel", puntos: 25 }
-      ],
-      categoria: "naturaleza"
+         { texto: "Vals", puntos: 35 },
+         { texto: "Mariachi", puntos: 25 },
+         { texto: "Comida típica", puntos: 20 },
+         { texto: "Baile", puntos: 10 },
+         { texto: "Pastel", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un mes del año?",
+      texto: "Un síntoma de la hipertensión",
+      categoria: "medicina",
       respuestas: [
-         { texto: "Enero", puntos: 40 },
-         { texto: "Febrero", puntos: 35 },
-         { texto: "Julio", puntos: 30 },
-         { texto: "Diciembre", puntos: 25 },
-         { texto: "Septiembre", puntos: 20 }
-      ],
-      categoria: "general"
+         { texto: "Dolor de cabeza", puntos: 30 },
+         { texto: "Mareos", puntos: 25 },
+         { texto: "Visión borrosa", puntos: 20 },
+         { texto: "Cansancio", puntos: 15 },
+         { texto: "Palpitaciones", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un medio de transporte?",
+      texto: "Algo que todos hacen en una peda juvenil",
+      categoria: "entretenimiento juvenil",
       respuestas: [
-         { texto: "Auto", puntos: 50 },
-         { texto: "Avión", puntos: 45 },
-         { texto: "Tren", puntos: 35 },
-         { texto: "Bicicleta", puntos: 30 },
-         { texto: "Barco", puntos: 25 }
-      ],
-      categoria: "transporte"
+         { texto: "Tomar selfies", puntos: 35 },
+         { texto: "Cantar corridos", puntos: 25 },
+         { texto: "Bailar reggaetón", puntos: 20 },
+         { texto: "Jugar beer pong", puntos: 10 },
+         { texto: "Subir historias", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Algo que hay en una oficina?",
+      texto: "Un invento que revolucionó el transporte",
+      categoria: "cultura general",
       respuestas: [
-         { texto: "Computadora", puntos: 50 },
-         { texto: "Escritorio", puntos: 40 },
-         { texto: "Silla", puntos: 35 },
-         { texto: "Teléfono", puntos: 30 },
-         { texto: "Impresora", puntos: 25 }
-      ],
-      categoria: "trabajo"
+         { texto: "Automóvil", puntos: 35 },
+         { texto: "Avión", puntos: 25 },
+         { texto: "Tren", puntos: 20 },
+         { texto: "Bicicleta", puntos: 10 },
+         { texto: "Barco", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Una película de Disney?",
+      texto: "Un lugar turístico famoso en México",
+      categoria: "cultura general",
       respuestas: [
-         { texto: "El Rey León", puntos: 50 },
-         { texto: "Frozen", puntos: 45 },
-         { texto: "Aladdín", puntos: 35 },
-         { texto: "Toy Story", puntos: 30 },
-         { texto: "La Sirenita", puntos: 25 }
-      ],
-      categoria: "entretenimiento"
-   },
-   {
-      texto: "¿Algo que usas todos los días?",
-      respuestas: [
-         { texto: "Teléfono", puntos: 60 },
-         { texto: "Ropa", puntos: 55 },
-         { texto: "Zapatos", puntos: 45 },
-         { texto: "Cepillo de dientes", puntos: 40 },
-         { texto: "Llaves", puntos: 35 }
-      ],
-      categoria: "general"
-   },
-   {
-      texto: "¿Un instrumento musical?",
-      respuestas: [
-         { texto: "Guitarra", puntos: 50 },
-         { texto: "Piano", puntos: 45 },
-         { texto: "Batería", puntos: 40 },
-         { texto: "Violín", puntos: 35 },
-         { texto: "Trompeta", puntos: 30 }
-      ],
-      categoria: "musica"
-   },
-   {
-      texto: "¿País europeo famoso?",
-      respuestas: [
-         { texto: "Francia", puntos: 50 },
-         { texto: "Italia", puntos: 45 },
-         { texto: "España", puntos: 40 },
-         { texto: "Alemania", puntos: 35 },
-         { texto: "Reino Unido", puntos: 30 }
-      ],
-      categoria: "geografia"
-   },
-   {
-      texto: "¿Algo que llevas en la mochila?",
-      respuestas: [
-         { texto: "Libros", puntos: 50 },
-         { texto: "Cuadernos", puntos: 45 },
-         { texto: "Lapiceros", puntos: 40 },
-         { texto: "Laptop", puntos: 35 },
-         { texto: "Botella de agua", puntos: 30 }
-      ],
-      categoria: "educacion"
-   },
-   {
-      texto: "¿Una ciudad famosa de México?",
-      respuestas: [
-         { texto: "Ciudad de México", puntos: 60 },
-         { texto: "Guadalajara", puntos: 45 },
-         { texto: "Monterrey", puntos: 40 },
          { texto: "Cancún", puntos: 35 },
-         { texto: "Puebla", puntos: 30 }
-      ],
-      categoria: "geografia"
+         { texto: "CDMX", puntos: 25 },
+         { texto: "Guadalajara", puntos: 20 },
+         { texto: "Monterrey", puntos: 10 },
+         { texto: "Oaxaca", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Algo que comes en el desayuno?",
+      texto: "Un personaje bíblico que fue apóstol",
+      categoria: "bíblicas",
       respuestas: [
-         { texto: "Huevos", puntos: 50 },
-         { texto: "Pan", puntos: 40 },
-         { texto: "Cereal", puntos: 35 },
-         { texto: "Fruta", puntos: 30 },
-         { texto: "Hotcakes", puntos: 25 }
-      ],
-      categoria: "comida"
+         { texto: "Pedro", puntos: 35 },
+         { texto: "Pablo", puntos: 25 },
+         { texto: "Juan", puntos: 20 },
+         { texto: "Santiago", puntos: 10 },
+         { texto: "Andrés", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un color primario?",
+      texto: "Un cantante pop internacional famoso",
+      categoria: "música",
       respuestas: [
-         { texto: "Rojo", puntos: 50 },
-         { texto: "Azul", puntos: 50 },
-         { texto: "Amarillo", puntos: 50 },
-         { texto: "Ninguno más", puntos: 0 },
-         { texto: "Ninguno más", puntos: 0 }
-      ],
-      categoria: "educacion"
+         { texto: "Taylor Swift", puntos: 35 },
+         { texto: "Bad Bunny", puntos: 25 },
+         { texto: "Ariana Grande", puntos: 20 },
+         { texto: "Justin Bieber", puntos: 10 },
+         { texto: "Dua Lipa", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un género musical?",
+      texto: "Un síntoma común del Covid-19",
+      categoria: "medicina",
       respuestas: [
-         { texto: "Pop", puntos: 50 },
-         { texto: "Rock", puntos: 45 },
-         { texto: "Reguetón", puntos: 40 },
-         { texto: "Banda", puntos: 35 },
-         { texto: "Clásica", puntos: 30 }
-      ],
-      categoria: "musica"
+         { texto: "Fiebre", puntos: 30 },
+         { texto: "Tos seca", puntos: 25 },
+         { texto: "Pérdida de olfato", puntos: 20 },
+         { texto: "Cansancio", puntos: 15 },
+         { texto: "Dolor de garganta", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Una parte del cuerpo humano?",
+      texto: "Un descubrimiento científico famoso",
+      categoria: "academico",
       respuestas: [
-         { texto: "Cabeza", puntos: 50 },
-         { texto: "Mano", puntos: 45 },
-         { texto: "Pie", puntos: 40 },
-         { texto: "Ojo", puntos: 35 },
-         { texto: "Boca", puntos: 30 }
-      ],
-      categoria: "ciencia"
+         { texto: "La penicilina", puntos: 35 },
+         { texto: "El ADN", puntos: 25 },
+         { texto: "La relatividad", puntos: 20 },
+         { texto: "La gravedad", puntos: 10 },
+         { texto: "La vacuna", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un electrodoméstico de cocina?",
+      texto: "Algo que todos hacen en Instagram",
+      categoria: "cultura digital",
       respuestas: [
-         { texto: "Refrigerador", puntos: 55 },
-         { texto: "Microondas", puntos: 45 },
-         { texto: "Licuadora", puntos: 40 },
-         { texto: "Estufa", puntos: 35 },
-         { texto: "Tostadora", puntos: 30 }
-      ],
-      categoria: "hogar"
+         { texto: "Subir selfies", puntos: 35 },
+         { texto: "Historias", puntos: 25 },
+         { texto: "Reels", puntos: 20 },
+         { texto: "Memes", puntos: 10 },
+         { texto: "Etiquetar amigos", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un superhéroe famoso?",
+      texto: "Un héroe de películas de Marvel",
+      categoria: "cultura pop",
       respuestas: [
-         { texto: "Superman", puntos: 50 },
-         { texto: "Batman", puntos: 45 },
-         { texto: "Spider-Man", puntos: 40 },
-         { texto: "Iron Man", puntos: 35 },
-         { texto: "Capitán América", puntos: 30 }
-      ],
-      categoria: "entretenimiento"
+         { texto: "Spider-Man", puntos: 35 },
+         { texto: "Iron Man", puntos: 25 },
+         { texto: "Captain America", puntos: 20 },
+         { texto: "Thor", puntos: 10 },
+         { texto: "Hulk", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un país de Asia?",
+      texto: "Un libro de la Biblia",
+      categoria: "bíblicas",
       respuestas: [
-         { texto: "China", puntos: 55 },
-         { texto: "Japón", puntos: 45 },
-         { texto: "India", puntos: 40 },
-         { texto: "Corea del Sur", puntos: 35 },
-         { texto: "Tailandia", puntos: 30 }
-      ],
-      categoria: "geografia"
+         { texto: "Génesis", puntos: 35 },
+         { texto: "Éxodo", puntos: 25 },
+         { texto: "Salmos", puntos: 20 },
+         { texto: "Mateo", puntos: 10 },
+         { texto: "Apocalipsis", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Algo que se enciende?",
+      texto: "Algo que todos hacen en una peda juvenil",
+      categoria: "entretenimiento juvenil",
       respuestas: [
-         { texto: "Luz", puntos: 55 },
-         { texto: "Televisión", puntos: 45 },
-         { texto: "Computadora", puntos: 40 },
-         { texto: "Radio", puntos: 35 },
-         { texto: "Coche", puntos: 30 }
-      ],
-      categoria: "general"
+         { texto: "Tomar selfies", puntos: 35 },
+         { texto: "Cantar corridos", puntos: 25 },
+         { texto: "Bailar reggaetón", puntos: 20 },
+         { texto: "Jugar beer pong", puntos: 10 },
+         { texto: "Subir historias", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Una marca de autos?",
+      texto: "Un país famoso por su tecnología",
+      categoria: "cultura general",
       respuestas: [
-         { texto: "Toyota", puntos: 50 },
-         { texto: "Nissan", puntos: 45 },
-         { texto: "Ford", puntos: 40 },
-         { texto: "Chevrolet", puntos: 35 },
-         { texto: "Honda", puntos: 30 }
-      ],
-      categoria: "transporte"
+         { texto: "Japón", puntos: 35 },
+         { texto: "Estados Unidos", puntos: 25 },
+         { texto: "Corea del Sur", puntos: 20 },
+         { texto: "Alemania", puntos: 10 },
+         { texto: "China", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un postre popular?",
+      texto: "Un grupo musical internacional famoso",
+      categoria: "música",
       respuestas: [
-         { texto: "Pastel", puntos: 50 },
-         { texto: "Helado", puntos: 45 },
-         { texto: "Flan", puntos: 40 },
-         { texto: "Gelatina", puntos: 35 },
-         { texto: "Pay de manzana", puntos: 30 }
-      ],
-      categoria: "comida"
+         { texto: "BTS", puntos: 35 },
+         { texto: "Coldplay", puntos: 25 },
+         { texto: "Blackpink", puntos: 20 },
+         { texto: "Imagine Dragons", puntos: 10 },
+         { texto: "Maroon 5", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Una aplicación de mensajería?",
+      texto: "Un platillo típico mexicano",
+      categoria: "comida",
       respuestas: [
-         { texto: "WhatsApp", puntos: 55 },
-         { texto: "Messenger", puntos: 45 },
-         { texto: "Telegram", puntos: 40 },
-         { texto: "WeChat", puntos: 35 },
-         { texto: "Signal", puntos: 30 }
-      ],
-      categoria: "tecnologia"
+         { texto: "Tacos", puntos: 35 },
+         { texto: "Pozole", puntos: 25 },
+         { texto: "Tamales", puntos: 20 },
+         { texto: "Mole", puntos: 10 },
+         { texto: "Enchiladas", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un país africano?",
+      texto: "Un deporte que se juega en México",
+      categoria: "deportes",
       respuestas: [
-         { texto: "Sudáfrica", puntos: 50 },
-         { texto: "Nigeria", puntos: 45 },
-         { texto: "Egipto", puntos: 40 },
-         { texto: "Kenia", puntos: 35 },
-         { texto: "Marruecos", puntos: 30 }
-      ],
-      categoria: "geografia"
+         { texto: "Fútbol", puntos: 40 },
+         { texto: "Béisbol", puntos: 25 },
+         { texto: "Básquetbol", puntos: 15 },
+         { texto: "Boxeo", puntos: 10 },
+         { texto: "Atletismo", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Algo que vuela?",
+      texto: "Una película mexicana famosa",
+      categoria: "películas",
       respuestas: [
-         { texto: "Pájaro", puntos: 55 },
-         { texto: "Avión", puntos: 50 },
-         { texto: "Mariposa", puntos: 40 },
-         { texto: "Murciélago", puntos: 35 },
-         { texto: "Abeja", puntos: 30 }
-      ],
-      categoria: "naturaleza"
+         { texto: "Amores Perros", puntos: 35 },
+         { texto: "Roma", puntos: 25 },
+         { texto: "Nosotros los Nobles", puntos: 20 },
+         { texto: "Ya no estoy aquí", puntos: 10 },
+         { texto: "La Ley de Herodes", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un tipo de clima?",
+      texto: "Un personaje famoso de México",
+      categoria: "cultura general",
       respuestas: [
-         { texto: "Soleado", puntos: 50 },
-         { texto: "Lluvioso", puntos: 45 },
-         { texto: "Nublado", puntos: 40 },
-         { texto: "Nevado", puntos: 35 },
-         { texto: "Ventoso", puntos: 30 }
-      ],
-      categoria: "naturaleza"
+         { texto: "Frida Kahlo", puntos: 35 },
+         { texto: "Octavio Paz", puntos: 25 },
+         { texto: "Vicente Fernández", puntos: 20 },
+         { texto: "Sor Juana Inés", puntos: 10 },
+         { texto: "Cantinflas", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un país vecino de México?",
+      texto: "Una caricatura que todos han visto",
+      categoria: "series/caricaturas",
       respuestas: [
-         { texto: "Estados Unidos", puntos: 60 },
-         { texto: "Guatemala", puntos: 50 },
-         { texto: "Belice", puntos: 40 },
-         { texto: "Honduras", puntos: 30 },
-         { texto: "El Salvador", puntos: 25 }
-      ],
-      categoria: "geografia"
+         { texto: "Los Simpsons", puntos: 35 },
+         { texto: "Dragon Ball", puntos: 25 },
+         { texto: "Bob Esponja", puntos: 20 },
+         { texto: "Pokémon", puntos: 10 },
+         { texto: "Naruto", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Una prenda de vestir?",
+      texto: "Un actor de Hollywood famoso",
+      categoria: "cultura pop internacional",
       respuestas: [
-         { texto: "Camisa", puntos: 50 },
-         { texto: "Pantalón", puntos: 45 },
-         { texto: "Zapatos", puntos: 40 },
-         { texto: "Vestido", puntos: 35 },
-         { texto: "Sombrero", puntos: 30 }
-      ],
-      categoria: "moda"
+         { texto: "Leonardo DiCaprio", puntos: 35 },
+         { texto: "Dwayne Johnson", puntos: 25 },
+         { texto: "Tom Cruise", puntos: 20 },
+         { texto: "Brad Pitt", puntos: 10 },
+         { texto: "Will Smith", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un país europeo?",
+      texto: "Un lugar turístico de México",
+      categoria: "cultura mexicana",
       respuestas: [
-         { texto: "Alemania", puntos: 50 },
-         { texto: "España", puntos: 45 },
-         { texto: "Francia", puntos: 40 },
-         { texto: "Italia", puntos: 35 },
-         { texto: "Portugal", puntos: 30 }
-      ],
-      categoria: "geografia"
+         { texto: "Cancún", puntos: 35 },
+         { texto: "Chichén Itzá", puntos: 25 },
+         { texto: "CDMX", puntos: 20 },
+         { texto: "Guadalajara", puntos: 10 },
+         { texto: "Oaxaca", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un sabor de helado?",
+      texto: "Una serie de Netflix famosa",
+      categoria: "series",
       respuestas: [
-         { texto: "Vainilla", puntos: 50 },
-         { texto: "Chocolate", puntos: 45 },
-         { texto: "Fresa", puntos: 40 },
-         { texto: "Menta", puntos: 35 },
-         { texto: "Napolitano", puntos: 30 }
-      ],
-      categoria: "comida"
+         { texto: "Stranger Things", puntos: 35 },
+         { texto: "La Casa de Papel", puntos: 25 },
+         { texto: "Élite", puntos: 20 },
+         { texto: "Wednesday", puntos: 10 },
+         { texto: "Dark", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un animal marino?",
+      texto: "Un cantante mexicano famoso",
+      categoria: "música",
       respuestas: [
-         { texto: "Delfín", puntos: 50 },
-         { texto: "Tiburón", puntos: 45 },
-         { texto: "Ballena", puntos: 40 },
-         { texto: "Pulpo", puntos: 35 },
-         { texto: "Estrella de mar", puntos: 30 }
-      ],
-      categoria: "animales"
+         { texto: "Luis Miguel", puntos: 35 },
+         { texto: "Vicente Fernández", puntos: 25 },
+         { texto: "Juan Gabriel", puntos: 20 },
+         { texto: "Christian Nodal", puntos: 10 },
+         { texto: "Peso Pluma", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Algo que usas para escribir?",
+      texto: "Un superhéroe de caricaturas",
+      categoria: "series/caricaturas",
       respuestas: [
-         { texto: "Lápiz", puntos: 50 },
-         { texto: "Pluma", puntos: 45 },
-         { texto: "Marcador", puntos: 40 },
-         { texto: "Tiza", puntos: 35 },
-         { texto: "Bolígrafo de gel", puntos: 30 }
-      ],
-      categoria: "educacion"
+         { texto: "Spider-Man", puntos: 35 },
+         { texto: "Batman", puntos: 25 },
+         { texto: "Superman", puntos: 20 },
+         { texto: "Iron Man", puntos: 10 },
+         { texto: "Hulk", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un animal de granja?",
+      texto: "Un platillo típico mexicano",
+      categoria: "comida",
       respuestas: [
-         { texto: "Vaca", puntos: 55 },
-         { texto: "Cerdo", puntos: 50 },
-         { texto: "Gallina", puntos: 45 },
-         { texto: "Caballo", puntos: 40 },
-         { texto: "Oveja", puntos: 35 }
-      ],
-      categoria: "animales"
+         { texto: "Tacos", puntos: 35 },
+         { texto: "Pozole", puntos: 25 },
+         { texto: "Tamales", puntos: 20 },
+         { texto: "Mole", puntos: 10 },
+         { texto: "Enchiladas", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un idioma hablado en el mundo?",
+      texto: "Un deporte que se juega en México",
+      categoria: "deportes",
       respuestas: [
-         { texto: "Inglés", puntos: 60 },
-         { texto: "Español", puntos: 55 },
-         { texto: "Chino", puntos: 50 },
-         { texto: "Francés", puntos: 45 },
-         { texto: "Alemán", puntos: 40 }
-      ],
-      categoria: "educacion"
+         { texto: "Fútbol", puntos: 40 },
+         { texto: "Béisbol", puntos: 25 },
+         { texto: "Básquetbol", puntos: 15 },
+         { texto: "Boxeo", puntos: 10 },
+         { texto: "Atletismo", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un planeta del sistema solar?",
+      texto: "Una película mexicana famosa",
+      categoria: "películas",
       respuestas: [
-         { texto: "Tierra", puntos: 60 },
-         { texto: "Marte", puntos: 55 },
-         { texto: "Júpiter", puntos: 50 },
-         { texto: "Saturno", puntos: 45 },
-         { texto: "Venus", puntos: 40 }
-      ],
-      categoria: "ciencia"
+         { texto: "Amores Perros", puntos: 35 },
+         { texto: "Roma", puntos: 25 },
+         { texto: "Nosotros los Nobles", puntos: 20 },
+         { texto: "Ya no estoy aquí", puntos: 10 },
+         { texto: "La Ley de Herodes", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un mueble de la casa?",
+      texto: "Un personaje famoso de México",
+      categoria: "cultura general",
       respuestas: [
-         { texto: "Sofá", puntos: 55 },
-         { texto: "Cama", puntos: 50 },
-         { texto: "Mesa", puntos: 45 },
-         { texto: "Silla", puntos: 40 },
-         { texto: "Armario", puntos: 35 }
-      ],
-      categoria: "hogar"
+         { texto: "Frida Kahlo", puntos: 35 },
+         { texto: "Octavio Paz", puntos: 25 },
+         { texto: "Vicente Fernández", puntos: 20 },
+         { texto: "Sor Juana Inés", puntos: 10 },
+         { texto: "Cantinflas", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un deporte olímpico?",
+      texto: "Una caricatura que todos han visto",
+      categoria: "series/caricaturas",
       respuestas: [
-         { texto: "Atletismo", puntos: 55 },
-         { texto: "Natación", puntos: 50 },
-         { texto: "Gimnasia", puntos: 45 },
-         { texto: "Boxeo", puntos: 40 },
-         { texto: "Tenis", puntos: 35 }
-      ],
-      categoria: "deportes"
+         { texto: "Los Simpsons", puntos: 35 },
+         { texto: "Dragon Ball", puntos: 25 },
+         { texto: "Bob Esponja", puntos: 20 },
+         { texto: "Pokémon", puntos: 10 },
+         { texto: "Naruto", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un invento tecnológico famoso?",
+      texto: "Un actor de Hollywood famoso",
+      categoria: "cultura pop internacional",
       respuestas: [
-         { texto: "Teléfono", puntos: 55 },
-         { texto: "Computadora", puntos: 50 },
-         { texto: "Internet", puntos: 45 },
-         { texto: "Automóvil", puntos: 40 },
-         { texto: "Electricidad", puntos: 35 }
-      ],
-      categoria: "tecnologia"
+         { texto: "Leonardo DiCaprio", puntos: 35 },
+         { texto: "Dwayne Johnson", puntos: 25 },
+         { texto: "Tom Cruise", puntos: 20 },
+         { texto: "Brad Pitt", puntos: 10 },
+         { texto: "Will Smith", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un instrumento musical?",
+      texto: "Un lugar turístico de México",
+      categoria: "cultura mexicana",
       respuestas: [
-         { texto: "Guitarra", puntos: 55 },
-         { texto: "Piano", puntos: 50 },
-         { texto: "Batería", puntos: 45 },
-         { texto: "Violín", puntos: 40 },
-         { texto: "Trompeta", puntos: 35 }
-      ],
-      categoria: "musica"
+         { texto: "Cancún", puntos: 35 },
+         { texto: "Chichén Itzá", puntos: 25 },
+         { texto: "CDMX", puntos: 20 },
+         { texto: "Guadalajara", puntos: 10 },
+         { texto: "Oaxaca", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Una película de Disney?",
+      texto: "Una serie de Netflix famosa",
+      categoria: "series",
       respuestas: [
-         { texto: "El Rey León", puntos: 55 },
-         { texto: "Frozen", puntos: 50 },
-         { texto: "La Sirenita", puntos: 45 },
-         { texto: "Aladdín", puntos: 40 },
-         { texto: "Toy Story", puntos: 35 }
-      ],
-      categoria: "entretenimiento"
+         { texto: "Stranger Things", puntos: 35 },
+         { texto: "La Casa de Papel", puntos: 25 },
+         { texto: "Élite", puntos: 20 },
+         { texto: "Wednesday", puntos: 10 },
+         { texto: "Dark", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un lugar donde compras comida?",
+      texto: "Un cantante mexicano famoso",
+      categoria: "música",
       respuestas: [
-         { texto: "Supermercado", puntos: 60 },
-         { texto: "Mercado", puntos: 55 },
-         { texto: "Tienda de abarrotes", puntos: 50 },
-         { texto: "Carnicería", puntos: 45 },
-         { texto: "Frutería", puntos: 40 }
-      ],
-      categoria: "comida"
+         { texto: "Luis Miguel", puntos: 35 },
+         { texto: "Vicente Fernández", puntos: 25 },
+         { texto: "Juan Gabriel", puntos: 20 },
+         { texto: "Christian Nodal", puntos: 10 },
+         { texto: "Peso Pluma", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un estado de México?",
+      texto: "Un superhéroe de caricaturas",
+      categoria: "series/caricaturas",
       respuestas: [
-         { texto: "Jalisco", puntos: 55 },
-         { texto: "Nuevo León", puntos: 50 },
-         { texto: "Yucatán", puntos: 45 },
-         { texto: "Chiapas", puntos: 40 },
-         { texto: "Oaxaca", puntos: 35 }
-      ],
-      categoria: "geografia"
+         { texto: "Spider-Man", puntos: 35 },
+         { texto: "Batman", puntos: 25 },
+         { texto: "Superman", puntos: 20 },
+         { texto: "Iron Man", puntos: 10 },
+         { texto: "Hulk", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Una bebida caliente?",
+      texto: "Un planeta del sistema solar",
+      categoria: "academico",
       respuestas: [
-         { texto: "Café", puntos: 60 },
-         { texto: "Té", puntos: 55 },
-         { texto: "Chocolate caliente", puntos: 50 },
-         { texto: "Atole", puntos: 45 },
-         { texto: "Ponche", puntos: 40 }
-      ],
-      categoria: "comida"
+         { texto: "Marte", puntos: 35 },
+         { texto: "Júpiter", puntos: 25 },
+         { texto: "Saturno", puntos: 20 },
+         { texto: "Venus", puntos: 10 },
+         { texto: "Mercurio", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un animal del desierto?",
+      texto: "Un síntoma de la gripe",
+      categoria: "medicina",
       respuestas: [
-         { texto: "Camello", puntos: 60 },
-         { texto: "Serpiente", puntos: 55 },
-         { texto: "Escorpión", puntos: 50 },
-         { texto: "Lagarto", puntos: 45 },
-         { texto: "Coyote", puntos: 40 }
-      ],
-      categoria: "animales"
+         { texto: "Fiebre", puntos: 30 },
+         { texto: "Tos", puntos: 25 },
+         { texto: "Dolor de cabeza", puntos: 20 },
+         { texto: "Escalofríos", puntos: 15 },
+         { texto: "Dolor muscular", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un mes del año?",
+      texto: "Frase típica que dicen las mamás",
+      categoria: "frases",
       respuestas: [
-         { texto: "Enero", puntos: 55 },
-         { texto: "Febrero", puntos: 50 },
-         { texto: "Marzo", puntos: 45 },
-         { texto: "Diciembre", puntos: 40 },
-         { texto: "Julio", puntos: 35 }
-      ],
-      categoria: "general"
+         { texto: "¿Y si tus amigos se avientan del puente?", puntos: 35 },
+         { texto: "Mientras vivas en esta casa...", puntos: 25 },
+         { texto: "Te lo dije", puntos: 20 },
+         { texto: "Lleva suéter", puntos: 10 },
+         { texto: "No me contestes", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un actor famoso?",
+      texto: "Frase típica que dicen los papás",
+      categoria: "frases",
       respuestas: [
-         { texto: "Brad Pitt", puntos: 55 },
-         { texto: "Leonardo DiCaprio", puntos: 50 },
-         { texto: "Tom Cruise", puntos: 45 },
-         { texto: "Will Smith", puntos: 40 },
-         { texto: "Johnny Depp", puntos: 35 }
-      ],
-      categoria: "entretenimiento"
+         { texto: "Pregúntale a tu mamá", puntos: 35 },
+         { texto: "Cuando trabajes, hablamos", puntos: 25 },
+         { texto: "Yo a tu edad...", puntos: 20 },
+         { texto: "Apaga la luz", puntos: 10 },
+         { texto: "Ese dinero no crece en árboles", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Una verdura?",
+      texto: "Frase típica que dicen los maestros",
+      categoria: "frases",
       respuestas: [
-         { texto: "Zanahoria", puntos: 55 },
-         { texto: "Papa", puntos: 50 },
-         { texto: "Lechuga", puntos: 45 },
-         { texto: "Jitomate", puntos: 40 },
-         { texto: "Brócoli", puntos: 35 }
-      ],
-      categoria: "comida"
+         { texto: "Saquen una hoja", puntos: 35 },
+         { texto: "Esto entra en el examen", puntos: 25 },
+         { texto: "El que no calle, se va", puntos: 20 },
+         { texto: "No soy su amigo", puntos: 10 },
+         { texto: "El examen está fácil", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un país de América del Sur?",
+      texto: "Un científico famoso",
+      categoria: "academico",
       respuestas: [
-         { texto: "Brasil", puntos: 55 },
-         { texto: "Argentina", puntos: 50 },
-         { texto: "Chile", puntos: 45 },
-         { texto: "Perú", puntos: 40 },
-         { texto: "Colombia", puntos: 35 }
-      ],
-      categoria: "geografia"
+         { texto: "Albert Einstein", puntos: 35 },
+         { texto: "Isaac Newton", puntos: 25 },
+         { texto: "Marie Curie", puntos: 20 },
+         { texto: "Nikola Tesla", puntos: 10 },
+         { texto: "Charles Darwin", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Algo que se usa en la playa?",
+      texto: "Una caricatura que todos han visto",
+      categoria: "series/caricaturas",
       respuestas: [
-         { texto: "Traje de baño", puntos: 55 },
-         { texto: "Sombrilla", puntos: 50 },
-         { texto: "Bloqueador", puntos: 45 },
-         { texto: "Toalla", puntos: 40 },
-         { texto: "Sandalias", puntos: 35 }
-      ],
-      categoria: "viajes"
+         { texto: "Dragon Ball", puntos: 35 },
+         { texto: "Los Simpsons", puntos: 25 },
+         { texto: "Bob Esponja", puntos: 20 },
+         { texto: "Pokémon", puntos: 10 },
+         { texto: "Naruto", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un animal doméstico?",
+      texto: "Un actor mexicano famoso",
+      categoria: "cultura mexicana",
       respuestas: [
-         { texto: "Perro", puntos: 60 },
-         { texto: "Gato", puntos: 55 },
-         { texto: "Pez", puntos: 50 },
-         { texto: "Hámster", puntos: 45 },
-         { texto: "Perico", puntos: 40 }
-      ],
-      categoria: "animales"
+         { texto: "Gael García Bernal", puntos: 35 },
+         { texto: "Diego Luna", puntos: 25 },
+         { texto: "Eugenio Derbez", puntos: 20 },
+         { texto: "Damián Alcázar", puntos: 10 },
+         { texto: "Kate del Castillo", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un objeto que da la hora?",
+      texto: "Una película de Disney",
+      categoria: "películas",
       respuestas: [
-         { texto: "Reloj de pulsera", puntos: 55 },
-         { texto: "Celular", puntos: 50 },
-         { texto: "Reloj de pared", puntos: 45 },
-         { texto: "Despertador", puntos: 40 },
-         { texto: "Smartwatch", puntos: 35 }
-      ],
-      categoria: "hogar"
+         { texto: "El Rey León", puntos: 35 },
+         { texto: "Frozen", puntos: 25 },
+         { texto: "Toy Story", puntos: 20 },
+         { texto: "Aladdín", puntos: 10 },
+         { texto: "Moana", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Algo que siempre llevas en la mochila?",
+      texto: "Un invento que revolucionó la historia",
+      categoria: "academico",
       respuestas: [
-         { texto: "Cuadernos", puntos: 50 },
-         { texto: "Pluma o lápiz", puntos: 45 },
-         { texto: "Celular", puntos: 40 },
-         { texto: "Botella de agua", puntos: 35 },
-         { texto: "Cargador", puntos: 30 }
-      ],
-      categoria: "educacion"
+         { texto: "Electricidad", puntos: 35 },
+         { texto: "Internet", puntos: 25 },
+         { texto: "Automóvil", puntos: 20 },
+         { texto: "Imprenta", puntos: 10 },
+         { texto: "Teléfono", puntos: 10 }
+      ]
    },
    {
-      texto: "Menciona un sabor de helado popular",
+      texto: "Un cantante internacional que escuchan los jóvenes",
+      categoria: "música",
       respuestas: [
-         { texto: "Vainilla", puntos: 55 },
-         { texto: "Chocolate", puntos: 50 },
-         { texto: "Fresa", puntos: 45 },
-         { texto: "Napolitano", puntos: 40 },
-         { texto: "Mango", puntos: 35 }
-      ],
-      categoria: "comida"
+         { texto: "Bad Bunny", puntos: 35 },
+         { texto: "Taylor Swift", puntos: 25 },
+         { texto: "Drake", puntos: 20 },
+         { texto: "Ariana Grande", puntos: 10 },
+         { texto: "BTS", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Algo que haces antes de dormir?",
+      texto: "Un deporte que se juega en todo el mundo",
+      categoria: "deportes",
       respuestas: [
-         { texto: "Cepillarse los dientes", puntos: 55 },
-         { texto: "Revisar el celular", puntos: 50 },
-         { texto: "Leer", puntos: 45 },
-         { texto: "Ver televisión", puntos: 40 },
-         { texto: "Orar", puntos: 35 }
-      ],
-      categoria: "costumbres"
+         { texto: "Fútbol", puntos: 40 },
+         { texto: "Básquetbol", puntos: 25 },
+         { texto: "Tenis", puntos: 15 },
+         { texto: "Béisbol", puntos: 10 },
+         { texto: "Voleibol", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Qué animal encuentras en un zoológico?",
+      texto: "Una película de superhéroes famosa",
+      categoria: "películas",
       respuestas: [
-         { texto: "León", puntos: 55 },
-         { texto: "Elefante", puntos: 50 },
-         { texto: "Jirafa", puntos: 45 },
-         { texto: "Tigre", puntos: 40 },
-         { texto: "Mono", puntos: 35 }
-      ],
-      categoria: "animales"
+         { texto: "Avengers: Endgame", puntos: 35 },
+         { texto: "Spider-Man: No Way Home", puntos: 25 },
+         { texto: "Batman: The Dark Knight", puntos: 20 },
+         { texto: "Iron Man", puntos: 10 },
+         { texto: "Black Panther", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Qué usas para protegerte del sol?",
+      texto: "Una caricatura que todos han visto",
+      categoria: "series/caricaturas",
       respuestas: [
-         { texto: "Bloqueador", puntos: 55 },
-         { texto: "Sombrero", puntos: 50 },
-         { texto: "Sombrilla", puntos: 45 },
-         { texto: "Lentes de sol", puntos: 40 },
-         { texto: "Ropa ligera", puntos: 35 }
-      ],
-      categoria: "naturaleza"
+         { texto: "Bob Esponja", puntos: 35 },
+         { texto: "Dragon Ball", puntos: 25 },
+         { texto: "Los Simpsons", puntos: 20 },
+         { texto: "Pokémon", puntos: 10 },
+         { texto: "Naruto", puntos: 10 }
+      ]
    },
    {
-      texto: "Menciona un electrodoméstico de la cocina",
+      texto: "Frase típica que dicen los papás",
+      categoria: "frases",
       respuestas: [
-         { texto: "Refrigerador", puntos: 55 },
-         { texto: "Microondas", puntos: 50 },
-         { texto: "Licuadora", puntos: 45 },
-         { texto: "Estufa", puntos: 40 },
-         { texto: "Tostador", puntos: 35 }
-      ],
-      categoria: "hogar"
+         { texto: "Pregúntale a tu mamá", puntos: 35 },
+         { texto: "Yo a tu edad...", puntos: 25 },
+         { texto: "Apaga la luz", puntos: 20 },
+         { texto: "Ese dinero no crece en árboles", puntos: 10 },
+         { texto: "Cuando trabajes, hablamos", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un género de música que escucha mucha gente?",
+      texto: "Un cantante mexicano famoso en el mundo",
+      categoria: "música",
       respuestas: [
-         { texto: "Pop", puntos: 55 },
-         { texto: "Reguetón", puntos: 50 },
-         { texto: "Rock", puntos: 45 },
-         { texto: "Banda", puntos: 40 },
-         { texto: "Salsa", puntos: 35 }
-      ],
-      categoria: "musica"
+         { texto: "Luis Miguel", puntos: 35 },
+         { texto: "Vicente Fernández", puntos: 25 },
+         { texto: "Juan Gabriel", puntos: 20 },
+         { texto: "Peso Pluma", puntos: 10 },
+         { texto: "Christian Nodal", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Algo que haces al despertar?",
+      texto: "Un torneo deportivo internacional",
+      categoria: "deportes",
       respuestas: [
-         { texto: "Apagar la alarma", puntos: 55 },
-         { texto: "Revisar el celular", puntos: 50 },
-         { texto: "Ir al baño", puntos: 45 },
-         { texto: "Bostezar/estirarse", puntos: 40 },
-         { texto: "Desayunar", puntos: 35 }
-      ],
-      categoria: "costumbres"
+         { texto: "Mundial de Fútbol", puntos: 40 },
+         { texto: "Juegos Olímpicos", puntos: 25 },
+         { texto: "Super Bowl", puntos: 15 },
+         { texto: "Champions League", puntos: 10 },
+         { texto: "NBA Finals", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un transporte que se usa en la ciudad?",
+      texto: "Una serie juvenil famosa",
+      categoria: "series",
       respuestas: [
-         { texto: "Camión", puntos: 55 },
-         { texto: "Metro", puntos: 50 },
-         { texto: "Taxi", puntos: 45 },
-         { texto: "Bicicleta", puntos: 40 },
-         { texto: "Motocicleta", puntos: 35 }
-      ],
-      categoria: "viajes"
+         { texto: "Stranger Things", puntos: 35 },
+         { texto: "Élite", puntos: 25 },
+         { texto: "Riverdale", puntos: 20 },
+         { texto: "Wednesday", puntos: 10 },
+         { texto: "Dark", puntos: 10 }
+      ]
    },
    {
-      texto: "Menciona una festividad mexicana",
+      texto: "Frase típica que dicen las mamás",
+      categoria: "frases",
       respuestas: [
-         { texto: "Día de Muertos", puntos: 55 },
-         { texto: "Grito de Independencia", puntos: 50 },
-         { texto: "Navidad", puntos: 45 },
-         { texto: "Día de la Virgen de Guadalupe", puntos: 40 },
-         { texto: "Posadas", puntos: 35 }
-      ],
-      categoria: "cultura"
+         { texto: "Lleva suéter", puntos: 35 },
+         { texto: "Te lo dije", puntos: 25 },
+         { texto: "Mientras vivas en esta casa...", puntos: 20 },
+         { texto: "No me contestes", puntos: 10 },
+         { texto: "¿Y si tus amigos se avientan del puente?", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un color básico?",
+      texto: "Un personaje famoso de Hollywood",
+      categoria: "cultura pop internacional",
       respuestas: [
-         { texto: "Rojo", puntos: 55 },
-         { texto: "Azul", puntos: 50 },
-         { texto: "Verde", puntos: 45 },
-         { texto: "Amarillo", puntos: 40 },
-         { texto: "Negro", puntos: 35 }
-      ],
-      categoria: "general"
+         { texto: "Leonardo DiCaprio", puntos: 35 },
+         { texto: "Tom Cruise", puntos: 25 },
+         { texto: "Dwayne Johnson", puntos: 20 },
+         { texto: "Brad Pitt", puntos: 10 },
+         { texto: "Will Smith", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Qué usas para bañarte?",
+      texto: "Frase típica que dicen las mamás",
+      categoria: "frases",
       respuestas: [
-         { texto: "Jabón", puntos: 55 },
-         { texto: "Shampoo", puntos: 50 },
-         { texto: "Agua", puntos: 45 },
-         { texto: "Esponja", puntos: 40 },
-         { texto: "Toalla", puntos: 35 }
-      ],
-      categoria: "hogar"
+         { texto: "Lleva suéter", puntos: 35 },
+         { texto: "Te lo dije", puntos: 25 },
+         { texto: "Mientras vivas en esta casa...", puntos: 20 },
+         { texto: "No me contestes", puntos: 10 },
+         { texto: "¿Y si tus amigos se avientan del puente?", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Algo que compras en una farmacia?",
+      texto: "Frase típica que dicen los papás",
+      categoria: "frases",
       respuestas: [
-         { texto: "Medicinas", puntos: 55 },
-         { texto: "Vitaminas", puntos: 50 },
-         { texto: "Jarabes", puntos: 45 },
-         { texto: "Aspirinas", puntos: 40 },
-         { texto: "Gel antibacterial", puntos: 35 }
-      ],
-      categoria: "salud"
+         { texto: "Pregúntale a tu mamá", puntos: 35 },
+         { texto: "Yo a tu edad...", puntos: 25 },
+         { texto: "Apaga la luz", puntos: 20 },
+         { texto: "Ese dinero no crece en árboles", puntos: 10 },
+         { texto: "Cuando trabajes, hablamos", puntos: 10 }
+      ]
    },
    {
-      texto: "Menciona un país europeo famoso",
+      texto: "Frase típica que dicen los maestros",
+      categoria: "frases",
       respuestas: [
-         { texto: "España", puntos: 55 },
-         { texto: "Francia", puntos: 50 },
-         { texto: "Italia", puntos: 45 },
-         { texto: "Alemania", puntos: 40 },
-         { texto: "Inglaterra", puntos: 35 }
-      ],
-      categoria: "geografia"
+         { texto: "Saquen una hoja", puntos: 35 },
+         { texto: "Esto entra en el examen", puntos: 25 },
+         { texto: "El que no calle, se va", puntos: 20 },
+         { texto: "No soy su amigo", puntos: 10 },
+         { texto: "El examen está fácil", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Qué fruta compras por kilo?",
+      texto: "Frase típica en la cultura mexicana",
+      categoria: "frases",
       respuestas: [
-         { texto: "Manzana", puntos: 55 },
-         { texto: "Plátano", puntos: 50 },
-         { texto: "Naranja", puntos: 45 },
-         { texto: "Sandía", puntos: 40 },
-         { texto: "Uvas", puntos: 35 }
-      ],
-      categoria: "comida"
+         { texto: "No manches", puntos: 35 },
+         { texto: "Órale", puntos: 25 },
+         { texto: "Ándale pues", puntos: 20 },
+         { texto: "Sale vale", puntos: 10 },
+         { texto: "Qué onda", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Qué llevas al gimnasio?",
+      texto: "Frase que dicen los jóvenes en redes",
+      categoria: "frases juveniles",
       respuestas: [
-         { texto: "Ropa deportiva", puntos: 55 },
-         { texto: "Botella de agua", puntos: 50 },
-         { texto: "Toalla", puntos: 45 },
-         { texto: "Tenis", puntos: 40 },
-         { texto: "Audífonos", puntos: 35 }
-      ],
-      categoria: "deportes"
+         { texto: "Ya se armó", puntos: 35 },
+         { texto: "F por ti", puntos: 25 },
+         { texto: "Qué cringe", puntos: 20 },
+         { texto: "Está chido", puntos: 10 },
+         { texto: "Modo diablo", puntos: 10 }
+      ]
    },
    {
-      texto: "Menciona un superhéroe famoso",
+      texto: "Frase que dicen los abuelos",
+      categoria: "frases",
       respuestas: [
-         { texto: "Spider-Man", puntos: 55 },
-         { texto: "Batman", puntos: 50 },
-         { texto: "Superman", puntos: 45 },
-         { texto: "Iron Man", puntos: 40 },
-         { texto: "Capitán América", puntos: 35 }
-      ],
-      categoria: "entretenimiento"
+         { texto: "En mis tiempos...", puntos: 35 },
+         { texto: "La juventud está perdida", puntos: 25 },
+         { texto: "Todo con medida", puntos: 20 },
+         { texto: "El respeto al derecho ajeno...", puntos: 10 },
+         { texto: "La salud es lo primero", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Qué encuentras en un parque?",
+      texto: "Frase que dicen los maestros de matemáticas",
+      categoria: "frases",
       respuestas: [
-         { texto: "Árboles", puntos: 55 },
-         { texto: "Juegos infantiles", puntos: 50 },
-         { texto: "Bancas", puntos: 45 },
-         { texto: "Fuentes", puntos: 40 },
-         { texto: "Senderos", puntos: 35 }
-      ],
-      categoria: "naturaleza"
+         { texto: "No es difícil", puntos: 35 },
+         { texto: "Es pura lógica", puntos: 25 },
+         { texto: "Lo van a usar toda la vida", puntos: 20 },
+         { texto: "Repasen la fórmula", puntos: 10 },
+         { texto: "Esto es básico", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Algo que se usa en la oficina?",
+      texto: "Frase que dicen los entrenadores deportivos",
+      categoria: "frases",
       respuestas: [
-         { texto: "Computadora", puntos: 55 },
-         { texto: "Escritorio", puntos: 50 },
-         { texto: "Teléfono", puntos: 45 },
-         { texto: "Impresora", puntos: 40 },
-         { texto: "Silla", puntos: 35 }
-      ],
-      categoria: "trabajo"
+         { texto: "¡Échenle ganas!", puntos: 35 },
+         { texto: "No se rindan", puntos: 25 },
+         { texto: "La disciplina vence al talento", puntos: 20 },
+         { texto: "Concéntrense", puntos: 10 },
+         { texto: "El esfuerzo paga", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Qué usas para abrir una puerta?",
+      texto: "Frase que dicen los maestros de inglés",
+      categoria: "frases",
       respuestas: [
-         { texto: "Llave", puntos: 60 },
-         { texto: "Manija", puntos: 55 },
-         { texto: "Control remoto", puntos: 50 },
-         { texto: "Tarjeta magnética", puntos: 45 },
-         { texto: "Código digital", puntos: 40 }
-      ],
-      categoria: "hogar"
+         { texto: "Repeat after me", puntos: 35 },
+         { texto: "Homework for tomorrow", puntos: 25 },
+         { texto: "Pay attention", puntos: 20 },
+         { texto: "Practice makes perfect", puntos: 10 },
+         { texto: "Don’t be shy", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Qué llevas a la playa?",
+      texto: "Frase que dicen los doctores",
+      categoria: "frases",
       respuestas: [
-         { texto: "Traje de baño", puntos: 55 },
-         { texto: "Toalla", puntos: 50 },
-         { texto: "Bloqueador", puntos: 45 },
-         { texto: "Sombrilla", puntos: 40 },
-         { texto: "Sandalias", puntos: 35 }
-      ],
-      categoria: "viajes"
+         { texto: "Tómese este medicamento", puntos: 35 },
+         { texto: "Guarde reposo", puntos: 25 },
+         { texto: "Regrese en una semana", puntos: 20 },
+         { texto: "Haga ejercicio", puntos: 10 },
+         { texto: "Cuide su alimentación", puntos: 10 }
+      ]
    },
    {
-      texto: "Menciona un animal de granja",
+      texto: "Frase típica que dicen las mamás",
+      categoria: "frases",
       respuestas: [
-         { texto: "Vaca", puntos: 55 },
-         { texto: "Cerdo", puntos: 50 },
-         { texto: "Gallina", puntos: 45 },
-         { texto: "Caballo", puntos: 40 },
-         { texto: "Oveja", puntos: 35 }
-      ],
-      categoria: "animales"
+         { texto: "Lleva suéter", puntos: 35 },
+         { texto: "Te lo dije", puntos: 25 },
+         { texto: "Mientras vivas en esta casa...", puntos: 20 },
+         { texto: "No me contestes", puntos: 10 },
+         { texto: "¿Y si tus amigos se avientan del puente?", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Un aparato electrónico que llevas contigo?",
+      texto: "Frase típica que dicen los papás",
+      categoria: "frases",
       respuestas: [
-         { texto: "Celular", puntos: 60 },
-         { texto: "Audífonos", puntos: 50 },
-         { texto: "Laptop", puntos: 45 },
-         { texto: "Tablet", puntos: 40 },
-         { texto: "Smartwatch", puntos: 35 }
-      ],
-      categoria: "tecnologia"
+         { texto: "Pregúntale a tu mamá", puntos: 35 },
+         { texto: "Yo a tu edad...", puntos: 25 },
+         { texto: "Apaga la luz", puntos: 20 },
+         { texto: "Ese dinero no crece en árboles", puntos: 10 },
+         { texto: "Cuando trabajes, hablamos", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Qué usas para escribir?",
+      texto: "Frase típica que dicen los maestros",
+      categoria: "frases",
       respuestas: [
-         { texto: "Pluma", puntos: 60 },
-         { texto: "Lápiz", puntos: 55 },
-         { texto: "Computadora", puntos: 50 },
-         { texto: "Marcador", puntos: 45 },
-         { texto: "Tinta", puntos: 40 }
-      ],
-      categoria: "educacion"
+         { texto: "Saquen una hoja", puntos: 35 },
+         { texto: "Esto entra en el examen", puntos: 25 },
+         { texto: "El que no calle, se va", puntos: 20 },
+         { texto: "No soy su amigo", puntos: 10 },
+         { texto: "El examen está fácil", puntos: 10 }
+      ]
    },
    {
-      texto: "Menciona una red social famosa",
+      texto: "Una película de Marvel famosa",
+      categoria: "películas",
       respuestas: [
-         { texto: "Facebook", puntos: 55 },
-         { texto: "Instagram", puntos: 50 },
-         { texto: "TikTok", puntos: 45 },
-         { texto: "X/Twitter", puntos: 40 },
-         { texto: "YouTube", puntos: 35 }
-      ],
-      categoria: "tecnologia"
+         { texto: "Avengers: Endgame", puntos: 35 },
+         { texto: "Spider-Man: No Way Home", puntos: 25 },
+         { texto: "Iron Man", puntos: 20 },
+         { texto: "Black Panther", puntos: 10 },
+         { texto: "Doctor Strange", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Qué compras en una panadería?",
+      texto: "Un personaje famoso de México",
+      categoria: "cultura mexicana",
       respuestas: [
-         { texto: "Pan dulce", puntos: 55 },
-         { texto: "Bolillo", puntos: 50 },
-         { texto: "Concha", puntos: 45 },
-         { texto: "Pastel", puntos: 40 },
-         { texto: "Donas", puntos: 35 }
-      ],
-      categoria: "comida"
+         { texto: "Frida Kahlo", puntos: 35 },
+         { texto: "Vicente Fernández", puntos: 25 },
+         { texto: "Cantinflas", puntos: 20 },
+         { texto: "Octavio Paz", puntos: 10 },
+         { texto: "Sor Juana Inés", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Qué usas para ver mejor?",
+      texto: "Una serie juvenil famosa",
+      categoria: "series",
       respuestas: [
-         { texto: "Lentes", puntos: 55 },
-         { texto: "Lentes de contacto", puntos: 50 },
-         { texto: "Lupa", puntos: 45 },
-         { texto: "Operación láser", puntos: 40 },
-         { texto: "Gafas de sol graduadas", puntos: 35 }
-      ],
-      categoria: "salud"
+         { texto: "Stranger Things", puntos: 35 },
+         { texto: "Élite", puntos: 25 },
+         { texto: "Riverdale", puntos: 20 },
+         { texto: "Wednesday", puntos: 10 },
+         { texto: "Dark", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Qué animal es considerado el rey de la selva?",
+      texto: "Un cantante internacional famoso",
+      categoria: "música",
       respuestas: [
-         { texto: "León", puntos: 70 },
-         { texto: "Tigre", puntos: 55 },
-         { texto: "Elefante", puntos: 45 },
-         { texto: "Jaguar", puntos: 40 },
-         { texto: "Pantera", puntos: 35 }
-      ],
-      categoria: "animales"
+         { texto: "Bad Bunny", puntos: 35 },
+         { texto: "Taylor Swift", puntos: 25 },
+         { texto: "Drake", puntos: 20 },
+         { texto: "Ariana Grande", puntos: 10 },
+         { texto: "BTS", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Qué haces cuando estás enfermo?",
+      texto: "Un torneo deportivo internacional",
+      categoria: "deportes",
       respuestas: [
-         { texto: "Tomar medicina", puntos: 55 },
-         { texto: "Guardar reposo", puntos: 50 },
-         { texto: "Ir al doctor", puntos: 45 },
-         { texto: "Tomar té", puntos: 40 },
-         { texto: "Dormir mucho", puntos: 35 }
-      ],
-      categoria: "salud"
+         { texto: "Mundial de Fútbol", puntos: 40 },
+         { texto: "Juegos Olímpicos", puntos: 25 },
+         { texto: "Super Bowl", puntos: 15 },
+         { texto: "Champions League", puntos: 10 },
+         { texto: "NBA Finals", puntos: 10 }
+      ]
    },
    {
-      texto: "¿Qué usas para pagar?",
+      texto: "Frase típica que dicen los abuelos",
+      categoria: "frases",
       respuestas: [
-         { texto: "Dinero en efectivo", puntos: 55 },
-         { texto: "Tarjeta de crédito", puntos: 50 },
-         { texto: "Tarjeta de débito", puntos: 45 },
-         { texto: "Transferencia bancaria", puntos: 40 },
-         { texto: "Pago con celular", puntos: 35 }
-      ],
-      categoria: "economia"
+         { texto: "En mis tiempos...", puntos: 35 },
+         { texto: "La juventud está perdida", puntos: 25 },
+         { texto: "Todo con medida", puntos: 20 },
+         { texto: "La salud es lo primero", puntos: 10 },
+         { texto: "El respeto al derecho ajeno...", puntos: 10 }
+      ]
    },
    {
-      texto: "Menciona una parte del cuerpo",
+      texto: "Un actor de Hollywood famoso",
+      categoria: "cultura pop internacional",
       respuestas: [
-         { texto: "Cabeza", puntos: 55 },
-         { texto: "Manos", puntos: 50 },
-         { texto: "Pies", puntos: 45 },
-         { texto: "Ojos", puntos: 40 },
-         { texto: "Boca", puntos: 35 }
-      ],
-      categoria: "salud"
-   },
-   {
-      texto: "¿Qué llevas cuando llueve?",
-      respuestas: [
-         { texto: "Paraguas", puntos: 60 },
-         { texto: "Impermeable", puntos: 55 },
-         { texto: "Botas de lluvia", puntos: 50 },
-         { texto: "Sombrero", puntos: 45 },
-         { texto: "Suéter", puntos: 40 }
-      ],
-      categoria: "naturaleza"
-   },
-   {
-      texto: "Menciona un deporte olímpico",
-      respuestas: [
-         { texto: "Atletismo", puntos: 55 },
-         { texto: "Natación", puntos: 50 },
-         { texto: "Gimnasia", puntos: 45 },
-         { texto: "Baloncesto", puntos: 40 },
-         { texto: "Fútbol", puntos: 35 }
-      ],
-      categoria: "deportes"
-   },
-   {
-      texto: "¿Qué animal vive en el agua?",
-      respuestas: [
-         { texto: "Pez", puntos: 55 },
-         { texto: "Delfín", puntos: 50 },
-         { texto: "Tiburón", puntos: 45 },
-         { texto: "Ballena", puntos: 40 },
-         { texto: "Pulpo", puntos: 35 }
-      ],
-      categoria: "animales"
-   },
-   {
-      texto: "¿Qué usas para dormir mejor?",
-      respuestas: [
-         { texto: "Almohada", puntos: 55 },
-         { texto: "Cobija", puntos: 50 },
-         { texto: "Colchón", puntos: 45 },
-         { texto: "Luz apagada", puntos: 40 },
-         { texto: "Silencio", puntos: 35 }
-      ],
-      categoria: "hogar"
-   },
-   {
-      texto: "Menciona una fruta tropical",
-      respuestas: [
-         { texto: "Mango", puntos: 55 },
-         { texto: "Piña", puntos: 50 },
-         { texto: "Papaya", puntos: 45 },
-         { texto: "Guayaba", puntos: 40 },
-         { texto: "Coco", puntos: 35 }
-      ],
-      categoria: "comida"
-   },
-   {
-      texto: "¿Qué aparato hay en una sala?",
-      respuestas: [
-         { texto: "Televisión", puntos: 60 },
-         { texto: "Sofá", puntos: 55 },
-         { texto: "Mesa de centro", puntos: 50 },
-         { texto: "Ventilador", puntos: 45 },
-         { texto: "Bocinas", puntos: 40 }
-      ],
-      categoria: "hogar"
-   },
-   {
-      texto: "¿Qué llevas a una fiesta?",
-      respuestas: [
-         { texto: "Regalo", puntos: 55 },
-         { texto: "Pastel", puntos: 50 },
-         { texto: "Ropa elegante", puntos: 45 },
-         { texto: "Globos", puntos: 40 },
-         { texto: "Bebidas", puntos: 35 }
-      ],
-      categoria: "cultura"
-   },
-   {
-      texto: "Menciona un país de América",
-      respuestas: [
-         { texto: "México", puntos: 55 },
-         { texto: "Estados Unidos", puntos: 50 },
-         { texto: "Brasil", puntos: 45 },
-         { texto: "Argentina", puntos: 40 },
-         { texto: "Canadá", puntos: 35 }
-      ],
-      categoria: "geografia"
-   },
-   {
-      texto: "¿Qué animal se considera mascota común?",
-      respuestas: [
-         { texto: "Perro", puntos: 60 },
-         { texto: "Gato", puntos: 55 },
-         { texto: "Pez", puntos: 50 },
-         { texto: "Hámster", puntos: 45 },
-         { texto: "Ave", puntos: 40 }
-      ],
-      categoria: "animales"
+         { texto: "Leonardo DiCaprio", puntos: 35 },
+         { texto: "Dwayne Johnson", puntos: 25 },
+         { texto: "Tom Cruise", puntos: 20 },
+         { texto: "Brad Pitt", puntos: 10 },
+         { texto: "Will Smith", puntos: 10 }
+      ]
    }
 ];

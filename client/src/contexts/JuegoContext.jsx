@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useRef, useEffect } from "react";
+import { createContext, useContext, useState, useRef, useEffect, useMemo } from "react";
 import useSound from "../hooks/useSound";
 import sounds from "../const/sounds";
 import { PREGUNTAS } from "../data";
@@ -10,43 +10,55 @@ const JuegoContext = createContext();
 export function JuegoContextProvider({ children }) {
    const MAX_ERRORES = 3;
    const BLOQUEO_MS = 5000;
+   const META_PUNTOS = 300;
 
+   // --- WebSocket / Sala ---
    const [ws, setWs] = useState(null);
+   const wsRef = useRef(null);
+   const [wsReady, setWsReady] = useState(false);
+   const [wsError, setWsError] = useState(null);
+   const [roomCode, setRoomCode] = useState(null);
+
+   // --- Equipos (TODO: nombre, puntos, errores, activo, bloqueado, esperandoError) ---
+   const [equipos, setEquipos] = useState({
+      1: { nombre: "", puntos: 0, errores: 0, activo: false, bloqueado: false, esperandoError: false },
+      2: { nombre: "", puntos: 0, errores: 0, activo: false, bloqueado: false, esperandoError: false }
+   });
+   const bloqueoTimer = useRef(null);
+
+   // Valores derivados (para mantener compatibilidad con consumidores)
+   const eqActivo = equipos[1].activo ? 1 : equipos[2].activo ? 2 : null;
+   const eqBloqueado = equipos[1].bloqueado ? 1 : equipos[2].bloqueado ? 2 : null;
+   const eqEsperandoError = equipos[1].esperandoError ? 1 : equipos[2].esperandoError ? 2 : null;
+
+   // --- Ronda ---
+   const [ronda, setRonda] = useState({
+      activa: false,
+      preguntaIdx: null,
+      acumulado: 0,
+      jugadas: 0,
+      reveladas: {},
+      enRobo: false,
+      unoVsUno: false,
+      muerteSubita: false
+   });
+
+   // --- UI / Admin ---
    const [preguntaPreview, setPreguntaPreview] = useState(null);
    const [preguntasEnviadas, setPreguntasEnviadas] = useState([]);
-   const [rondasJugadas, setRondasJugadas] = useState(0);
-   /* NUEVO */
-
-   const [preguntaIdx, setPreguntaIdx] = useState(null);
-   const [allowKeyboard, setAllowKeyboard] = useState(true); // keyboard optional: only activate if allowKeyboard true (toggle)
-   const [teamNames, setTeamNames] = useState({ e1: "", e2: "" });
-   const [equipoActivo, setEquipoActivo] = useState(null);
-   const [equipoBloqueado, setEquipoBloqueado] = useState(null);
-   const [errores, setErrores] = useState({ e1: 0, e2: 0 });
-   const [reveladas, setReveladas] = useState({}); // key: "q-i"
-   const [puntosEquipo, setPuntosEquipo] = useState({ e1: 0, e2: 0 });
-   const [acumuladoRonda, setAcumuladoRonda] = useState(0);
-   const [enRobo, setEnRobo] = useState(false);
+   const [allowKeyboard, setAllowKeyboard] = useState(true);
    const [animX, setAnimX] = useState({ e1: false, e2: false });
-   const [equipoEsperandoError, setEquipoEsperandoError] = useState(null); // 1 o 2
-   const bloqueoTimer = useRef(null);
    const [showCelebration, setShowCelebration] = useState(false);
-   const [unoVsUno, setUnoVsUno] = useState(false);
-   const [muerteSubita, setMuerteSubita] = useState(false);
    const [showLetrero, setShowLetrero] = useState(false);
-   const [rondaActiva, setRondaActiva] = useState(false);
    const [teamVictoria, setTeamVictoria] = useState(null);
-
-   const [log, setLog] = useState([]);
    const [contadorActivo, setContadorActivo] = useState(false);
    const [tiempoRestante, setTiempoRestante] = useState(10);
    const contadorRef = useRef(null);
+   const [log, setLog] = useState([]);
 
-   // sounds
+   // --- Sonidos ---
    const s = useSound();
    useEffect(() => {
-      // load simple sounds ( these are placeholders, include your own in public/)
-      // navigation
       if (!["/", "/tablero"].includes(window.location.pathname)) return;
       s.load("aJugar", sounds.aJugar);
       s.load("botonazo", sounds.botonazo);
@@ -58,18 +70,46 @@ export function JuegoContextProvider({ children }) {
       s.load("temporizador", sounds.temporizador);
    }, []);
 
+   // --- WebSocket ---
+   const handleWSMessageRef = useRef(null);
+
    function handleWSMessage(data) {
-      console.log("🚀 ~ handleWSMessage ~ data:", data);
       switch (data.action) {
+         case "roomCreated":
+            setRoomCode(data.code);
+            break;
+         case "roomJoined":
+            setRoomCode(data.code);
+            break;
+         case "playerJoined":
+            break;
+         case "updateAllState":
+            if (data.teamNames)
+               setEquipos((prev) => ({ ...prev, 1: { ...prev[1], nombre: data.teamNames.e1 || "" }, 2: { ...prev[2], nombre: data.teamNames.e2 || "" } }));
+            if (data.puntosEquipo)
+               setEquipos((prev) => ({ ...prev, 1: { ...prev[1], puntos: data.puntosEquipo.e1 ?? 0 }, 2: { ...prev[2], puntos: data.puntosEquipo.e2 ?? 0 } }));
+            break;
+         case "syncAll":
+            if (data.teamNames)
+               setEquipos((prev) => ({ ...prev, 1: { ...prev[1], nombre: data.teamNames.e1 || "" }, 2: { ...prev[2], nombre: data.teamNames.e2 || "" } }));
+            if (data.puntosEquipo)
+               setEquipos((prev) => ({ ...prev, 1: { ...prev[1], puntos: data.puntosEquipo.e1 ?? 0 }, 2: { ...prev[2], puntos: data.puntosEquipo.e2 ?? 0 } }));
+            break;
+         case "error":
+            setWsError(data.message);
+            break;
          case "updateTeamName":
-            updateTeamName(data.team, data.name);
+            setEquipos((prev) => ({ ...prev, [data.team === "e1" ? 1 : 2]: { ...prev[data.team === "e1" ? 1 : 2], nombre: data.name } }));
             break;
          case "updateTeamScore":
-            updateTeamScore(data.team, data.score);
+            console.log("updateTeamScore", data);
+            setEquipos((prev) => ({ ...prev, [data.team === "e1" ? 1 : 2]: { ...prev[data.team === "e1" ? 1 : 2], puntos: data.score } }));
             break;
          case "press":
-            if (!equipoActivo) s.play("botonazo");
-            if (!equipoActivo) activarEquipo(Number(data.team));
+            if (!eqActivo) {
+               s.play("botonazo");
+               activarEquipo(Number(data.team));
+            }
             break;
          case "activateTeam":
             activarEquipo(data.team);
@@ -87,8 +127,7 @@ export function JuegoContextProvider({ children }) {
             activarMuerteSubita();
             break;
          case "contador":
-            if (data.activar) activarContador();
-            else desactivarContador();
+            data.activar ? activarContador() : desactivarContador();
             break;
          case "darVictoria":
             victoria(data.team);
@@ -99,68 +138,71 @@ export function JuegoContextProvider({ children }) {
          case "repetida":
             reproducirRepetida();
             break;
-         // Agrega más casos según tus acciones
-         default:
-            console.log("Acción WS desconocida:", data);
+         case "goToLobby":
+            resetJuego();
+            window.location.hash = "#/";
+            break;
       }
    }
 
+   handleWSMessageRef.current = handleWSMessage;
+
    useEffect(() => {
-      let socket;
-      let reconnectTimer;
+      let socket, reconnectTimer;
       function connectWS() {
          socket = new WebSocket(env.VITE_WS_URL);
          setWs(socket);
+         wsRef.current = socket;
          socket.onopen = () => {
-            console.log("WebSocket conectado");
+            setWsReady(true);
+            setWsError(null);
          };
          socket.onmessage = (msg) => {
-            console.log("🚀 ~ JuegoContext ~ msg:", msg);
             const data = JSON.parse(msg.data);
             setLog((prev) => [...prev, JSON.stringify(data)]);
-            handleWSMessage(data);
+            handleWSMessageRef.current(data);
          };
          socket.onclose = () => {
-            console.warn("WebSocket cerrado, reintentando en 2s...");
-            // reconnectTimer = setTimeout(connectWS, 2000);
+            setWsReady(false);
+            setWsError("Conexión perdida. Reconectando...");
+            reconnectTimer = setTimeout(connectWS, 2000);
          };
-         socket.onerror = (err) => {
-            console.error("WebSocket error:", err);
-            socket.close();
-         };
+         socket.onerror = () => socket.close();
       }
       connectWS();
       return () => {
          if (socket) socket.close();
          if (reconnectTimer) clearTimeout(reconnectTimer);
       };
-   }, [preguntaIdx, preguntaPreview, reveladas, equipoActivo, equipoBloqueado, errores, animX, enRobo, unoVsUno, muerteSubita, rondaActiva]); // Agrega más dependencias si es necesario
+   }, []);
+
+   function crearSala() {
+      setWsError(null);
+      send({ action: "createRoom" });
+   }
+   function unirseaSala(code) {
+      setWsError(null);
+      send({ action: "joinRoom", code });
+   }
 
    const send = (data) => {
-      // console.log("🚀 ~ send ~ data:", data);
-      // console.log("🚀 ~ send ~ ws:", ws);
-      // console.log("🚀 ~ send ~ WebSocket:", WebSocket.OPEN);
-      if (ws && ws.readyState === WebSocket.OPEN) {
-         ws.send(JSON.stringify(data));
-      }
+      const socket = wsRef.current;
+      if (socket && socket.readyState === WebSocket.OPEN) socket.send(JSON.stringify(data));
    };
 
+   // --- Contador ---
    function activarContador() {
       setContadorActivo(true);
-      setTiempoRestante(tiempoRestante);
+      setTiempoRestante(10);
       if (contadorRef.current) clearInterval(contadorRef.current);
       s.play("temporizador");
       contadorRef.current = setInterval(() => {
          setTiempoRestante((prev) => {
-            console.log("tiempoRestante:", tiempoRestante);
             if (prev <= 1) {
                clearInterval(contadorRef.current);
                setContadorActivo(false);
-               // Marcar error según la dinámica actual
-               if (equipoActivo) {
-                  // marcarError(equipoActivo === 1 ? errores.e1 + 1 : errores.e2 + 1);
-               }
                s.stop("temporizador");
+               // agregar aqui
                return 0;
             }
             return prev - 1;
@@ -170,75 +212,50 @@ export function JuegoContextProvider({ children }) {
    function desactivarContador() {
       s.stop("temporizador");
       setContadorActivo(false);
-      setTiempoRestante(tiempoRestante);
+      setTiempoRestante(10);
       if (contadorRef.current) clearInterval(contadorRef.current);
    }
 
-   function updateTeamName(team, name) {
-      setTeamNames((prev) => ({
-         ...prev,
-         [team]: name
-      }));
-   }
-   function updateTeamScore(team, score) {
-      setPuntosEquipo((prev) => ({
-         ...prev,
-         [team]: score
-      }));
-   }
-
+   // --- Game Logic ---
    function mostrarPregunta(i) {
       s.play("aJugar");
-      setRondaActiva(true);
-      setPreguntaIdx(i);
-      setEnRobo(false);
-      setEquipoActivo(null);
-      setEquipoBloqueado(null);
-      setAcumuladoRonda(0);
-      setUnoVsUno(true);
+      setRonda({ activa: true, preguntaIdx: i, acumulado: 0, jugadas: ronda.jugadas + 1, reveladas: {}, enRobo: false, unoVsUno: true, muerteSubita: false });
+      setEquipos((prev) => ({
+         ...prev,
+         1: { ...prev[1], errores: 0, activo: false, bloqueado: false, esperandoError: false },
+         2: { ...prev[2], errores: 0, activo: false, bloqueado: false, esperandoError: false }
+      }));
+      setPreguntasEnviadas((prev) => [...prev, i]);
       if (bloqueoTimer.current) {
          clearTimeout(bloqueoTimer.current);
          bloqueoTimer.current = null;
       }
-      // // limpiar reveladas de esta pregunta
-      // setReveladas((prev) => {
-      //    const copy = { ...prev };
-      //    Object.keys(copy).forEach((k) => {
-      //       if (k.startsWith(i + "-")) delete copy[k];
-      //    });
-      //    return copy;
-      // });
-      // limpiar objeto de reveladas
-      setReveladas({});
-      setErrores({ e1: 0, e2: 0 });
-      setPreguntasEnviadas((prev) => [...prev, preguntaPreview]);
-      setRondasJugadas((prev) => prev + 1);
-      // setPreguntaPreview(null);
    }
 
    function activarEquipo(n) {
-      console.log("🚀 ~ activarEquipo ~ n:", n);
-      // Solo permite activar si no hay equipo activo
-      if (equipoActivo) return;
-      // s.play("botonazo");
-      setEquipoActivo(n);
-      const contrario = n === 1 ? 2 : 1;
-      setEquipoBloqueado(contrario);
+      if (eqActivo) return;
+      setEquipos((prev) => ({
+         ...prev,
+         1: { ...prev[1], activo: n === 1, bloqueado: n === 2 },
+         2: { ...prev[2], activo: n === 2, bloqueado: n === 1 }
+      }));
       if (bloqueoTimer.current) clearTimeout(bloqueoTimer.current);
-      bloqueoTimer.current = setTimeout(() => setEquipoBloqueado(null), BLOQUEO_MS);
+      bloqueoTimer.current = setTimeout(
+         () => setEquipos((prev) => ({ ...prev, 1: { ...prev[1], bloqueado: false }, 2: { ...prev[2], bloqueado: false } })),
+         BLOQUEO_MS
+      );
    }
 
    async function actualizarPuntaje(key = null) {
-      const respuestasReveladas = key ? { ...reveladas, [key]: true } : { ...reveladas };
-      const destapadas = Object.keys(respuestasReveladas).filter((k) => k.startsWith(`${preguntaIdx}-`)).length;
-      const idxDestapadas = Object.keys(respuestasReveladas).map((k) => Number(k.split(`${preguntaIdx}-`).reverse()[0]));
-      console.log("🚀 ~ actualizarPuntaje ~ idxDestapadas:", idxDestapadas);
-      setReveladas(respuestasReveladas);
+      const prevReveladas = ronda.reveladas;
+      const respuestasReveladas = key ? { ...prevReveladas, [key]: true } : { ...prevReveladas };
+      const destapadas = Object.keys(respuestasReveladas).filter((k) => k.startsWith(`${ronda.preguntaIdx}-`)).length;
+      const idxDestapadas = Object.keys(respuestasReveladas).map((k) => Number(k.split(`${ronda.preguntaIdx}-`).reverse()[0]));
+      setRonda((prev) => ({ ...prev, reveladas: respuestasReveladas }));
       let puntosAcumulados = 0;
-      PREGUNTAS[preguntaIdx].respuestas.map((r, i) => {
+      PREGUNTAS[ronda.preguntaIdx]?.respuestas.forEach((r, i) => {
          if (idxDestapadas.includes(i)) puntosAcumulados += r.puntos;
       });
-      console.log("🚀 ~ actualizarPuntaje ~ puntosAcumulados:", puntosAcumulados);
       return { destapadas, puntosAcumulados };
    }
 
@@ -246,19 +263,12 @@ export function JuegoContextProvider({ children }) {
       s.play("triunfo");
       setShowCelebration(true);
       await sleep(4000);
-
-      const ganador = equipoGanador ? equipoGanador : equipoActivo;
-
-      setPuntosEquipo((prev) => {
-         const copy = { ...prev };
-         if (ganador === 1) copy.e1 += puntosAcumulados;
-         else copy.e2 += puntosAcumulados;
-         return copy;
-      });
+      const ganador = equipoGanador || eqActivo;
+      setEquipos((prev) => ({ ...prev, [ganador]: { ...prev[ganador], puntos: prev[ganador].puntos + puntosAcumulados } }));
       await sleep(1000);
-      setAcumuladoRonda(0);
-      setRondaActiva(false);
+      setRonda((prev) => ({ ...prev, acumulado: 0, activa: false }));
    }
+
    function victoria(team) {
       s.play("triunfo");
       setTeamVictoria(team);
@@ -266,187 +276,121 @@ export function JuegoContextProvider({ children }) {
    }
 
    async function destapar(i) {
-      console.log("🚀 ~ destapar ~ i:", i); // 2-1:true
-      if (!equipoActivo) return s.play("RE");
-      if (preguntaIdx == null) return;
-      const key = `${preguntaIdx}-${i}`;
-      if (reveladas[key]) return;
-
-      // const respuestasReveladas = { ...reveladas, [key]: true };
-      // const destapadas = Object.keys(respuestasReveladas).filter((k) => k.startsWith(`${preguntaIdx}-`)).length;
-      // setReveladas(respuestasReveladas);
-      // // setReveladas((prev) => ({ ...prev, [key]: true }));
+      desactivarContador();
+      if (!eqActivo) return s.play("RE");
+      if (ronda.preguntaIdx == null) return;
+      const key = `${ronda.preguntaIdx}-${i}`;
+      if (ronda.reveladas[key]) return;
       const { destapadas, puntosAcumulados } = await actualizarPuntaje(key);
-      const puntos = PREGUNTAS[preguntaIdx].respuestas[i].puntos || 0;
+      const puntos = PREGUNTAS[ronda.preguntaIdx].respuestas[i].puntos || 0;
       s.play("correcto");
-      // const puntosAcumulados = acumuladoRonda + puntos;
       await sleep(3000);
-      setAcumuladoRonda(puntosAcumulados);
-
-      // esta bandera ayuda para poder destapar las respuestas sin que se le sumen puntos a ningun equipo
-      if (!rondaActiva) return console.log("hasta aqui para el robo noams destapar");
-
-      console.log("ya se paso el destape con ronda inactiva", rondaActiva ? "activa" : "inactiva");
-
-      // Si hay equipo activo, aplicar lógica de escenario 1
-      if (equipoActivo) {
-         // ¿Ya se destaparon todas las respuestas?
-         const totalRespuestas = PREGUNTAS[preguntaIdx].respuestas.length;
-         // const destapadas = Object.keys(reveladas).filter((k) => k.startsWith(`${preguntaIdx}-`)).length + 1; // +1 por la actual
+      setRonda((prev) => ({ ...prev, acumulado: puntosAcumulados }));
+      if (!ronda.activa) return;
+      if (eqActivo) {
+         const totalRespuestas = PREGUNTAS[ronda.preguntaIdx].respuestas.length;
          if (destapadas === totalRespuestas) {
-            // El equipo activo suma el acumulado
             await ganaRonda(puntosAcumulados);
-         }
-
-         if (unoVsUno || muerteSubita) {
-            if (enRobo) {
-               if (puntos < puntosAcumulados - puntos) {
-                  setEquipoActivo(equipoActivo === 1 ? 2 : 1);
-               }
-               setUnoVsUno(false);
-               setMuerteSubita(false);
-               setEnRobo(false);
-               return;
-            }
-            // ¿Es la respuesta de mayor puntaje?
-            const maxPuntos = Math.max(...PREGUNTAS[preguntaIdx].respuestas.map((r) => r.puntos || 0));
-            if (puntos === maxPuntos) {
-               setEquipoEsperandoError(equipoActivo);
-               setUnoVsUno(false);
-               setMuerteSubita(false);
-            } else {
-               if (unoVsUno || muerteSubita) {
-                  // Permitir que el equipo contrario intente responder
-                  activarRobo(equipoActivo === 1 ? 2 : 1);
-                  setEquipoBloqueado(equipoActivo);
-                  setEquipoEsperandoError(null);
-                  setMuerteSubita(false);
-               } else {
-                  setEquipoBloqueado(null);
-                  setEquipoEsperandoError(null);
-               }
-            }
-         }
-
-         // Si estamos en robo
-         if (enRobo) {
-            if (unoVsUno || muerteSubita) {
-               return;
-            }
-            if (puntos > 0) {
-               // El equipo que roba suma el acumulado + el puntaje de la respuesta que destapó
-               // s.play("triunfo");
-               // setShowCelebration(true);
-               // await sleep(4000);
-               // setPuntosEquipo((prev) => {
-               //    const copy = { ...prev };
-               //    if (equipoActivo === 1) copy.e1 += puntosAcumulados;
-               //    else copy.e2 += puntosAcumulados;
-               //    return copy;
-               // });
-
-               s.play("triunfo");
-               setShowCelebration(true);
-               await sleep(4000);
-
-               setPuntosEquipo((prev) => {
-                  const copy = { ...prev };
-                  if (equipoActivo === 1) copy.e1 += puntosAcumulados;
-                  else copy.e2 += puntosAcumulados;
-                  return copy;
-               });
-               await sleep(1000);
-               setAcumuladoRonda(0);
-            } else {
-               // si el equipo conrario se equivoca en el robo de puntos, el equipo original se queda con los puntos
-               setEquipoActivo(equipoActivo === 1 ? 2 : 1);
-               s.play("triunfo");
-               setShowCelebration(true);
-               await sleep(4000);
-               setPuntosEquipo((prev) => {
-                  const copy = { ...prev };
-                  if (equipoActivo === 1) copy.e2 += puntosAcumulados;
-                  else copy.e1 += puntosAcumulados;
-                  return copy;
-               });
-            }
-            setRondaActiva(false);
-            setEnRobo(false);
-            setAcumuladoRonda(0);
-            setTimeout(() => {}, 600);
             return;
+         }
+         const maxPuntos = Math.max(...PREGUNTAS[ronda.preguntaIdx].respuestas.map((r) => r.puntos || 0));
+         if (ronda.unoVsUno || ronda.muerteSubita) {
+            if (ronda.enRobo) {
+               if (puntos < puntosAcumulados - puntos)
+                  setEquipos((prev) => ({ ...prev, 1: { ...prev[1], activo: eqActivo === 2 }, 2: { ...prev[2], activo: eqActivo === 1 } })); //setRonda((prev) => ({ ...prev, unoVsUno: false, muerteSubita: false, enRobo: false }));
+               // if (puntos === maxPuntos) setRonda((prev) => ({ ...prev, unoVsUno: false, muerteSubita: false, enRobo: false }));
+               // else {
+
+               setRonda((prev) => ({ ...prev, unoVsUno: false, muerteSubita: false, enRobo: false }));
+               // }
+               return;
+            }
+            if (puntos === maxPuntos) {
+               setEquipos((prev) => ({
+                  ...prev,
+                  [eqActivo]: { ...prev[eqActivo], esperandoError: true },
+                  [eqActivo === 1 ? 2 : 1]: { ...prev[eqActivo === 1 ? 2 : 1], esperandoError: false }
+               }));
+               setRonda((prev) => ({ ...prev, muerteSubita: false, unoVsUno: false }));
+            } else {
+               activarRobo(eqActivo === 1 ? 2 : 1);
+               setEquipos((prev) => ({ ...prev, [eqActivo]: { ...prev[eqActivo], bloqueado: true, esperandoError: false } }));
+            }
+            setRonda((prev) => ({ ...prev, muerteSubita: false }));
+            return;
+         }
+         if (ronda.enRobo) {
+            if (puntos > 0) {
+               s.play("triunfo");
+               setShowCelebration(true);
+               await sleep(4000);
+               setEquipos((prev) => ({ ...prev, [eqActivo]: { ...prev[eqActivo], puntos: prev[eqActivo].puntos + puntosAcumulados } }));
+               await sleep(1000);
+            } else {
+               const otro = eqActivo === 1 ? 2 : 1;
+               setEquipos((prev) => ({ ...prev, 1: { ...prev[1], activo: otro === 1 }, 2: { ...prev[2], activo: otro === 2 } }));
+               s.play("triunfo");
+               setShowCelebration(true);
+               await sleep(4000);
+               setEquipos((prev) => ({ ...prev, [otro]: { ...prev[otro], puntos: prev[otro].puntos + puntosAcumulados } }));
+            }
+            setRonda((prev) => ({ ...prev, activa: false, enRobo: false, acumulado: 0 }));
          }
       }
    }
 
    function activarMuerteSubita() {
       s.play("robo");
-      setMuerteSubita(true);
-      setEquipoActivo(null);
-      setEquipoBloqueado(null);
-      setEquipoEsperandoError(null);
+      setRonda((prev) => ({ ...prev, muerteSubita: true }));
+      setEquipos((prev) => ({
+         ...prev,
+         1: { ...prev[1], activo: false, bloqueado: false, esperandoError: false },
+         2: { ...prev[2], activo: false, bloqueado: false, esperandoError: false }
+      }));
       setShowLetrero(true);
-      // sleep(3000);
-      // setShowLetrero(false);
-      // Aquí podrías disparar una animación en Tablero
    }
 
    async function marcarError(slot) {
-      console.log("🚀 ~ marcarError ~ slot:", slot);
       if (slot === 0) {
          s.play("incorrecto");
          setAnimX((prev) => ({ ...prev, ind: true }));
          setTimeout(() => setAnimX((prev) => ({ ...prev, ind: false })), 2000);
-         if (!equipoActivo) return;
-         // Si ambos equipos fallan, activar muerte súbita (Muerte subita se activara solo manual)
-         if (unoVsUno || muerteSubita) {
-            if (enRobo) {
-               if (unoVsUno && Object.keys(reveladas).length > 0) {
-                  setEquipoActivo(equipoActivo === 1 ? 2 : 1);
-                  setUnoVsUno(false);
-               } else setEquipoActivo(null);
-               setEquipoBloqueado(null);
-               setEquipoEsperandoError(null);
-               setEnRobo(false);
-               setMuerteSubita(false);
-            } else {
-               activarRobo(equipoActivo === 1 ? 2 : 1);
-            }
+         if (!eqActivo) return;
+         if (ronda.unoVsUno || ronda.muerteSubita) {
+            if (ronda.enRobo) {
+               if (ronda.unoVsUno && Object.keys(ronda.reveladas).length > 0) {
+                  setEquipos((prev) => ({ ...prev, 1: { ...prev[1], activo: eqActivo === 2 }, 2: { ...prev[2], activo: eqActivo === 1 } }));
+                  setRonda((prev) => ({ ...prev, unoVsUno: false }));
+               } else setEquipos((prev) => ({ ...prev, 1: { ...prev[1], activo: false }, 2: { ...prev[2], activo: false } }));
+               setEquipos((prev) => ({
+                  ...prev,
+                  1: { ...prev[1], bloqueado: false, esperandoError: false },
+                  2: { ...prev[2], bloqueado: false, esperandoError: false }
+               }));
+               setRonda((prev) => ({ ...prev, enRobo: false, muerteSubita: false }));
+            } else activarRobo(eqActivo === 1 ? 2 : 1);
             return;
          }
-
-         if (enRobo) {
-            const equipoGanador = equipoActivo === 1 ? 2 : 1;
-            setEquipoActivo(equipoGanador);
-            const { destapadas, puntosAcumulados } = await actualizarPuntaje();
+         if (ronda.enRobo) {
+            const equipoGanador = eqActivo === 1 ? 2 : 1;
+            setEquipos((prev) => ({ ...prev, 1: { ...prev[1], activo: equipoGanador === 1 }, 2: { ...prev[2], activo: equipoGanador === 2 } }));
+            const { puntosAcumulados } = await actualizarPuntaje();
             ganaRonda(puntosAcumulados, equipoGanador);
-            setRondaActiva(false); // para destapar respuestas en caso de que falte destapar
+            setRonda((prev) => ({ ...prev, activa: false }));
          }
          return;
       }
-      if (!equipoActivo) return;
-      if (equipoActivo === 1) {
-         // Solo permite marcar el siguiente error en orden
-         if (slot !== errores.e1 + 1) return;
-         setErrores((prev) => {
-            s.play("incorrecto");
-            const newV = { ...prev, e1: Math.min(MAX_ERRORES, slot) };
-            if (newV.e1 >= MAX_ERRORES) activarRobo(2);
-            return newV;
-         });
-         setAnimX((prev) => ({ ...prev, e1: true }));
-         setTimeout(() => setAnimX((prev) => ({ ...prev, e1: false })), 2000);
-      } else {
-         if (slot !== errores.e2 + 1) return;
-         setErrores((prev) => {
-            s.play("incorrecto");
-            const newV = { ...prev, e2: Math.min(MAX_ERRORES, slot) };
-            if (newV.e2 >= MAX_ERRORES) activarRobo(1);
-            return newV;
-         });
-         setAnimX((prev) => ({ ...prev, e2: true }));
-         setTimeout(() => setAnimX((prev) => ({ ...prev, e2: false })), 2000);
-      }
+      if (!eqActivo) return;
+      const eqKey = eqActivo;
+      if (slot !== equipos[eqKey].errores + 1) return;
+      s.play("incorrecto");
+      setEquipos((prev) => {
+         const err = Math.min(MAX_ERRORES, slot);
+         if (err >= MAX_ERRORES) activarRobo(eqActivo === 1 ? 2 : 1);
+         return { ...prev, [eqKey]: { ...prev[eqKey], errores: err } };
+      });
+      setAnimX((prev) => ({ ...prev, [eqKey === 1 ? "e1" : "e2"]: true }));
+      setTimeout(() => setAnimX((prev) => ({ ...prev, [eqKey === 1 ? "e1" : "e2"]: false })), 2000);
    }
 
    function reproducirRepetida() {
@@ -455,124 +399,128 @@ export function JuegoContextProvider({ children }) {
 
    function activarRobo(equipoQueRoba) {
       s.play("robo");
-      setEnRobo(true);
-      setEquipoActivo(equipoQueRoba);
+      setRonda((prev) => ({ ...prev, enRobo: true }));
+      setEquipos((prev) => ({
+         ...prev,
+         1: { ...prev[1], activo: equipoQueRoba === 1, bloqueado: equipoQueRoba === 2 },
+         2: { ...prev[2], activo: equipoQueRoba === 2, bloqueado: equipoQueRoba === 1 }
+      }));
    }
 
    function resetJuego() {
-      setPreguntaIdx(null);
-      setEquipoActivo(null);
-      setEquipoBloqueado(null);
-      setErrores({ e1: 0, e2: 0 });
-      setReveladas({});
-      setPuntosEquipo({ e1: 0, e2: 0 });
-      setEnRobo(false);
-      setAcumuladoRonda(0);
-      setRondasJugadas(0);
+      setEquipos({
+         1: { nombre: "", puntos: 0, errores: 0, activo: false, bloqueado: false, esperandoError: false },
+         2: { nombre: "", puntos: 0, errores: 0, activo: false, bloqueado: false, esperandoError: false }
+      });
+      setRonda({ activa: false, preguntaIdx: null, acumulado: 0, jugadas: 0, reveladas: {}, enRobo: false, unoVsUno: false, muerteSubita: false });
       setPreguntasEnviadas([]);
       setPreguntaPreview(null);
       setShowLetrero(false);
-      setUnoVsUno(false);
-      setMuerteSubita(false);
       setShowCelebration(false);
       setContadorActivo(false);
-      setTeamNames({ e1: "", e2: "" });
-      setRondaActiva(false);
       setTeamVictoria(null);
    }
-   /* NUEVO */
 
-   return (
-      <JuegoContext.Provider
-         value={{
-            MAX_ERRORES,
-            BLOQUEO_MS,
-            ws,
-            setWs,
-            preguntaPreview,
-            setPreguntaPreview,
-            preguntasEnviadas,
-            setPreguntasEnviadas,
-            rondasJugadas,
-            setRondasJugadas,
-            send,
-            teamNames,
-            setTeamNames,
-            teamVictoria,
-            setTeamVictoria,
-            /* NUEVO */
-            contadorActivo,
-            setContadorActivo,
-            rondaActiva,
-            setRondaActiva,
-            tiempoRestante,
-            setTiempoRestante,
-            activarContador,
-            desactivarContador,
-            mostrarPregunta,
-            activarEquipo,
-            destapar,
-            marcarError,
-            reproducirRepetida,
-            activarRobo,
-            resetJuego,
-            log,
-            setLog,
-            showCelebration,
-            setShowCelebration,
-            unoVsUno,
-            setUnoVsUno,
-            muerteSubita,
-            setMuerteSubita,
-            activarMuerteSubita,
-            showLetrero,
-            setShowLetrero,
-
-            handleWSMessage,
-            /* estados */
-            s,
-            preguntaIdx,
-            setPreguntaIdx,
-            allowKeyboard,
-            setAllowKeyboard,
-            equipoActivo,
-            setEquipoActivo,
-            equipoBloqueado,
-            setEquipoBloqueado,
-            errores,
-            setErrores,
-            reveladas,
-            setReveladas,
-            puntosEquipo,
-            setPuntosEquipo,
-            acumuladoRonda,
-            setAcumuladoRonda,
-            enRobo,
-            setEnRobo,
-            animX,
-            setAnimX,
-            equipoEsperandoError,
-            setEquipoEsperandoError
-            /* estados */
-         }}
-      >
-         {children}
-      </JuegoContext.Provider>
+   const contextValue = useMemo(
+      () => ({
+         MAX_ERRORES,
+         BLOQUEO_MS,
+         META_PUNTOS,
+         ws,
+         wsReady,
+         wsError,
+         roomCode,
+         crearSala,
+         unirseaSala,
+         send,
+         equipos,
+         setEquipos,
+         ronda,
+         setRonda,
+         equipoActivo: eqActivo,
+         equipoBloqueado: eqBloqueado,
+         equipoEsperandoError: eqEsperandoError,
+         animX,
+         setAnimX,
+         preguntaPreview,
+         setPreguntaPreview,
+         preguntasEnviadas,
+         setPreguntasEnviadas,
+         allowKeyboard,
+         setAllowKeyboard,
+         showCelebration,
+         setShowCelebration,
+         showLetrero,
+         setShowLetrero,
+         contadorActivo,
+         tiempoRestante,
+         mostrarPregunta,
+         activarEquipo,
+         destapar,
+         marcarError,
+         reproducirRepetida,
+         activarRobo,
+         resetJuego,
+         activarMuerteSubita,
+         activarContador,
+         desactivarContador,
+         handleWSMessage,
+         s,
+         victoria,
+         teamVictoria
+      }),
+      [
+         MAX_ERRORES,
+         BLOQUEO_MS,
+         META_PUNTOS,
+         ws,
+         wsReady,
+         wsError,
+         roomCode,
+         crearSala,
+         unirseaSala,
+         send,
+         equipos,
+         setEquipos,
+         ronda,
+         setRonda,
+         eqActivo,
+         eqBloqueado,
+         eqEsperandoError,
+         animX,
+         setAnimX,
+         preguntaPreview,
+         setPreguntaPreview,
+         preguntasEnviadas,
+         setPreguntasEnviadas,
+         allowKeyboard,
+         setAllowKeyboard,
+         showCelebration,
+         setShowCelebration,
+         showLetrero,
+         setShowLetrero,
+         contadorActivo,
+         tiempoRestante,
+         mostrarPregunta,
+         activarEquipo,
+         destapar,
+         marcarError,
+         reproducirRepetida,
+         activarRobo,
+         resetJuego,
+         activarMuerteSubita,
+         activarContador,
+         desactivarContador,
+         handleWSMessage,
+         s,
+         victoria,
+         teamVictoria
+      ]
    );
+
+   return <JuegoContext.Provider value={contextValue}>{children}</JuegoContext.Provider>;
 }
 
 export function useJuegoContext() {
    return useContext(JuegoContext);
 }
-
-// NOTAS:
-// 0.- FALTA agregar un modal al iniciar el juego para explicar reglas y controles
-// ✅ 0.1 .- asignar nombres a los equipos
-// ✅ 1.- FALTA agregar animacion de mensaje anunciando para quien son los puntos de la ronda
-// ✅ 2.- FALTA agregar animacion de mensaje cuando hay robo de puntos
-// ✅ 3.- FALTA indicar con el boton error independiente, para cuando se estan enfrentando los equipos 1vs1 en la primer pregunta de cada ronda, que no se activan errores en el equipo que esta activo, pero si se puede marcar error con el boton independiente para darle oportunidad al equipo contrario de responder, si no respondio ninguno de los 2 bien, pasan los siguiente participantes a si que se vuelven a ahabilitar los botones para activar el equipoActivo
-// 4.- FALTA agregar animacion de mensaje cuando un equipo llega a 300 puntos y gana el juego
-// ✅ 5.- FALTA indicar que si en el robo de puntos, si el equipo que roba responde mal, se le suman los puntos acumulados a el equipo contrario y se pueden destapar las otras respuestas restantes pero ya no sumaran puntos para el acumulado solo para saber cuales eran las respuestas correctas.
-// ✅ 6.- FALTA agregarun boton, para activar un contador de 5s para que el equipo activo responda,
-// 6.1 .- si no responde en ese tiempo, se le acumulara un error
-// 6.2.- si responde bien, hay que cancelar el contador

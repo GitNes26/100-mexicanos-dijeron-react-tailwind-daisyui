@@ -54,16 +54,16 @@ export default function ControlPanel({
                <button
                   onClick={() => onActivateTeam(1)}
                   disabled={equipoBloqueado === 1 || equipoActivo !== null}
-                  className={`btn btn-soft bg-neutral font-bold disabled:${equipoBloqueado === 1 ? "opacity-10" : equipoActivo === 1 ? "opacity-50" : "opacity-100"}`}
+                  className={`btn btn-soft bg-neutral font-bold`}
+                  style={{ opacity: equipoBloqueado === 1 ? 0.4 : equipoActivo === 1 ? 0.5 : 1 }}
                >
                   Seleccionar E1 (<kbd className="kbd">1</kbd>)
                </button>
                <button
                   onClick={() => onActivateTeam(2)}
                   disabled={equipoBloqueado === 2 || equipoActivo !== null}
-                  className={`btn btn-soft bg-neutral-content font-bold text-neutral disabled:${
-                     equipoBloqueado === 2 ? "opacity-10" : equipoActivo === 2 ? "opacity-50" : "opacity-100"
-                  }`}
+                  className={`btn btn-soft bg-neutral-content font-bold text-neutral`}
+                  style={{ opacity: equipoBloqueado === 2 ? 0.4 : equipoActivo === 2 ? 0.5 : 1 }}
                >
                   Seleccionar E2 (<kbd className="kbd text-neutral-content">2</kbd>)
                </button>

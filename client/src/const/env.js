@@ -1,5 +1,5 @@
 const env = {
-   VITE_WS_URL: import.meta.env.VITE_WS_URL
+   VITE_WS_URL: import.meta.env.VITE_WS_URL || "ws://localhost:3001"
 };
 
 export default env;

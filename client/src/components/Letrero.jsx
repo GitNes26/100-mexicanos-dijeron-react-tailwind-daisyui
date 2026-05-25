@@ -5,7 +5,7 @@ const Letrero = ({ titulo, mensaje, onClose }) => {
    const [isVisible, setIsVisible] = useState(false);
 
    useEffect(() => {
-      console.log("🚀 ~ Letrero ~ useEffect:", onClose);
+
 
       setIsVisible(true);
       sleep(5000).then(() => {

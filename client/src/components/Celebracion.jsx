@@ -4,15 +4,14 @@ import { useState, useEffect } from "react";
 import { useJuegoContext } from "../contexts/JuegoContext";
 
 // interface CelebrationProps {
-//   teamName: string
-//   teamNumber: 1 | 2
+//   equipoActivo: 1 | 2
 //   onClose: () => void
 // }
 
-export default function Celebration({ teamName, teamNumber, onClose }) {
+export default function Celebration({ equipoActivo, onClose }) {
    // const { s } = useJuegoContext();
    const [isVisible, setIsVisible] = useState(false);
-   const { teamNames, puntosEquipo, teamVictoria } = useJuegoContext();
+   const { equipos, teamVictoria } = useJuegoContext();
 
    useEffect(() => {
       setIsVisible(true);
@@ -125,13 +124,7 @@ export default function Celebration({ teamName, teamNumber, onClose }) {
       return () => clearTimeout(timer);
    }, [onClose]);
 
-   const teamColor = !teamVictoria
-      ? teamNumber === 1
-         ? "from-red-400 to-red-600"
-         : "from-blue-400 to-blue-600"
-      : teamVictoria == 1
-      ? "from-red-400 to-red-600"
-      : "from-blue-400 to-blue-600";
+   const teamColor = teamVictoria == 1 ? "from-red-400 to-red-600" : "from-blue-400 to-blue-600";
 
    return (
       <div className={`fixed inset-0 z-50 flex items-center justify-center transition-all duration-500 ${isVisible ? "opacity-100" : "opacity-0"}`}>
@@ -158,7 +151,7 @@ export default function Celebration({ teamName, teamNumber, onClose }) {
                )}
 
                <div className="animate-bounce delay-300">
-                  <h3 className="text-7xl font-black text-yellow-300 mb-8 drop-shadow-2xl">EQUIPO {teamVictoria ? teamVictoria : teamNumber}</h3>
+                  <h3 className="text-7xl font-black text-yellow-300 mb-8 drop-shadow-2xl">EQUIPO {teamVictoria ?? ""}</h3>
                </div>
 
                <div className={`delay-500 ${teamVictoria ? `animate-bounce` : "animate-pulse"}`}>
@@ -167,15 +160,13 @@ export default function Celebration({ teamName, teamNumber, onClose }) {
                         teamVictoria ? (teamVictoria == 1 ? "text-red-300" : "text-blue-300") : "text-white"
                      } drop-shadow-lg`}
                   >
-                     {teamVictoria ? (teamVictoria == 1 ? teamNames.e1 : teamNames.e2) : teamName}
+                     {teamVictoria ? equipos[teamVictoria].nombre : ""}
                   </p>
                </div>
 
                {teamVictoria && (
                   <div className="animate-bounce">
-                     <h1 className="text-8xl font-black text-yellow-300 mb-4 drop-shadow-2xl animate-pulse">
-                        CON: {teamVictoria == 1 ? puntosEquipo.e1 : puntosEquipo.e2} PTS.
-                     </h1>
+                     <h1 className="text-8xl font-black text-yellow-300 mb-4 drop-shadow-2xl animate-pulse">CON: {equipos[teamVictoria].puntos} PTS.</h1>
                   </div>
                )}
 

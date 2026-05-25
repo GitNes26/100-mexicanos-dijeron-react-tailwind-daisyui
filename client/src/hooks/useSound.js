@@ -6,10 +6,11 @@ export default function useSound() {
    };
    const play = (name) => {
       try {
-         console.log("🚀 ~ JuegoContextProvider ~ window:", window.location.pathname);
-         if (!["/", "/tablero"].includes(window.location.pathname)) return;
-         audioRef.current[name] && audioRef.current[name].play();
-      } catch (e) {}
+         if (!["/", "/tablero"].includes(window.location.hash.replace("#", "") || "/")) return;
+         audioRef.current[name]?.play();
+      } catch (e) {
+         console.warn("Error reproduciendo sonido:", e);
+      }
    };
    const stop = (name) => {
       try {

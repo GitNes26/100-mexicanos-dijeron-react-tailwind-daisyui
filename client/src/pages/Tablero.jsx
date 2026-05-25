@@ -1,204 +1,161 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import RespuestaCard from "../components/RespuestaCard";
-import ControlPanel from "../components/ControlPanel";
 import { PREGUNTAS } from "../data";
-import useSound from "../hooks/useSound";
-import sounds from "../const/sounds";
 import images from "../const/images";
 import EquipoPanel, { BgEquipo } from "../components/EquipoPanel";
-import { sleep } from "../utils/helpers";
-import useSocket from "../hooks/useSocket";
 import { useJuegoContext } from "../contexts/JuegoContext";
 import Celebration from "../components/Celebracion";
 import FormEquipos from "../components/FormEquipos";
 import Letrero from "../components/Letrero";
-import env from "../const/env";
 
 export default function Tablero() {
+   const [searchParams] = useSearchParams();
+   const navigate = useNavigate();
+   const roomCode = searchParams.get("room");
+
    const {
       MAX_ERRORES,
-      BLOQUEO_MS,
-      ws,
-      setWs,
+      wsReady,
       send,
-      preguntaPreview,
-      setPreguntaPreview,
-      preguntasEnviadas,
-      setPreguntasEnviadas,
-      rondasJugadas,
-      setRondasJugadas,
-      handleConfirmarPregunta,
+      unirseaSala,
+      setEquipos,
+      equipos,
+      ronda,
+      equipoActivo,
+      equipoBloqueado,
+      animX,
+      showCelebration,
+      setShowCelebration,
+      showLetrero,
+      contadorActivo,
+      tiempoRestante,
+      s,
+      allowKeyboard,
       mostrarPregunta,
       activarEquipo,
       destapar,
-      marcarError,
-      reproducirRepetida,
-      activarRobo,
-      resetJuego,
-      log,
-      setLog,
-      showCelebration,
-      setShowCelebration,
-      muerteSubita,
-      unoVsUno,
-      teamNames,
-      setTeamNames,
-      /* estados */
-      s,
-      preguntaIdx,
-      setPreguntaIdx,
-      allowKeyboard,
-      setAllowKeyboard,
-      equipoActivo,
-      setEquipoActivo,
-      equipoBloqueado,
-      setEquipoBloqueado,
-      errores,
-      setErrores,
-      reveladas,
-      setReveladas,
-      puntosEquipo,
-      setPuntosEquipo,
-      acumuladoRonda,
-      setAcumuladoRonda,
-      enRobo,
-      setEnRobo,
-      animX,
-      setAnimX,
-      equipoEsperandoError,
-      setEquipoEsperandoError,
-      showLetrero,
-      setShowLetrero,
-      contadorActivo,
-      tiempoRestante
+      marcarError
    } = useJuegoContext();
+
    const [showNameModal, setShowNameModal] = useState(true);
 
    useEffect(() => {
-      if (teamNames.e1 === "") setShowNameModal(true);
-   }, [teamNames.e1 === "" || teamNames.e2 === ""]); // Se muestra cada vez que inicia o se resetea
+      if (!roomCode) navigate("/", { replace: true });
+      else if (wsReady) unirseaSala(roomCode);
+   }, [roomCode, wsReady]);
 
    useEffect(() => {
-      if (!ws) {
-         const socket = new WebSocket(env.VITE_WS_URL);
-         setWs(socket);
-         return () => socket.close();
-      }
-   }, []);
+      if (equipos[1].nombre === "" && equipos[2].nombre === "") setShowNameModal(true);
+   }, [equipos[1].nombre, equipos[2].nombre]);
 
    useEffect(() => {
       function handler(e) {
          if (!allowKeyboard) return;
-         if (!ws) {
-            const socket = new WebSocket(env.VITE_WS_URL);
-            setWs(socket);
-            return () => socket.close();
-         }
          if (e.key === "1" || e.code === "Numpad1") {
             if (!equipoActivo) s.play("botonazo");
-            if (ws && ws.readyState === WebSocket.OPEN) {
-               send({ action: "press", team: 1 });
-            }
-            // activarEquipo(1);
+            send({ action: "press", team: 1 });
          }
          if (e.key === "2" || e.code === "Numpad2") {
             if (!equipoActivo) s.play("botonazo");
-            if (ws && ws.readyState === WebSocket.OPEN) {
-               send({ action: "press", team: 2 });
-            }
-            // activarEquipo(2);
+            send({ action: "press", team: 2 });
          }
       }
       window.addEventListener("keydown", handler);
       return () => window.removeEventListener("keydown", handler);
-   }, [allowKeyboard, equipoActivo, equipoBloqueado, ws]);
+   }, [allowKeyboard, equipoActivo, send]);
 
-   const onCloseCelebration = () => {
-      setShowCelebration(false);
-   };
+   const onCloseCelebration = () => setShowCelebration(false);
+
+   if (!wsReady) {
+      return (
+         <div className="h-screen flex items-center justify-center bg-slate-200">
+            <div className="text-center">
+               <span className="loading loading-spinner loading-lg text-warning"></span>
+               <p className="text-xl font-semibold mt-4">Conectando al servidor...</p>
+            </div>
+         </div>
+      );
+   }
 
    return (
       <>
-         {showNameModal && <FormEquipos teamNames={teamNames} setTeamNames={setTeamNames} setShowNameModal={setShowNameModal} />}
+         {showNameModal && (
+            <FormEquipos
+               equipos={equipos}
+               setEquipos={setEquipos}
+               sendSync={(names, scores) => send({ action: "updateAllState", teamNames: names, puntosEquipo: scores })}
+               setShowNameModal={setShowNameModal}
+            />
+         )}
 
-         {showCelebration && <Celebration teamNumber={equipoActivo} teamName={equipoActivo === 1 ? teamNames.e1 : teamNames.e2} onClose={onCloseCelebration} />}
+         {showCelebration && (
+            <Celebration teamNumber={equipoActivo} teamName={equipoActivo === 1 ? equipos[1].nombre : equipos[2].nombre} onClose={onCloseCelebration} />
+         )}
 
-         {/* CONTADOR DE TIEMPO */}
          {contadorActivo && (
             <div className="fixed top-10 left-1/2 transform -translate-x-1/2 z-50">
                <div className="bg-red-700 text-white text-6xl font-bold p-6 rounded-full shadow-xl border-4 border-yellow-400 animate-pulse">{tiempoRestante}s</div>
             </div>
          )}
-         {/* ANIMACIÓN/MENSAJE DE MUERTE SÚBITA */}
-         {showLetrero && muerteSubita && (
+
+         {showLetrero && ronda.muerteSubita && (
             <Letrero titulo={"¡MUERTE SÚBITA!"} mensaje={"El que conteste primero la más popular gana el turno"} onClose={setShowLetrero} />
          )}
 
-         {showLetrero && enRobo && <Letrero titulo={"¡MUERTE SÚBITA!"} mensaje={"El que conteste primero la más popular gana el turno"} onClose={setShowLetrero} />}
+         {showLetrero && ronda.enRobo && <Letrero titulo={"¡ROBO DE PUNTOS!"} mensaje={"El equipo que robó responde"} onClose={setShowLetrero} />}
 
-         {/* ZONA DE ERRORES "X" ANIMADAS */}
          <div className="flex absolute top-[65%] left-0 justify-center gap-10 -translate-y-1/2 w-full z-40" style={{ zIndex: 100 }}>
-            {animX.e1 &&
-               Array.from({ length: errores.e1 }).map((_, i) => (
-                  <img key={i} src={images.x} alt="X" className="animate-fade" style={{ transition: "opacity 0.5s", opacity: animX.e1 ? 1 : 0 }} />
-               ))}
-
-            {animX.e2 &&
-               Array.from({ length: errores.e2 }).map((_, i) => (
-                  <img key={i} src={images.x} alt="X" className="animate-fade" style={{ transition: "opacity 0.5s", opacity: animX.e2 ? 1 : 0 }} />
-               ))}
-            {animX.ind && <img src={images.x} alt="X" className="animate-fade" style={{ transition: "opacity 0.5s", opacity: animX.ind ? 1 : 0 }} />}
+            {animX.e1 && Array.from({ length: equipos[1].errores }).map((_, i) => <img key={i} src={images.x} alt="X" className="animate-fade" />)}
+            {animX.e2 && Array.from({ length: equipos[2].errores }).map((_, i) => <img key={i} src={images.x} alt="X" className="animate-fade" />)}
+            {animX.ind && <img src={images.x} alt="X" className="animate-fade" />}
          </div>
 
-         {/* TABLERO */}
          <div className="tablero h-screen max-h-screen flex flex-col items-center w-full py-5 z-20">
-            {/* MARCADOR */}
             <div className="flex items-center justify-between w-4/12 p-8 pb-0 bg-warning border-8 border-warning-content border-b-warning rounded-t-full z-10">
                <div className="text-center bg-black rounded-2xl w-full p-3 rounded-t-full">
-                  <div className="text-success font-extrabold text-9xl">{acumuladoRonda}</div>
+                  <div className="text-success font-extrabold text-9xl">{ronda.acumulado}</div>
                </div>
             </div>
 
-            {/* PREGUNTA */}
             <div className="flex flex-col items-center justify-between w-8/12 p-8 pb-2 bg-warning border-8 border-warning-content rounded-2xl -mt-2">
                <div className="text-center bg-black rounded-2xl w-full mb-3">
-                  <div className="text-5xl text-success font-semibold mb-2 p-3">{preguntaIdx == null ? "!!! A JUGAAARRR !!!" : PREGUNTAS[preguntaIdx].texto}</div>
+                  <div className="text-5xl text-success font-semibold mb-2 p-3">
+                     {ronda.preguntaIdx == null ? "!!! A JUGAAARRR !!!" : PREGUNTAS[ronda.preguntaIdx].texto}
+                  </div>
                </div>
-               {(enRobo || muerteSubita) && (
+               {(ronda.enRobo || ronda.muerteSubita) && (
                   <div className="absolute mt-21 card p-3 skeleton bg-red-700 text-center text-lg text-white font-semibold">
-                     {enRobo ? (unoVsUno ? "ROBO DE TURNO" : "ROBO DE PUNTOS") : ""} {muerteSubita ? "MUERTE SUBITA ACIVADA" : ""}
+                     {ronda.enRobo ? (ronda.unoVsUno ? "ROBO DE TURNO" : "ROBO DE PUNTOS") : ""}
+                     {ronda.muerteSubita ? "MUERTE SUBITA ACTIVADA" : ""}
                   </div>
                )}
             </div>
 
-            {/* ZONA DE RESPUESTAS  max-w-6xl*/}
             <div className="flex items-center justify-between w-7/12 flex-1 p-8 bg-warning border-8 border-warning-content border-t-warning rounded-b-2xl -mt-2">
                <div className="card w-full h-full bg-black rounded-2xl shadow-lg mx-20 p-5">
                   <div className="grid h-full" style={{ alignContent: "space-around" }}>
                      {Array.from({ length: 5 }).map((_, i) => {
-                        const key = `${preguntaIdx}-${i}`;
-                        const revel = !!reveladas[key];
-                        const respuesta = preguntaIdx != null ? PREGUNTAS[preguntaIdx].respuestas[i] : null;
-                        return <RespuestaCard key={i} index={i} preguntaIdx={preguntaIdx} revelada={revel} respuesta={respuesta} onReveal={(idx) => destapar(idx)} />;
+                        const revel = !!ronda.reveladas[`${ronda.preguntaIdx}-${i}`];
+                        const respuesta = ronda.preguntaIdx != null ? PREGUNTAS[ronda.preguntaIdx].respuestas[i] : null;
+                        return <RespuestaCard key={i} index={i} preguntaIdx={ronda.preguntaIdx} revelada={revel} respuesta={respuesta} />;
                      })}
                   </div>
                </div>
             </div>
 
-            {/* DECORACION DEL FINAL */}
             <div className="flex items-center justify-between w-6/12 h-8 p-2 px-5 bg-warning border-8 border-warning-content border-t-warning rounded-b-xl -mt-2">
                {Array.from({ length: 12 }).map((_, i) => (
-                  <div className="flex flex-col items-center justify-between h-4 w-4 bg-black rounded-full -mt-2"></div>
+                  <div key={i} className="flex flex-col items-center justify-between h-4 w-4 bg-black rounded-full -mt-2"></div>
                ))}
             </div>
          </div>
 
          <EquipoPanel
             numero={1}
-            nombre={teamNames.e1 || "Equipo 1"}
-            color={"red"}
-            puntos={puntosEquipo.e1}
-            errores={errores.e1}
+            nombre={equipos[1].nombre || "Equipo 1"}
+            puntos={equipos[1].puntos}
+            errores={equipos[1].errores}
             MAX_ERRORES={MAX_ERRORES}
             activo={equipoActivo === 1}
             bloqueado={equipoBloqueado === 1}
@@ -207,10 +164,9 @@ export default function Tablero() {
 
          <EquipoPanel
             numero={2}
-            nombre={teamNames.e2 || "Equipo 2"}
-            color={"blue"}
-            puntos={puntosEquipo.e2}
-            errores={errores.e2}
+            nombre={equipos[2].nombre || "Equipo 2"}
+            puntos={equipos[2].puntos}
+            errores={equipos[2].errores}
             MAX_ERRORES={MAX_ERRORES}
             activo={equipoActivo === 2}
             bloqueado={equipoBloqueado === 2}
