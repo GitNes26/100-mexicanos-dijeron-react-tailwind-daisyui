@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import { PREGUNTAS } from "../data.js";
+import { PREGUNTAS } from "../data_v2.js";
 import { useJuegoContext } from "../contexts/JuegoContext.jsx";
 import icons from "../const/icons.js";
 import Swal from "sweetalert2";
@@ -11,14 +11,26 @@ export default function Panel() {
    const roomCode = searchParams.get("room");
 
    const {
-      wsReady, send, unirseaSala,
-      equipos, setEquipos, ronda,
-      equipoActivo, equipoBloqueado,
+      wsReady,
+      send,
+      unirseaSala,
+      equipos,
+      setEquipos,
+      ronda,
+      equipoActivo,
+      equipoBloqueado,
       marcarError,
-      preguntaPreview, setPreguntaPreview, preguntasEnviadas, setPreguntasEnviadas,
-      mostrarPregunta, resetJuego,
+      preguntaPreview,
+      setPreguntaPreview,
+      preguntasEnviadas,
+      setPreguntasEnviadas,
+      mostrarPregunta,
+      resetJuego,
       reproducirRepetida,
-      activarContador, desactivarContador, contadorActivo, tiempoRestante
+      activarContador,
+      desactivarContador,
+      contadorActivo,
+      tiempoRestante
    } = useJuegoContext();
 
    const [search, setSearch] = useState("");
@@ -35,7 +47,9 @@ export default function Panel() {
       else if (wsReady) unirseaSala(roomCode);
    }, [roomCode, wsReady]);
 
-   function setPregunta(idx) { setPreguntaPreview(idx); }
+   function setPregunta(idx) {
+      setPreguntaPreview(idx);
+   }
 
    function destaparRespuesta(answerIdx) {
       if (ronda.preguntaIdx === null && preguntaPreview === null) return;
@@ -73,15 +87,31 @@ export default function Panel() {
                   🕹️ <br /> Panel de Control
                </h1>
                <div className="flex gap-6 text-sm font-bold">
-                  <span>Rondas: <span className="bg-warning-content px-1 rounded">{ronda.jugadas}</span></span>
-                  <span>Equipo: <span className="bg-warning-content px-1 rounded">{equipoActivo ?? "-"}</span></span>
-                  <span>Ronda Activa: <span className="bg-warning-content px-1 rounded">{ronda.activa ? "SI" : "NO"}</span></span>
-                  <span>1 vs 1: <span className="bg-warning-content px-1 rounded">{ronda.unoVsUno ? "SI" : "NO"}</span></span>
-                  <span>Robo: <span className="bg-warning-content px-1 rounded">{ronda.enRobo ? "SI" : "NO"}</span></span>
-                  <span>Muerte Subita: <span className="bg-warning-content px-1 rounded">{ronda.muerteSubita ? "SI" : "NO"}</span></span>
+                  <span>
+                     Rondas: <span className="bg-warning-content px-1 rounded">{ronda.jugadas}</span>
+                  </span>
+                  <span>
+                     Equipo: <span className="bg-warning-content px-1 rounded">{equipoActivo ?? "-"}</span>
+                  </span>
+                  <span>
+                     Ronda Activa: <span className="bg-warning-content px-1 rounded">{ronda.activa ? "SI" : "NO"}</span>
+                  </span>
+                  <span>
+                     1 vs 1: <span className="bg-warning-content px-1 rounded">{ronda.unoVsUno ? "SI" : "NO"}</span>
+                  </span>
+                  <span>
+                     Robo: <span className="bg-warning-content px-1 rounded">{ronda.enRobo ? "SI" : "NO"}</span>
+                  </span>
+                  <span>
+                     Muerte Subita: <span className="bg-warning-content px-1 rounded">{ronda.muerteSubita ? "SI" : "NO"}</span>
+                  </span>
                </div>
-               <button onClick={() => send({ action: "reset" })} className="btn btn-soft">Reset Juego</button>
-               <button onClick={handleCloseRoom} className="btn btn-error text-white font-bold">Cerrar Sala</button>
+               <button onClick={() => send({ action: "reset" })} className="btn btn-soft">
+                  Reset Juego
+               </button>
+               <button onClick={handleCloseRoom} className="btn btn-error text-white font-bold">
+                  Cerrar Sala
+               </button>
             </div>
          </div>
 
@@ -94,7 +124,8 @@ export default function Panel() {
                   <ul className="pl-4">
                      {preguntaPreview !== null
                         ? PREGUNTAS[preguntaPreview]?.respuestas.map((r, i) => (
-                             <li key={`key-respuesta-${i}`}
+                             <li
+                                key={`key-respuesta-${i}`}
                                 className={`mb-5 text-3xl font-semibold transition-all btn w-full ${
                                    ronda.reveladas[`${preguntaPreview}-${i}`] === true ? "text-green-400 opacity-75" : "cursor-pointer hover:font-black"
                                 }`}
@@ -112,7 +143,8 @@ export default function Panel() {
                   <div className="flex justify-between items-center">
                      {preguntaPreview !== null ? (
                         <>
-                           <button className="btn btn-info px-4 py-2 rounded font-bold"
+                           <button
+                              className="btn btn-info px-4 py-2 rounded font-bold"
                               onClick={() => send({ action: "setQuestion", questionIdx: preguntaPreview })}
                               disabled={preguntasEnviadas.includes(preguntaPreview)}
                            >
@@ -128,9 +160,12 @@ export default function Panel() {
                            </div>
                         </>
                      ) : (
-                        <button className="btn" disabled>Selecciona una pregunta</button>
+                        <button className="btn" disabled>
+                           Selecciona una pregunta
+                        </button>
                      )}
-                     <button className="btn btn-soft"
+                     <button
+                        className="btn btn-soft"
                         onClick={() => {
                            const noEnviadas = PREGUNTAS.map((_, idx) => idx).filter((idx) => !preguntasEnviadas.includes(idx));
                            if (noEnviadas.length === 0) return;
@@ -154,7 +189,9 @@ export default function Panel() {
                      <select className="select w-full" value={categoriaSeleccionada} onChange={(e) => setCategoriaSeleccionada(e.target.value)}>
                         <option value="">Todas las categorías</option>
                         {categoriasFiltradas.map((cat, i) => (
-                           <option key={i} value={cat}>{cat}</option>
+                           <option key={i} value={cat}>
+                              {cat}
+                           </option>
                         ))}
                      </select>
                   </fieldset>
@@ -170,29 +207,37 @@ export default function Panel() {
                      <div className={`flex-grow flex justify-center items-center card card-body gap-2 bg-red-500 ${equipoActivo === 1 ? "skeleton" : "opacity-75"}`}>
                         <div className="font-medium text-lg">
                            Equipo 1
-                           <button onClick={() => send({ action: "activateTeam", team: 1 })}
+                           <button
+                              onClick={() => send({ action: "activateTeam", team: 1 })}
                               disabled={equipoBloqueado === 1 || equipoActivo !== null}
                               className="btn btn-sm ml-3 bg-red-600 font-bold"
-                              style={{ opacity: equipoBloqueado === 1 ? 0.4 : equipoActivo === 1 ? 0.5 : 1 }}>
+                              style={{ opacity: equipoBloqueado === 1 ? 0.4 : equipoActivo === 1 ? 0.5 : 1 }}
+                           >
                               ACTIVAR
                            </button>
                         </div>
                         <div className="flex gap-2">
-                           <input className="input" placeholder="Nombre" type="search"
+                           <input
+                              className="input"
+                              placeholder="Nombre"
+                              type="search"
                               value={equipos[1].nombre}
                               onChange={(e) => {
                                  const name = e.target.value.toUpperCase();
                                  const newNames = { e1: name, e2: equipos[2].nombre };
-                                 setEquipos(prev => ({ ...prev, 1: { ...prev[1], nombre: name } }));
+                                 setEquipos((prev) => ({ ...prev, 1: { ...prev[1], nombre: name } }));
                                  send({ action: "updateTeamName", team: "e1", name });
                                  sendAllState(newNames, { e1: equipos[1].puntos, e2: equipos[2].puntos });
                               }}
                            />
-                           <input className="input" placeholder="Ptos" type="number"
+                           <input
+                              className="input"
+                              placeholder="Ptos"
+                              type="number"
                               value={equipos[1].puntos}
                               onChange={(e) => {
                                  const pts = parseInt(e.target.value, 10) || 0;
-                                 setEquipos(prev => ({ ...prev, 1: { ...prev[1], puntos: pts } }));
+                                 setEquipos((prev) => ({ ...prev, 1: { ...prev[1], puntos: pts } }));
                                  send({ action: "updateTeamScore", team: "e1", score: pts });
                                  sendAllState({ e1: equipos[1].nombre, e2: equipos[2].nombre }, { e1: pts, e2: equipos[2].puntos });
                               }}
@@ -210,28 +255,36 @@ export default function Panel() {
                      <div className={`flex-grow flex justify-center items-center card card-body gap-2 bg-blue-500 ${equipoActivo === 2 ? "skeleton" : "opacity-75"}`}>
                         <div className="font-medium text-lg">
                            Equipo 2
-                           <button onClick={() => send({ action: "activateTeam", team: 2 })}
+                           <button
+                              onClick={() => send({ action: "activateTeam", team: 2 })}
                               disabled={equipoBloqueado === 2 || equipoActivo !== null}
                               className="btn btn-sm ml-3 bg-blue-600 font-bold"
-                              style={{ opacity: equipoBloqueado === 2 ? 0.4 : equipoActivo === 2 ? 0.5 : 1 }}>
+                              style={{ opacity: equipoBloqueado === 2 ? 0.4 : equipoActivo === 2 ? 0.5 : 1 }}
+                           >
                               ACTIVAR
                            </button>
                         </div>
                         <div className="flex gap-2">
-                           <input className="input" placeholder="Nombre" type="search"
+                           <input
+                              className="input"
+                              placeholder="Nombre"
+                              type="search"
                               value={equipos[2].nombre}
                               onChange={(e) => {
                                  const name = e.target.value.toUpperCase();
-                                 setEquipos(prev => ({ ...prev, 2: { ...prev[2], nombre: name } }));
+                                 setEquipos((prev) => ({ ...prev, 2: { ...prev[2], nombre: name } }));
                                  send({ action: "updateTeamName", team: "e2", name });
                                  sendAllState({ e1: equipos[1].nombre, e2: name }, { e1: equipos[1].puntos, e2: equipos[2].puntos });
                               }}
                            />
-                           <input className="input" placeholder="Ptos" type="number"
+                           <input
+                              className="input"
+                              placeholder="Ptos"
+                              type="number"
                               value={equipos[2].puntos}
                               onChange={(e) => {
                                  const pts = parseInt(e.target.value, 10) || 0;
-                                 setEquipos(prev => ({ ...prev, 2: { ...prev[2], puntos: pts } }));
+                                 setEquipos((prev) => ({ ...prev, 2: { ...prev[2], puntos: pts } }));
                                  send({ action: "updateTeamScore", team: "e2", score: pts });
                                  sendAllState({ e1: equipos[1].nombre, e2: equipos[2].nombre }, { e1: equipos[1].puntos, e2: pts });
                               }}
@@ -250,11 +303,16 @@ export default function Panel() {
                      <p className="font-medium text-2xl sm:text-base">Marcar Errores</p>
                      <div className="flex gap-2">
                         {Array.from({ length: 3 }).map((_, i) => (
-                           <button key={`btn-error-${i + 1}`}
+                           <button
+                              key={`btn-error-${i + 1}`}
                               onClick={() => send({ action: "markError", slot: i + 1 })}
                               className="btn btn-error btn-circle font-black btn-xl sm:btn-md"
-                              disabled={equipos[1].errores >= i + 1 || equipos[2].errores >= i + 1 || ronda.unoVsUno || ronda.enRobo || ronda.muerteSubita || !ronda.activa}
-                           >{i + 1}</button>
+                              disabled={
+                                 equipos[1].errores >= i + 1 || equipos[2].errores >= i + 1 || ronda.unoVsUno || ronda.enRobo || ronda.muerteSubita || !ronda.activa
+                              }
+                           >
+                              {i + 1}
+                           </button>
                         ))}
                      </div>
                   </div>
@@ -262,36 +320,50 @@ export default function Panel() {
                      <p className="font-medium text-2xl sm:text-base">Activar Equipo</p>
                      <div className="flex gap-2">
                         {Array.from({ length: 2 }).map((_, i) => (
-                           <button key={`btn-activar-equipo-${i}`}
+                           <button
+                              key={`btn-activar-equipo-${i}`}
                               onClick={() => send({ action: "activateTeam", team: i + 1 })}
                               disabled={equipoBloqueado === i + 1 || equipoActivo !== null}
                               className="btn btn-soft btn-xl sm:btn-md font-bold"
                               style={{ backgroundColor: i === 0 ? "#ef4444" : "#3b82f6", opacity: equipoBloqueado === i + 1 ? 0.4 : equipoActivo === i + 1 ? 0.5 : 1 }}
-                           >E{i + 1} <kbd className="kbd">{i + 1}</kbd></button>
+                           >
+                              E{i + 1} <kbd className="kbd">{i + 1}</kbd>
+                           </button>
                         ))}
                      </div>
                   </div>
                   <div className="flex flex-col flex-grow gap-2 justify-center items-center bg-gray-700 p-4 rounded-lg">
                      <p className="font-medium text-2xl sm:text-base">Contador (10 seg)</p>
-                     <button className={`btn btn-warning ${contadorActivo ? "btn-outline" : ""}`}
-                        onClick={() => send({ action: "contador", activar: !contadorActivo })}>
+                     <button
+                        className={`btn btn-warning ${contadorActivo ? "btn-outline" : ""}`}
+                        onClick={() => send({ action: "contador", activar: !contadorActivo })}
+                     >
                         {contadorActivo ? `Desactivar (${tiempoRestante}s)` : "Activar Contador"}
                      </button>
                   </div>
                   <div className="flex flex-col flex-grow gap-2 justify-center items-center bg-gray-700 p-4 rounded-lg">
                      <p className="font-medium text-2xl sm:text-base">Repetir Resp.</p>
-                     <button className="btn btn-warning btn-xl sm:btn-md text-lg font-bold px-6 py-2 rounded-xl shadow"
-                        onClick={() => send({ action: "repetida" })}>R/E</button>
+                     <button className="btn btn-warning btn-xl sm:btn-md text-lg font-bold px-6 py-2 rounded-xl shadow" onClick={() => send({ action: "repetida" })}>
+                        R/E
+                     </button>
                   </div>
                   <div className="flex flex-col flex-grow gap-2 justify-center items-center bg-gray-700 p-4 rounded-lg">
                      <p className="font-medium text-2xl sm:text-base">Muerte Subita</p>
-                     <button onClick={() => send({ action: "activarMuerteSubita" })}
-                        className="btn btn-error btn-xl sm:btn-md text-white text-lg font-bold px-6 py-2 rounded-xl shadow">Activar</button>
+                     <button
+                        onClick={() => send({ action: "activarMuerteSubita" })}
+                        className="btn btn-error btn-xl sm:btn-md text-white text-lg font-bold px-6 py-2 rounded-xl shadow"
+                     >
+                        Activar
+                     </button>
                   </div>
                   <div className="flex flex-col flex-grow gap-2 justify-center items-center bg-gray-700 p-4 rounded-lg">
                      <p className="font-medium text-2xl sm:text-base">Mostrar X</p>
-                     <button className="btn btn-error btn-xl sm:btn-md text-white text-lg font-bold px-6 py-2 rounded-xl shadow"
-                        onClick={() => send({ action: "markError", slot: 0 })}>X</button>
+                     <button
+                        className="btn btn-error btn-xl sm:btn-md text-white text-lg font-bold px-6 py-2 rounded-xl shadow"
+                        onClick={() => send({ action: "markError", slot: 0 })}
+                     >
+                        X
+                     </button>
                   </div>
                </div>
             </div>
@@ -301,7 +373,8 @@ export default function Panel() {
          <div className="card bg-gray-800 p-4 h-48 flex-shrink-0 overflow-y-auto">
             <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                {preguntasFiltradas.map((pregunta, idx) => (
-                  <div key={idx}
+                  <div
+                     key={idx}
                      className={`p-2 rounded-lg border cursor-pointer transition-all
                      ${preguntasEnviadas.includes(idx) ? "bg-green-700 border-green-400 opacity-70" : "bg-gray-800 border-gray-600 hover:bg-blue-800"}
                      ${preguntaPreview === idx ? "ring-4 ring-blue-400" : ""}`}
