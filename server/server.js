@@ -27,6 +27,13 @@ wss.on("connection", (ws) => {
       }
 
       if (data.action === "createRoom") {
+         if (ws.roomCode) {
+            const oldRoom = rooms.get(ws.roomCode);
+            if (oldRoom) {
+               oldRoom.clients.delete(ws);
+               if (oldRoom.clients.size === 0) rooms.delete(ws.roomCode);
+            }
+         }
          const code = generarCodigo();
          rooms.set(code, { clients: new Set([ws]), state: null });
          ws.roomCode = code;

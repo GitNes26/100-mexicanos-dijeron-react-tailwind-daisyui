@@ -109,7 +109,7 @@ export default function Panel() {
                <button onClick={() => send({ action: "reset" })} className="btn btn-soft">
                   Reset Juego
                </button>
-               <button onClick={handleCloseRoom} className="btn btn-error text-white font-bold">
+               <button onClick={handleCloseRoom} className="btn btn-error text-white font-bold h-full">
                   Cerrar Sala
                </button>
             </div>

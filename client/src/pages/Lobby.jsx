@@ -1,12 +1,16 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useJuegoContext } from "../contexts/JuegoContext";
+import images from "../const/images";
+import icons from "../const/icons";
+import Toast from "../utils/Toast";
 
 export default function Lobby() {
-   const { wsReady, crearSala, unirseaSala, roomCode, wsError } = useJuegoContext();
+   const { wsReady, crearSala, unirseaSala, roomCode, wsError, resetJuego } = useJuegoContext();
    const navigate = useNavigate();
    const [codigoInput, setCodigoInput] = useState("");
    const [modo, setModo] = useState(null); // "crear" | "unirse" | "elegir"
+   const [copiedRuta, setCopiedRuta] = useState(null);
 
    const handleCrear = () => {
       crearSala();
@@ -23,10 +27,53 @@ export default function Lobby() {
       navigate(`/${ruta}?room=${roomCode}`);
    };
 
+   const getLink = (ruta) => `${window.location.origin}${window.location.pathname}#/${ruta}?room=${roomCode}`;
+
+   const handleCopyLink = async (ruta) => {
+      try {
+         Toast.Success("Link copiado");
+         await navigator.clipboard.writeText(getLink(ruta));
+         setCopiedRuta(ruta);
+         setTimeout(() => setCopiedRuta(null), 2000);
+      } catch {}
+   };
+
+   const handleWhatsApp = (ruta) => {
+      Toast.Success("Link compartido por WhatsApp");
+      window.open(`https://wa.me/?text=${encodeURIComponent(`¡Juguemos "100 Mexicanos Dijeron"!\n\nAbre esta pantalla: ${getLink(ruta)}`)}`, "_blank");
+   };
+
+   const opciones = [
+      { emoji: "🖥️", label: "Tablero", ruta: "tablero", color: "#4FC3F7" },
+      { emoji: "🔴", label: "Control E1", ruta: "control/1", color: "#EF9A9A" },
+      { emoji: "🔵", label: "Control E2", ruta: "control/2", color: "#90CAF9" }
+   ];
+
+   const SharedButtons = ({ goTo = "tablero" }) => (
+      <div style={{ display: "flex", gap: 6, justifyContent: "center", marginTop: 6 }}>
+         <button
+            onClick={() => handleCopyLink(goTo)}
+            className="transition-all ease-in-out hover:scale-95 active:scale-105"
+            style={shareBtnStyle}
+            title="Copiar enlace"
+         >
+            {copiedRuta === goTo ? <icons.fa.FaCheckCircle className="text-green-400" /> : <icons.fa.FaRegCopy />}
+         </button>
+         <button
+            onClick={() => handleWhatsApp(goTo)}
+            className="transition-all ease-in-out hover:scale-95 active:scale-105"
+            style={shareBtnStyle}
+            title="Compartir en WhatsApp"
+         >
+            <img src={images.whats} alt="compartir por WhatsApp" className="object-cover w-5" />
+         </button>
+      </div>
+   );
+
    // ─── ESTADO: esperando / error ───────────────────────────────────────────
    if ((modo === "crear" || modo === "unirse") && !roomCode && !wsError) {
       return (
-         <div className="min-h-screen flex items-center justify-center overflow-hidden" style={bgStyle}>
+         <div className="min-h-screen w-full flex items-center justify-center overflow-hidden" style={bgStyle}>
             <Confetti />
             <div style={glassCard} className="text-center px-16 py-14">
                <div className="mb-6">
@@ -44,7 +91,7 @@ export default function Lobby() {
    // ─── ESTADO: error ───────────────────────────────────────────────────────
    if ((modo === "crear" || modo === "unirse") && wsError) {
       return (
-         <div className="min-h-screen flex items-center justify-center overflow-hidden" style={bgStyle}>
+         <div className="min-h-screen w-full flex items-center justify-center overflow-hidden" style={bgStyle}>
             <Confetti />
             <div style={glassCard} className="text-center px-16 py-14">
                <div style={{ fontSize: 52, marginBottom: 16 }}>⚠️</div>
@@ -65,9 +112,23 @@ export default function Lobby() {
    // ─── ESTADO: sala creada ─────────────────────────────────────────────────
    if (roomCode && modo === "crear") {
       return (
-         <div className="min-h-screen flex items-center justify-center overflow-hidden" style={bgStyle}>
+         <div className="min-h-screen w-full flex items-center justify-center overflow-hidden" style={bgStyle}>
             <Confetti />
             <div style={{ ...glassCard, maxWidth: 560, width: "100%" }} className="px-10 py-12">
+               {/* Botón volver */}
+               <button
+                  className="transition-all ease-in-out hover:scale-95 active:scale-105"
+                  onClick={() => {
+                     resetJuego();
+                     setModo(null);
+                  }}
+                  style={btnBack}
+                  onMouseEnter={(e) => Object.assign(e.currentTarget.style, { ...btnBack, opacity: 0.8 })}
+                  onMouseLeave={(e) => Object.assign(e.currentTarget.style, btnBack)}
+               >
+                  ← Volver
+               </button>
+
                <div style={{ textAlign: "center", marginBottom: 28 }}>
                   <div style={{ fontSize: 40, marginBottom: 4 }}>🎉</div>
                   <h1 style={{ ...titleFont, fontSize: 32, color: "#FFD700" }}>¡Sala Lista!</h1>
@@ -78,6 +139,27 @@ export default function Lobby() {
                <div style={codeBox}>
                   <p style={{ fontSize: 11, letterSpacing: "0.2em", color: "rgba(255,215,0,0.6)", marginBottom: 6 }}>CÓDIGO DE SALA</p>
                   <div style={codeText}>{roomCode}</div>
+                  <div className="tooltip tooltip-warning tooltip-right" data-tip="Generar nuevo código">
+                     <button
+                        className="transition-all ease-in-out hover:scale-95 active:scale-105"
+                        onClick={handleCrear}
+                        style={{
+                           background: "rgba(255,255,255,0.06)",
+                           border: "1px solid rgba(255,255,255,0.12)",
+                           borderRadius: 15,
+                           cursor: "pointer",
+                           padding: "5px",
+                           fontSize: 13,
+                           color: "rgba(255,255,255,0.5)",
+                           marginTop: 8,
+                           transition: "color 0.15s, background 0.15s"
+                        }}
+                        onMouseEnter={(e) => Object.assign(e.currentTarget.style, { color: "#FFD700", background: "rgba(255,215,0,0.1)" })}
+                        onMouseLeave={(e) => Object.assign(e.currentTarget.style, { color: "rgba(255,255,255,0.5)", background: "rgba(255,255,255,0.06)" })}
+                     >
+                        <icons.fa.FaSyncAlt size={20} className="transition-all ease-in-out rotate-0 active:rotate-[1800deg]" />
+                     </button>
+                  </div>
                </div>
 
                {/* Separador */}
@@ -86,43 +168,44 @@ export default function Lobby() {
                </div>
 
                {/* Botón admin */}
-               <button
-                  style={btnPrimary}
-                  className="w-full"
-                  onClick={() => irA("panel")}
-                  onMouseEnter={(e) =>
-                     Object.assign(e.currentTarget.style, { ...btnPrimary, transform: "translateY(-2px)", boxShadow: "0 8px 32px rgba(255,215,0,0.4)" })
-                  }
-                  onMouseLeave={(e) => Object.assign(e.currentTarget.style, btnPrimary)}
-               >
-                  🎮 Panel de Control <span style={{ opacity: 0.7, fontSize: 13, marginLeft: 6 }}>(Admin)</span>
-               </button>
+               <div style={{ marginBottom: 10 }}>
+                  <button
+                     style={btnPrimary}
+                     className="w-full"
+                     onClick={() => irA("panel")}
+                     onMouseEnter={(e) =>
+                        Object.assign(e.currentTarget.style, { ...btnPrimary, transform: "translateY(-2px)", boxShadow: "0 8px 32px rgba(255,215,0,0.4)" })
+                     }
+                     onMouseLeave={(e) => Object.assign(e.currentTarget.style, btnPrimary)}
+                  >
+                     🎮 Panel de Control <span style={{ opacity: 0.7, fontSize: 13, marginLeft: 6 }}>(Admin)</span>
+                  </button>
+                  <SharedButtons goTo="panel" />
+               </div>
 
-               {/* Botones secundarios */}
+               {/* Botones secundarios con compartir */}
                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginTop: 10 }}>
-                  {[
-                     { emoji: "🖥️", label: "Tablero", ruta: "tablero", color: "#4FC3F7" },
-                     { emoji: "🔴", label: "Control E1", ruta: "control/1", color: "#EF9A9A" },
-                     { emoji: "🔵", label: "Control E2", ruta: "control/2", color: "#90CAF9" }
-                  ].map(({ emoji, label, ruta, color }) => (
-                     <button
-                        key={ruta}
-                        onClick={() => irA(ruta)}
-                        style={{ ...btnOutline, borderColor: color, color }}
-                        onMouseEnter={(e) =>
-                           Object.assign(e.currentTarget.style, {
-                              ...btnOutline,
-                              borderColor: color,
-                              color,
-                              background: `${color}22`,
-                              transform: "translateY(-2px)"
-                           })
-                        }
-                        onMouseLeave={(e) => Object.assign(e.currentTarget.style, { ...btnOutline, borderColor: color, color })}
-                     >
-                        <span style={{ display: "block", fontSize: 20, marginBottom: 2 }}>{emoji}</span>
-                        <span style={{ fontSize: 12, display: "block" }}>{label}</span>
-                     </button>
+                  {opciones.map(({ emoji, label, ruta, color }) => (
+                     <div key={ruta} style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                        <button
+                           onClick={() => irA(ruta)}
+                           style={{ ...btnOutline, borderColor: color, color }}
+                           onMouseEnter={(e) =>
+                              Object.assign(e.currentTarget.style, {
+                                 ...btnOutline,
+                                 borderColor: color,
+                                 color,
+                                 background: `${color}22`,
+                                 transform: "translateY(-2px)"
+                              })
+                           }
+                           onMouseLeave={(e) => Object.assign(e.currentTarget.style, { ...btnOutline, borderColor: color, color })}
+                        >
+                           <span style={{ display: "block", fontSize: 20, marginBottom: 2 }}>{emoji}</span>
+                           <span style={{ fontSize: 12, display: "block" }}>{label}</span>
+                        </button>
+                        <SharedButtons goTo={ruta} />
+                     </div>
                   ))}
                </div>
             </div>
@@ -133,7 +216,7 @@ export default function Lobby() {
    // ─── ESTADO: unido a sala ────────────────────────────────────────────────
    if (roomCode && modo === "unirse") {
       return (
-         <div className="min-h-screen flex items-center justify-center overflow-hidden" style={bgStyle}>
+         <div className="min-h-screen w-full flex items-center justify-center overflow-hidden" style={bgStyle}>
             <Confetti />
             <div style={{ ...glassCard, maxWidth: 560, width: "100%" }} className="px-10 py-12">
                <div style={{ textAlign: "center", marginBottom: 28 }}>
@@ -148,42 +231,57 @@ export default function Lobby() {
                   <span style={dividerLabel}>Elige tu pantalla</span>
                </div>
 
-               <button
-                  style={btnPrimary}
-                  className="w-full"
-                  onClick={() => irA("panel")}
-                  onMouseEnter={(e) =>
-                     Object.assign(e.currentTarget.style, { ...btnPrimary, transform: "translateY(-2px)", boxShadow: "0 8px 32px rgba(255,215,0,0.4)" })
-                  }
-                  onMouseLeave={(e) => Object.assign(e.currentTarget.style, btnPrimary)}
-               >
-                  🎮 Panel de Control <span style={{ opacity: 0.7, fontSize: 13, marginLeft: 6 }}>(Admin)</span>
-               </button>
+               <div style={{ marginBottom: 10 }}>
+                  <button
+                     style={btnPrimary}
+                     className="w-full"
+                     onClick={() => irA("panel")}
+                     onMouseEnter={(e) =>
+                        Object.assign(e.currentTarget.style, { ...btnPrimary, transform: "translateY(-2px)", boxShadow: "0 8px 32px rgba(255,215,0,0.4)" })
+                     }
+                     onMouseLeave={(e) => Object.assign(e.currentTarget.style, btnPrimary)}
+                  >
+                     🎮 Panel de Control <span style={{ opacity: 0.7, fontSize: 13, marginLeft: 6 }}>(Admin)</span>
+                  </button>
+                  <div style={{ display: "flex", gap: 6, justifyContent: "center", marginTop: 6 }}>
+                     <button onClick={() => handleCopyLink("panel")} style={shareBtnStyle} title="Copiar enlace">
+                        {copiedRuta === "panel" ? "✅" : "📋"}
+                     </button>
+                     <button onClick={() => handleWhatsApp("panel")} style={shareBtnStyle} title="Compartir en WhatsApp">
+                        💬
+                     </button>
+                  </div>
+               </div>
 
                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginTop: 10 }}>
-                  {[
-                     { emoji: "🖥️", label: "Tablero", ruta: "tablero", color: "#4FC3F7" },
-                     { emoji: "🔴", label: "Control E1", ruta: "control/1", color: "#EF9A9A" },
-                     { emoji: "🔵", label: "Control E2", ruta: "control/2", color: "#90CAF9" }
-                  ].map(({ emoji, label, ruta, color }) => (
-                     <button
-                        key={ruta}
-                        onClick={() => irA(ruta)}
-                        style={{ ...btnOutline, borderColor: color, color }}
-                        onMouseEnter={(e) =>
-                           Object.assign(e.currentTarget.style, {
-                              ...btnOutline,
-                              borderColor: color,
-                              color,
-                              background: `${color}22`,
-                              transform: "translateY(-2px)"
-                           })
-                        }
-                        onMouseLeave={(e) => Object.assign(e.currentTarget.style, { ...btnOutline, borderColor: color, color })}
-                     >
-                        <span style={{ display: "block", fontSize: 20, marginBottom: 2 }}>{emoji}</span>
-                        <span style={{ fontSize: 12, display: "block" }}>{label}</span>
-                     </button>
+                  {opciones.map(({ emoji, label, ruta, color }) => (
+                     <div key={ruta} style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                        <button
+                           onClick={() => irA(ruta)}
+                           style={{ ...btnOutline, borderColor: color, color }}
+                           onMouseEnter={(e) =>
+                              Object.assign(e.currentTarget.style, {
+                                 ...btnOutline,
+                                 borderColor: color,
+                                 color,
+                                 background: `${color}22`,
+                                 transform: "translateY(-2px)"
+                              })
+                           }
+                           onMouseLeave={(e) => Object.assign(e.currentTarget.style, { ...btnOutline, borderColor: color, color })}
+                        >
+                           <span style={{ display: "block", fontSize: 20, marginBottom: 2 }}>{emoji}</span>
+                           <span style={{ fontSize: 12, display: "block" }}>{label}</span>
+                        </button>
+                        <div style={{ display: "flex", gap: 4, justifyContent: "center" }}>
+                           <button onClick={() => handleCopyLink(ruta)} style={shareBtnStyle} title="Copiar enlace">
+                              {copiedRuta === ruta ? "✅" : "📋"}
+                           </button>
+                           <button onClick={() => handleWhatsApp(ruta)} style={shareBtnStyle} title="Compartir en WhatsApp">
+                              💬
+                           </button>
+                        </div>
+                     </div>
                   ))}
                </div>
             </div>
@@ -193,7 +291,7 @@ export default function Lobby() {
 
    // ─── PANTALLA PRINCIPAL ──────────────────────────────────────────────────
    return (
-      <div className="min-h-screen flex items-center justify-center overflow-hidden" style={bgStyle}>
+      <div className="min-h-screen w-full flex items-center justify-center overflow-hidden" style={bgStyle}>
          <Confetti />
          <style>{cssAnimations}</style>
 
@@ -467,6 +565,30 @@ const btnJoin = {
    transition: "transform 0.2s, background 0.2s",
    whiteSpace: "nowrap",
    letterSpacing: "0.03em"
+};
+
+const btnBack = {
+   background: "transparent",
+   border: "1px solid rgba(255,255,255,0.15)",
+   borderRadius: 12,
+   cursor: "pointer",
+   padding: "6px 16px",
+   fontSize: 13,
+   color: "rgba(255,255,255,0.6)",
+   transition: "opacity 0.15s",
+   marginBottom: 4
+};
+
+const shareBtnStyle = {
+   background: "rgba(255,255,255,0.08)",
+   border: "1px solid rgba(255,255,255,0.12)",
+   borderRadius: 8,
+   cursor: "pointer",
+   padding: "2px 8px",
+   fontSize: 15,
+   lineHeight: "22px",
+   transition: "background 0.15s",
+   color: "rgba(255,255,255,0.7)"
 };
 
 const cssAnimations = `
