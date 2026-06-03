@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import { PREGUNTAS } from "../data_v2.js";
 import { useJuegoContext } from "../contexts/JuegoContext.jsx";
 import icons from "../const/icons.js";
 import Swal from "sweetalert2";
@@ -30,7 +29,8 @@ export default function Panel() {
       activarContador,
       desactivarContador,
       contadorActivo,
-      tiempoRestante
+      tiempoRestante,
+      PREGUNTAS
    } = useJuegoContext();
 
    const [search, setSearch] = useState("");

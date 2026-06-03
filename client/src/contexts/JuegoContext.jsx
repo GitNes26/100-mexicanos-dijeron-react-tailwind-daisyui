@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useRef, useEffect, useMemo } from "react";
 import useSound from "../hooks/useSound";
 import sounds from "../const/sounds";
-import { PREGUNTAS } from "../data";
+import { PREGUNTAS } from "../data_v2";
 import { sleep } from "../utils/helpers";
 import env from "../const/env";
 
@@ -423,6 +423,7 @@ export function JuegoContextProvider({ children }) {
 
    const contextValue = useMemo(
       () => ({
+         PREGUNTAS,
          MAX_ERRORES,
          BLOQUEO_MS,
          META_PUNTOS,
@@ -470,6 +471,7 @@ export function JuegoContextProvider({ children }) {
          teamVictoria
       }),
       [
+         PREGUNTAS,
          MAX_ERRORES,
          BLOQUEO_MS,
          META_PUNTOS,
