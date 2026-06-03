@@ -10,6 +10,7 @@ export default function Panel() {
    const roomCode = searchParams.get("room");
 
    const {
+      PREGUNTAS,
       wsReady,
       send,
       unirseaSala,
@@ -29,8 +30,7 @@ export default function Panel() {
       activarContador,
       desactivarContador,
       contadorActivo,
-      tiempoRestante,
-      PREGUNTAS
+      tiempoRestante
    } = useJuegoContext();
 
    const [search, setSearch] = useState("");

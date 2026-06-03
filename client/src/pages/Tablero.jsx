@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import RespuestaCard from "../components/RespuestaCard";
-import { PREGUNTAS } from "../data";
 import images from "../const/images";
 import EquipoPanel, { BgEquipo } from "../components/EquipoPanel";
 import { useJuegoContext } from "../contexts/JuegoContext";
@@ -15,6 +14,7 @@ export default function Tablero() {
    const roomCode = searchParams.get("room");
 
    const {
+      PREGUNTAS,
       MAX_ERRORES,
       wsReady,
       send,
