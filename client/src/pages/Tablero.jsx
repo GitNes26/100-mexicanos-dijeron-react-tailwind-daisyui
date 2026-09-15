@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import RespuestaCard from "../components/RespuestaCard";
 import images from "../const/images";
@@ -8,6 +8,7 @@ import Celebration from "../components/Celebracion";
 import FormEquipos from "../components/FormEquipos";
 import Letrero from "../components/Letrero";
 import LoadingScreen from "../components/LoadingScreen";
+import Instrucciones from "./Instrucciones";
 
 export default function Tablero() {
    const [searchParams] = useSearchParams();
@@ -32,12 +33,10 @@ export default function Tablero() {
       setShowLetrero,
       contadorActivo,
       tiempoRestante,
+      juegoIniciado,
+      instruccionesVisibles,
       s,
-      allowKeyboard,
-      mostrarPregunta,
-      activarEquipo,
-      destapar,
-      marcarError
+      allowKeyboard
    } = useJuegoContext();
 
    const [showNameModal, setShowNameModal] = useState(true);
@@ -48,8 +47,9 @@ export default function Tablero() {
    }, [roomCode, wsReady]);
 
    useEffect(() => {
-      if (equipos[1].nombre === "" && equipos[2].nombre === "") setShowNameModal(true);
-   }, [equipos[1].nombre, equipos[2].nombre]);
+      const equiposListos = Boolean(equipos[1].nombre.trim() && equipos[2].nombre.trim());
+      setShowNameModal(!juegoIniciado || !equiposListos);
+   }, [equipos[1].nombre, equipos[2].nombre, juegoIniciado]);
 
    useEffect(() => {
       function handler(e) {
@@ -67,7 +67,8 @@ export default function Tablero() {
       return () => window.removeEventListener("keydown", handler);
    }, [allowKeyboard, equipoActivo, send]);
 
-   const onCloseCelebration = () => setShowCelebration(false);
+   const onCloseCelebration = useCallback(() => setShowCelebration(false), [setShowCelebration]);
+   const onCloseInstructions = useCallback(() => send({ action: "showInstructions", visible: false }), [send]);
 
    if (!wsReady) {
       return <LoadingScreen title="Encendiendo el tablero…" detail={`Preparando la sala ${roomCode || "—"}`} />;
@@ -75,14 +76,21 @@ export default function Tablero() {
 
    return (
       <>
+         <div className="fixed right-4 top-4 z-40 flex items-center gap-2 rounded-full bg-black/80 px-3 py-2 text-sm font-bold text-white shadow-lg" aria-label={`Conexión activa. Sala ${roomCode}`}>
+            <span className="h-2.5 w-2.5 rounded-full bg-green-400 shadow-[0_0_8px_rgba(74,222,128,.8)]" aria-hidden="true" />
+            <span>EN LÍNEA</span><span className="text-warning">SALA {roomCode}</span>
+         </div>
          {showNameModal && (
             <FormEquipos
                equipos={equipos}
                setEquipos={setEquipos}
                sendSync={(names, scores) => send({ action: "updateAllState", teamNames: names, puntosEquipo: scores })}
+               onStart={() => send({ action: "startGame" })}
                setShowNameModal={setShowNameModal}
             />
          )}
+
+         {instruccionesVisibles && <Instrucciones overlay onClose={onCloseInstructions} />}
 
          {showCelebration && (
             <Celebration teamNumber={equipoActivo} teamName={equipoActivo === 1 ? equipos[1].nombre : equipos[2].nombre} onClose={onCloseCelebration} />

@@ -18,6 +18,9 @@ export function JuegoContextProvider({ children }) {
    const [wsReady, setWsReady] = useState(false);
    const [wsError, setWsError] = useState(null);
    const [roomCode, setRoomCode] = useState(null);
+   const joinRoomRef = useRef(null);
+   const [juegoIniciado, setJuegoIniciado] = useState(false);
+   const [instruccionesVisibles, setInstruccionesVisibles] = useState(false);
 
    // --- Equipos (TODO: nombre, puntos, errores, activo, bloqueado, esperandoError) ---
    const [equipos, setEquipos] = useState({
@@ -95,6 +98,13 @@ export function JuegoContextProvider({ children }) {
             if (data.puntosEquipo)
                setEquipos((prev) => ({ ...prev, 1: { ...prev[1], puntos: data.puntosEquipo.e1 ?? 0 }, 2: { ...prev[2], puntos: data.puntosEquipo.e2 ?? 0 } }));
             if (Array.isArray(data.preguntas)) setPreguntas(data.preguntas);
+            if (typeof data.gameStarted === "boolean") setJuegoIniciado(data.gameStarted);
+            if (typeof data.instructionsVisible === "boolean") setInstruccionesVisibles(data.instructionsVisible);
+            if (typeof data.roundActive === "boolean" || Number.isInteger(data.questionIdx)) setRonda((prev) => ({ ...prev, activa: data.roundActive ?? prev.activa, preguntaIdx: Number.isInteger(data.questionIdx) ? data.questionIdx : prev.preguntaIdx }));
+            if (data.activeTeam === null || [1, 2].includes(Number(data.activeTeam))) {
+               const active = Number(data.activeTeam) || null;
+               setEquipos((prev) => ({ ...prev, 1: { ...prev[1], activo: active === 1, bloqueado: active === 2 }, 2: { ...prev[2], activo: active === 2, bloqueado: active === 1 } }));
+            }
             break;
          case "updateQuestions":
             if (Array.isArray(data.preguntas)) { setPreguntas(data.preguntas); setPreguntasEnviadas([]); setPreguntaPreview(null); }
@@ -120,6 +130,16 @@ export function JuegoContextProvider({ children }) {
             break;
          case "setQuestion":
             mostrarPregunta(data.questionIdx);
+            break;
+         case "startGame":
+            setJuegoIniciado(true);
+            break;
+         case "roundEnded":
+            setRonda((prev) => ({ ...prev, activa: false }));
+            setEquipos((prev) => ({ ...prev, 1: { ...prev[1], activo: false, bloqueado: false }, 2: { ...prev[2], activo: false, bloqueado: false } }));
+            break;
+         case "showInstructions":
+            setInstruccionesVisibles(Boolean(data.visible));
             break;
          case "setAnswer":
             destapar(data.answerIdx);
@@ -160,6 +180,7 @@ export function JuegoContextProvider({ children }) {
          socket.onopen = () => {
             setWsReady(true);
             setWsError(null);
+            if (joinRoomRef.current) socket.send(JSON.stringify({ action: "joinRoom", code: joinRoomRef.current }));
          };
          socket.onmessage = (msg) => {
             const data = JSON.parse(msg.data);
@@ -184,8 +205,9 @@ export function JuegoContextProvider({ children }) {
       send({ action: "createRoom" });
    }
    function unirseaSala(code) {
+      joinRoomRef.current = String(code || "").toUpperCase();
       setWsError(null);
-      send({ action: "joinRoom", code });
+      send({ action: "joinRoom", code: joinRoomRef.current });
    }
 
    const send = (data) => {
@@ -270,6 +292,7 @@ export function JuegoContextProvider({ children }) {
       setEquipos((prev) => ({ ...prev, [ganador]: { ...prev[ganador], puntos: prev[ganador].puntos + puntosAcumulados } }));
       await sleep(1000);
       setRonda((prev) => ({ ...prev, acumulado: 0, activa: false }));
+      send({ action: "roundEnded" });
    }
 
    function victoria(team) {
@@ -422,6 +445,8 @@ export function JuegoContextProvider({ children }) {
       setShowCelebration(false);
       setContadorActivo(false);
       setTeamVictoria(null);
+      setJuegoIniciado(false);
+      setInstruccionesVisibles(false);
    }
 
    const contextValue = useMemo(
@@ -434,6 +459,8 @@ export function JuegoContextProvider({ children }) {
          wsReady,
          wsError,
          roomCode,
+         juegoIniciado,
+         instruccionesVisibles,
          crearSala,
          unirseaSala,
          send,
@@ -483,6 +510,8 @@ export function JuegoContextProvider({ children }) {
          wsReady,
          wsError,
          roomCode,
+         juegoIniciado,
+         instruccionesVisibles,
          crearSala,
          unirseaSala,
          send,

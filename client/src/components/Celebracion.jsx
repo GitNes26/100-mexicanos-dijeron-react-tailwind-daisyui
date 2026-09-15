@@ -1,191 +1,46 @@
-"use client";
-
-import { useState, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useJuegoContext } from "../contexts/JuegoContext";
 
-// interface CelebrationProps {
-//   equipoActivo: 1 | 2
-//   onClose: () => void
-// }
-
-export default function Celebration({ equipoActivo, onClose }) {
-   // const { s } = useJuegoContext();
+export default function Celebration({ teamNumber, teamName, onClose }) {
    const [isVisible, setIsVisible] = useState(false);
    const { equipos, teamVictoria } = useJuegoContext();
+   const winnerNumber = Number(teamVictoria || teamNumber) || null;
+   const winnerName = (winnerNumber ? equipos[winnerNumber]?.nombre : teamName) || "EQUIPO";
+   const isFinalVictory = Boolean(teamVictoria);
+   const particles = useMemo(() => Array.from({ length: 54 }, (_, index) => ({
+      id: index,
+      left: `${(index * 37) % 100}%`,
+      delay: `${(index % 12) * 0.06}s`,
+      duration: `${2.4 + (index % 7) * 0.18}s`,
+      color: ["#FFD700", "#FF6B6B", "#4ECDC4", "#FFFFFF", "#A78BFA"][index % 5]
+   })), []);
 
    useEffect(() => {
-      setIsVisible(true);
-      // s.play("triunfo");
-
-      // Confetti effect
-      const createConfetti = () => {
-         const colors = ["#FFD700", "#FF6B6B", "#4ECDC4", "#45B7D1", "#96CEB4", "#FFEAA7"];
-
-         for (let i = 0; i < 100; i++) {
-            const confetti = document.createElement("div");
-            confetti.className = "confetti";
-            confetti.style.cssText = `
-          position: fixed;
-          width: 10px;
-          height: 10px;
-          background: ${colors[Math.floor(Math.random() * colors.length)]};
-          left: ${Math.random() * 100}vw;
-          animation: confetti-fall ${2 + Math.random() * 3}s linear forwards infinite;
-          z-index: 1000;
-          border-radius: ${Math.random() > 0.5 ? "50%" : "0"};
-        `;
-            document.body.appendChild(confetti);
-
-            setTimeout(() => {
-               confetti.remove();
-            }, 5000);
-         }
+      const enterTimer = requestAnimationFrame(() => setIsVisible(true));
+      const closeTimer = setTimeout(() => {
+         setIsVisible(false);
+         setTimeout(onClose, 350);
+      }, isFinalVictory ? 9000 : 4200);
+      return () => {
+         cancelAnimationFrame(enterTimer);
+         clearTimeout(closeTimer);
       };
-
-      // Create balloons
-      const createBalloons = () => {
-         const balloonColors = ["#FF6B6B", "#4ECDC4", "#45B7D1", "#96CEB4", "#FFEAA7", "#DDA0DD"];
-
-         for (let i = 0; i < 15; i++) {
-            const balloon = document.createElement("div");
-            balloon.className = "balloon";
-            balloon.style.cssText = `
-          position: fixed;
-          width: 40px;
-          height: 50px;
-          background: ${balloonColors[Math.floor(Math.random() * balloonColors.length)]};
-          border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-          left: ${Math.random() * 100}vw;
-          bottom: -60px;
-          animation: balloon-float ${3 + Math.random() * 2}s ease-out forwards;
-          z-index: 999;
-        `;
-
-            // Add balloon string
-            const string = document.createElement("div");
-            string.style.cssText = `
-          position: absolute;
-          width: 1px;
-          height: 30px;
-          background: #333;
-          left: 50%;
-          top: 100%;
-          transform: translateX(-50%);
-        `;
-            balloon.appendChild(string);
-
-            document.body.appendChild(balloon);
-
-            setTimeout(() => {
-               balloon.remove();
-            }, 5000);
-         }
-      };
-
-      // Create sparkles/lights
-      const createSparkles = () => {
-         for (let i = 0; i < 50; i++) {
-            const sparkle = document.createElement("div");
-            sparkle.className = "sparkle";
-            sparkle.style.cssText = `
-          position: fixed;
-          width: 4px;
-          height: 4px;
-          background: #FFD700;
-          left: ${Math.random() * 100}vw;
-          top: ${Math.random() * 100}vh;
-          animation: sparkle-twinkle ${1 + Math.random() * 2}s ease-in-out infinite;
-          z-index: 998;
-          border-radius: 50%;
-          box-shadow: 0 0 6px #FFD700;
-        `;
-            document.body.appendChild(sparkle);
-
-            setTimeout(() => {
-               sparkle.remove();
-            }, 4000);
-         }
-      };
-
-      // Trigger all effects
-      createConfetti();
-      createBalloons();
-      createSparkles();
-
-      // Auto close after 5 seconds
-      const timer = setTimeout(
-         () => {
-            setIsVisible(false);
-            setTimeout(onClose, 500);
-         },
-         teamVictoria ? 10000 : 4000
-      );
-
-      return () => clearTimeout(timer);
-   }, [onClose]);
-
-   const teamColor = teamVictoria == 1 ? "from-red-400 to-red-600" : "from-blue-400 to-blue-600";
+   }, [isFinalVictory, onClose]);
 
    return (
-      <div className={`fixed inset-0 z-50 flex items-center justify-center transition-all duration-500 ${isVisible ? "opacity-100" : "opacity-0"}`}>
-         {/* Background overlay with team colors */}
-         <div className={`absolute inset-0 bg-gradient-to-br ${teamColor} opacity-90 animate-pulse`} />
-
-         {/* Main celebration message */}
-         <div className={`relative z-10 text-center transform transition-all duration-1000 ${isVisible ? "scale-100 rotate-0" : "scale-0 rotate-180"}`}>
-            <div className="bg-white/20 backdrop-blur-md rounded-4xl p-12 border-8 border-yellow-400 shadow-2xl">
-               {teamVictoria ? (
-                  <div className="animate-bounce">
-                     <h1 className="text-8xl font-black text-yellow-300 mb-4 drop-shadow-2xl animate-pulse">🎉 EQUIPO GANADOR 🎉</h1>
-                  </div>
-               ) : (
-                  <>
-                     <div className="animate-bounce">
-                        <h1 className="text-8xl font-black text-yellow-300 mb-4 drop-shadow-2xl animate-pulse">🎉 PUNTOS 🎉</h1>
-                     </div>
-
-                     <div className="animate-pulse">
-                        <h2 className="text-6xl font-bold text-white mb-6 drop-shadow-lg">PARA EL</h2>
-                     </div>
-                  </>
-               )}
-
-               <div className="animate-bounce delay-300">
-                  <h3 className="text-7xl font-black text-yellow-300 mb-8 drop-shadow-2xl">EQUIPO {teamVictoria ?? ""}</h3>
-               </div>
-
-               <div className={`delay-500 ${teamVictoria ? `animate-bounce` : "animate-pulse"}`}>
-                  <p
-                     className={`${teamVictoria ? "text-7xl" : "text-4xl"} font-bold ${
-                        teamVictoria ? (teamVictoria == 1 ? "text-red-300" : "text-blue-300") : "text-white"
-                     } drop-shadow-lg`}
-                  >
-                     {teamVictoria ? equipos[teamVictoria].nombre : ""}
-                  </p>
-               </div>
-
-               {teamVictoria && (
-                  <div className="animate-bounce">
-                     <h1 className="text-8xl font-black text-yellow-300 mb-4 drop-shadow-2xl animate-pulse">CON: {equipos[teamVictoria].puntos} PTS.</h1>
-                  </div>
-               )}
-
-               <div className="mt-8 animate-bounce delay-700">
-                  <div className="text-6xl">🏆✨🎊</div>
-               </div>
-            </div>
+      <div className={`celebration celebration--team-${winnerNumber || 1} ${isVisible ? "is-visible" : ""}`} role="dialog" aria-modal="true" aria-label={`${isFinalVictory ? "Victoria" : "Ronda"} para el equipo ${winnerNumber || "ganador"}, ${winnerName}`}>
+         <div className="celebration__rays" aria-hidden="true" />
+         <div className="celebration__particles" aria-hidden="true">
+            {particles.map((particle) => <i key={particle.id} style={{ left: particle.left, animationDelay: particle.delay, animationDuration: particle.duration, background: particle.color }} />)}
          </div>
-
-         {/* Close button */}
-         {/* <button
-            onClick={() => {
-               setIsVisible(false);
-               setTimeout(onClose, 500);
-            }}
-            className="absolute top-8 right-8 z-20 bg-white/20 hover:bg-white/30 text-white border-2 border-white/50 backdrop-blur-md"
-         >
-            ✕ Cerrar
-         </button> */}
+         <section className="celebration__stage">
+            <div className="celebration__crown" aria-hidden="true">♛</div>
+            <p className="celebration__result">{isFinalVictory ? "¡EQUIPO GANADOR!" : "¡RONDA GANADA!"}</p>
+            <div className="celebration__team-number">EQUIPO <strong>{winnerNumber || "—"}</strong></div>
+            <h2>{winnerName}</h2>
+            {isFinalVictory && winnerNumber && <p className="celebration__score">CON {equipos[winnerNumber]?.puntos ?? 0} PUNTOS</p>}
+            <div className="celebration__trophy" aria-hidden="true">🏆</div>
+         </section>
       </div>
    );
 }

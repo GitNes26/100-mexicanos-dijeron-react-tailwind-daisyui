@@ -4,6 +4,7 @@ import Panel from "./pages/Panel.jsx";
 import Control from "./pages/Control.jsx";
 import { JuegoContextProvider } from "./contexts/JuegoContext.jsx";
 import Lobby from "./pages/Lobby.jsx";
+import Instrucciones from "./pages/Instrucciones.jsx";
 import { SnackbarProvider } from "notistack";
 import { isMobile } from "react-device-detect";
 
@@ -51,6 +52,7 @@ export default function App() {
                      <Route path="/tablero" element={<Tablero />} />
                      <Route path="/panel" element={<Panel />} />
                      <Route path="/control/:team" element={<Control />} />
+                     <Route path="/instrucciones" element={<Instrucciones />} />
                   </Routes>
                </JuegoContextProvider>
             </HashRouter>

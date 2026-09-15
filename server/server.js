@@ -4,6 +4,10 @@ const wss = new WebSocketServer({ port: WS_PORT });
 
 const rooms = new Map();
 
+function initialRoomState() {
+   return { teamNames: { e1: "", e2: "" }, puntosEquipo: { e1: 0, e2: 0 }, preguntas: null, gameStarted: false, roundActive: false, activeTeam: null, instructionsVisible: false };
+}
+
 function generarCodigo() {
    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
    let code;
@@ -35,7 +39,7 @@ wss.on("connection", (ws) => {
             }
          }
          const code = generarCodigo();
-         rooms.set(code, { clients: new Set([ws]), state: null });
+         rooms.set(code, { clients: new Set([ws]), state: initialRoomState() });
          ws.roomCode = code;
          ws.send(JSON.stringify({ action: "roomCreated", code }));
          return;
@@ -77,8 +81,39 @@ wss.on("connection", (ws) => {
       if (data.action === "updateAllState") {
          const room = rooms.get(ws.roomCode);
          if (room) {
-            room.state = { ...room.state, teamNames: data.teamNames, puntosEquipo: data.puntosEquipo, preguntas: data.preguntas };
+            room.state = { ...room.state, teamNames: data.teamNames || room.state.teamNames, puntosEquipo: data.puntosEquipo || room.state.puntosEquipo, preguntas: data.preguntas || room.state.preguntas };
          }
+      }
+
+      if (data.action === "startGame") {
+         const room = rooms.get(ws.roomCode);
+         if (room) room.state = { ...room.state, gameStarted: true, roundActive: false, activeTeam: null };
+      }
+
+      if (data.action === "setQuestion") {
+         const room = rooms.get(ws.roomCode);
+         if (room) room.state = { ...room.state, gameStarted: true, roundActive: true, activeTeam: null, questionIdx: data.questionIdx };
+      }
+
+      if (data.action === "activateTeam") {
+         const room = rooms.get(ws.roomCode);
+         const team = Number(data.team);
+         if (room && room.state.roundActive && [1, 2].includes(team)) room.state.activeTeam = team;
+      }
+
+      if (data.action === "roundEnded") {
+         const room = rooms.get(ws.roomCode);
+         if (room) room.state = { ...room.state, roundActive: false, activeTeam: null };
+      }
+
+      if (data.action === "showInstructions") {
+         const room = rooms.get(ws.roomCode);
+         if (room) room.state = { ...room.state, instructionsVisible: Boolean(data.visible) };
+      }
+
+      if (data.action === "reset") {
+         const room = rooms.get(ws.roomCode);
+         if (room) room.state = { ...initialRoomState(), preguntas: room.state.preguntas };
       }
 
       if (data.action === "updateQuestions") {
@@ -95,6 +130,11 @@ wss.on("connection", (ws) => {
       if (ws.roomCode) {
          const room = rooms.get(ws.roomCode);
          if (room) {
+            if (data.action === "press") {
+               const team = Number(data.team);
+               if (!room.state.roundActive || room.state.activeTeam || ![1, 2].includes(team)) return;
+               room.state.activeTeam = team;
+            }
             const payload = msg.toString();
             room.clients.forEach((client) => {
                if (client.readyState === 1) {
@@ -110,7 +150,7 @@ wss.on("connection", (ws) => {
          const room = rooms.get(ws.roomCode);
          if (room) {
             room.clients.delete(ws);
-            if (room.clients.size === 0) rooms.delete(ws.roomCode);
+            // La sala permanece en memoria para permitir que móviles bloqueados o recargados vuelvan a entrar.
          }
       }
       ws.removeAllListeners();

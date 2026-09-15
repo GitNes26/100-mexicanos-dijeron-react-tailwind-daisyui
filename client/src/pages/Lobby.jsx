@@ -84,9 +84,9 @@ export default function Lobby() {
    // ─── ESTADO: sala creada ─────────────────────────────────────────────────
    if (roomCode && modo === "crear") {
       return (
-         <div className="min-h-screen w-full flex items-center justify-center overflow-hidden" style={bgStyle}>
+         <div className="lobby-page min-h-screen w-full flex items-center justify-center overflow-x-hidden overflow-y-auto" style={bgStyle}>
             <Confetti />
-            <div style={{ ...glassCard, maxWidth: 560, width: "100%" }} className="px-10 py-12">
+            <div style={{ ...glassCard, maxWidth: 560, width: "100%" }} className="lobby-card px-10 py-12">
                {/* Botón volver */}
                <button
                   className="transition-all ease-in-out hover:scale-95 active:scale-105"
@@ -156,7 +156,7 @@ export default function Lobby() {
                </div>
 
                {/* Botones secundarios con compartir */}
-               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginTop: 10 }}>
+               <div className="lobby-options" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginTop: 10 }}>
                   {opciones.map(({ emoji, label, ruta, color }) => (
                      <div key={ruta} style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                         <button
@@ -188,9 +188,9 @@ export default function Lobby() {
    // ─── ESTADO: unido a sala ────────────────────────────────────────────────
    if (roomCode && modo === "unirse") {
       return (
-         <div className="min-h-screen w-full flex items-center justify-center overflow-hidden" style={bgStyle}>
+         <div className="lobby-page min-h-screen w-full flex items-center justify-center overflow-x-hidden overflow-y-auto" style={bgStyle}>
             <Confetti />
-            <div style={{ ...glassCard, maxWidth: 560, width: "100%" }} className="px-10 py-12">
+            <div style={{ ...glassCard, maxWidth: 560, width: "100%" }} className="lobby-card px-10 py-12">
                <div style={{ textAlign: "center", marginBottom: 28 }}>
                   <div style={{ fontSize: 40, marginBottom: 4 }}>🙌</div>
                   <h1 style={{ ...titleFont, fontSize: 32, color: "#FFD700" }}>¡Estás dentro!</h1>
@@ -225,7 +225,7 @@ export default function Lobby() {
                   </div>
                </div>
 
-               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginTop: 10 }}>
+               <div className="lobby-options" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginTop: 10 }}>
                   {opciones.map(({ emoji, label, ruta, color }) => (
                      <div key={ruta} style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                         <button
@@ -263,11 +263,12 @@ export default function Lobby() {
 
    // ─── PANTALLA PRINCIPAL ──────────────────────────────────────────────────
    return (
-      <div className="min-h-screen w-full flex items-center justify-center overflow-hidden" style={bgStyle}>
+      <div className="lobby-page min-h-screen w-full flex items-center justify-center overflow-x-hidden overflow-y-auto" style={bgStyle}>
          <Confetti />
          <style>{cssAnimations}</style>
+         <button type="button" className="fixed right-4 top-4 z-20 btn btn-sm btn-warning font-bold" onClick={() => navigate("/instrucciones")}>¿Cómo jugar?</button>
 
-         <div style={{ ...glassCard, maxWidth: 460, width: "100%" }} className="px-10 py-12">
+         <div style={{ ...glassCard, maxWidth: 460, width: "100%" }} className="lobby-card px-10 py-12">
             {/* Logo / título */}
             <div style={{ textAlign: "center", marginBottom: 36 }}>
                <div style={{ display: "flex", justifyContent: "center", alignItems: "baseline", gap: 4, marginBottom: 2 }}>
@@ -581,5 +582,10 @@ const cssAnimations = `
    @keyframes pulse {
       0%,100% { opacity: 1; transform: scale(1); }
       50%      { opacity: 0.5; transform: scale(1.4); }
+   }
+   .lobby-page { padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); }
+   @media (max-width: 600px) {
+      .lobby-card { padding: 28px 20px !important; border-radius: 22px !important; }
+      .lobby-options { grid-template-columns: 1fr !important; }
    }
 `;

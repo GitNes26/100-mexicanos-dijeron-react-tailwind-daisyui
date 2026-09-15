@@ -5,6 +5,8 @@ import icons from "../const/icons.js";
 import Swal from "sweetalert2";
 import { PREGUNTAS as PREGUNTAS_ANTERIORES } from "../data_v2";
 
+const Icons = icons;
+
 const jsonBanks = import.meta.glob("../data/question-banks/*.json", { eager: true, import: "default" });
 
 export default function Panel() {
@@ -29,12 +31,18 @@ export default function Panel() {
       setPreguntasEnviadas,
       resetJuego,
       contadorActivo,
-      tiempoRestante
+      tiempoRestante,
+      juegoIniciado,
+      instruccionesVisibles
    } = useJuegoContext();
 
    const [search, setSearch] = useState("");
    const [bancoSeleccionado, setBancoSeleccionado] = useState("data-torreon-90-2026");
    const [bancosExtra, setBancosExtra] = useState([]);
+   const [previewWidth, setPreviewWidth] = useState(60);
+   const [catalogHeight, setCatalogHeight] = useState(192);
+   const bodyRef = useRef(null);
+   const layoutRef = useRef(null);
    const archivoBancoRef = useRef(null);
    const bancosJson = [...Object.entries(jsonBanks).map(([path, data]) => ({ id: path.split("/").pop().replace(/\.json$/, ""), nombre: data?.nombre || path.split("/").pop(), preguntas: data?.preguntas || [] })), ...bancosExtra];
    const categorias = Array.from(new Set(PREGUNTAS.map((p) => p.categoria).filter(Boolean)));
@@ -101,6 +109,40 @@ export default function Panel() {
    const sendAllState = (nombres, pts) => {
       send({ action: "updateAllState", teamNames: nombres, puntosEquipo: pts });
    };
+   const equiposListos = Boolean(equipos[1].nombre.trim() && equipos[2].nombre.trim());
+
+   function iniciarRedimension(event, orientation) {
+      event.preventDefault();
+      const onMove = (moveEvent) => {
+         if (orientation === "vertical" && bodyRef.current) {
+            const rect = bodyRef.current.getBoundingClientRect();
+            setPreviewWidth(Math.min(72, Math.max(32, ((moveEvent.clientX - rect.left) / rect.width) * 100)));
+         }
+         if (orientation === "horizontal" && layoutRef.current) {
+            const rect = layoutRef.current.getBoundingClientRect();
+            setCatalogHeight(Math.min(420, Math.max(128, rect.bottom - moveEvent.clientY)));
+         }
+      };
+      const onUp = () => {
+         document.body.style.userSelect = "";
+         window.removeEventListener("pointermove", onMove);
+         window.removeEventListener("pointerup", onUp);
+      };
+      document.body.style.userSelect = "none";
+      window.addEventListener("pointermove", onMove);
+      window.addEventListener("pointerup", onUp, { once: true });
+   }
+
+   function ajustarConTeclado(event, orientation) {
+      if (orientation === "vertical" && ["ArrowLeft", "ArrowRight"].includes(event.key)) {
+         event.preventDefault();
+         setPreviewWidth((value) => Math.min(72, Math.max(32, value + (event.key === "ArrowRight" ? 3 : -3))));
+      }
+      if (orientation === "horizontal" && ["ArrowUp", "ArrowDown"].includes(event.key)) {
+         event.preventDefault();
+         setCatalogHeight((value) => Math.min(420, Math.max(128, value + (event.key === "ArrowUp" ? 24 : -24))));
+      }
+   }
 
    const handleCloseRoom = () => {
       Swal.fire({
@@ -121,7 +163,7 @@ export default function Panel() {
    };
 
    return (
-      <div className="flex flex-col h-screen w-full bg-gray-900 text-white p-2 gap-2">
+      <div ref={layoutRef} className="flex flex-col h-screen w-full bg-gray-900 text-white p-2 gap-2">
          {/* HEADER */}
          <div className="card bg-orange-500 h-16 flex-shrink-0">
             <div className="flex justify-between items-center h-full">
@@ -148,8 +190,18 @@ export default function Panel() {
                      Muerte Subita: <span className="bg-warning-content px-1 rounded">{ronda.muerteSubita ? "SI" : "NO"}</span>
                   </span>
                </div>
+               <div className="flex flex-col items-end gap-1 px-2 text-xs font-bold">
+                  <span className={`badge ${wsReady ? "badge-success" : "badge-warning"}`}><span aria-hidden="true">●</span> {wsReady ? "En línea" : "Reconectando"}</span>
+                  <span className="badge badge-neutral">Sala {roomCode}</span>
+               </div>
                <button onClick={() => send({ action: "reset" })} className="btn btn-soft">
                   Reset Juego
+               </button>
+               <button type="button" onClick={() => send({ action: "showInstructions", visible: !instruccionesVisibles })} className="btn btn-info font-bold">
+                  {instruccionesVisibles ? "Ocultar instrucciones" : "Ver instrucciones"}
+               </button>
+               <button type="button" onClick={() => send({ action: "startGame" })} className="btn btn-success font-bold" disabled={!equiposListos || juegoIniciado}>
+                  {juegoIniciado ? "Juego iniciado ✓" : "▶ Iniciar juego"}
                </button>
                <button onClick={handleCloseRoom} className="btn btn-error text-white font-bold h-full">
                   Cerrar Sala
@@ -158,9 +210,9 @@ export default function Panel() {
          </div>
 
          {/* CUERPO */}
-         <div className="flex-grow flex gap-2 min-h-0">
+         <div ref={bodyRef} className="flex-grow flex min-h-0">
             {/* VISTA PREVIA */}
-            <div className="card bg-gray-800 flex-1 p-4 overflow-y-auto min-h-0">
+            <div className="card bg-gray-800 p-4 overflow-y-auto min-h-0" style={{ flex: `0 0 calc(${previewWidth}% - 5px)` }}>
                <div className="mb-4 flex flex-wrap items-center gap-3 rounded-lg bg-gray-700 p-3">
                   <label htmlFor="banco-preguntas" className="font-bold">Banco de preguntas:</label>
                   <select id="banco-preguntas" className="select select-bordered min-w-56" value={bancoSeleccionado} onChange={(e) => cargarBanco(e.target.value)} disabled={ronda.activa}>
@@ -200,7 +252,7 @@ export default function Panel() {
                               onClick={() => send({ action: "setQuestion", questionIdx: preguntaPreview })}
                               disabled={preguntasEnviadas.includes(preguntaPreview)}
                            >
-                              <icons.md.MdConnectedTv size={20} />
+                              <Icons.md.MdConnectedTv size={20} />
                               {preguntasEnviadas.includes(preguntaPreview) ? "Ya enviada" : "Enviar al tablero"}
                            </button>
                            <div className="flex justify-between w-6/12 font-bold">
@@ -225,7 +277,7 @@ export default function Panel() {
                         }}
                         disabled={PREGUNTAS.length === preguntasEnviadas.length}
                      >
-                        {<icons.fa.FaRandom />} Pregunta Random
+                        {<Icons.fa.FaRandom />} Pregunta Random
                      </button>
                   </div>
                </div>
@@ -250,8 +302,10 @@ export default function Panel() {
                </div>
             </div>
 
+            <div role="separator" aria-label="Redimensionar vista previa y controles" aria-orientation="vertical" aria-valuemin={32} aria-valuemax={72} aria-valuenow={Math.round(previewWidth)} tabIndex={0} className="panel-resizer panel-resizer--vertical" onPointerDown={(event) => iniciarRedimension(event, "vertical")} onKeyDown={(event) => ajustarConTeclado(event, "vertical")} />
+
             {/* CONTROLES */}
-            <div className="card bg-gray-800 w-2/5 p-4 overflow-y-auto min-h-0">
+            <div className="card bg-gray-800 p-4 overflow-y-auto min-h-0" style={{ flex: "1 1 0" }}>
                <h2 className="text-lg font-bold text-center mb-2">MARCADOR</h2>
                <div className="bg-gray-700 p-2 rounded-lg mb-4">
                   <div className="flex gap-2 w-full">
@@ -421,8 +475,10 @@ export default function Panel() {
             </div>
          </div>
 
+         <div role="separator" aria-label="Redimensionar cuerpo y catálogo de preguntas" aria-orientation="horizontal" aria-valuemin={128} aria-valuemax={420} aria-valuenow={Math.round(catalogHeight)} tabIndex={0} className="panel-resizer panel-resizer--horizontal" onPointerDown={(event) => iniciarRedimension(event, "horizontal")} onKeyDown={(event) => ajustarConTeclado(event, "horizontal")} />
+
          {/* CATALOGO DE PREGUNTAS */}
-         <div className="card bg-gray-800 p-4 h-48 flex-shrink-0 overflow-y-auto">
+         <div className="card bg-gray-800 p-4 flex-shrink-0 overflow-y-auto" style={{ height: catalogHeight }}>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                {preguntasFiltradas.map((pregunta, idx) => (
                   <div
@@ -442,7 +498,7 @@ export default function Panel() {
                      <div className="flex gap-1 items-center">
                         <span className="font-bold text-lg">{pregunta.texto}</span>
                         {preguntasEnviadas.includes(idx) && (
-                           <span className="ml-2 text-green-300 font-bold">{<icons.io.IoMdCheckmarkCircleOutline size={30} color="white" />}</span>
+                           <span className="ml-2 text-green-300 font-bold">{<Icons.io.IoMdCheckmarkCircleOutline size={30} color="white" />}</span>
                         )}
                      </div>
                      <ul className="text-sm pl-4">
