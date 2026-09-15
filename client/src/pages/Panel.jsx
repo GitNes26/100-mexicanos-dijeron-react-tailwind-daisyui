@@ -466,7 +466,7 @@ export default function Panel() {
                      <p className="font-medium text-2xl sm:text-base">Mostrar X</p>
                      <button
                         className="btn btn-error btn-xl sm:btn-md text-white text-lg font-bold px-6 py-2 rounded-xl shadow"
-                        onClick={() => send({ action: "markError", slot: 0 })}
+                        onClick={() => send({ action: "markError", slot: 0, releaseBuzzers: Boolean(ronda.activa && ronda.enRobo && (ronda.unoVsUno || ronda.muerteSubita)) })}
                      >
                         X
                      </button>

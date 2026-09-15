@@ -145,6 +145,9 @@ export function JuegoContextProvider({ children }) {
             destapar(data.answerIdx);
             break;
          case "markError":
+            if (data.releaseBuzzers) {
+               setEquipos((prev) => ({ ...prev, 1: { ...prev[1], activo: false, bloqueado: false }, 2: { ...prev[2], activo: false, bloqueado: false } }));
+            }
             marcarError(data.slot);
             break;
          case "activarMuerteSubita":

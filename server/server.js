@@ -111,6 +111,11 @@ wss.on("connection", (ws) => {
          if (room) room.state = { ...room.state, instructionsVisible: Boolean(data.visible) };
       }
 
+      if (data.action === "markError" && data.releaseBuzzers) {
+         const room = rooms.get(ws.roomCode);
+         if (room && room.state.roundActive) room.state = { ...room.state, activeTeam: null };
+      }
+
       if (data.action === "reset") {
          const room = rooms.get(ws.roomCode);
          if (room) room.state = { ...initialRoomState(), preguntas: room.state.preguntas };

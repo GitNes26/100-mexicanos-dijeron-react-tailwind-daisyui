@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaArrowLeft, FaArrowRight, FaBolt, FaCheck, FaGamepad, FaMobileScreenButton, FaPeopleGroup, FaTrophy, FaXmark } from "react-icons/fa6";
+import { FaArrowLeft, FaArrowRight, FaBolt, FaCheck, FaGamepad, FaMobileScreenButton, FaPeopleGroup, FaScaleBalanced, FaTrophy, FaXmark } from "react-icons/fa6";
 
 const sections = [
    {
@@ -32,6 +32,20 @@ const sections = [
       icon: FaTrophy,
       summary: "El equipo que gana la ronda recibe los puntos acumulados.",
       points: ["La meta tradicional es llegar a 300 puntos.", "El conductor también puede declarar un ganador manualmente.", "La duración y el número de rondas pueden adaptarse al evento."]
+   },
+   {
+      title: "Reglas del juego",
+      icon: FaScaleBalanced,
+      summary: "Estas reglas mantienen la partida clara, justa y divertida para todos.",
+      points: [
+         "El conductor lee la pregunta y tiene la decisión final sobre respuestas y puntajes.",
+         "Los pulsadores solo se presionan cuando aparecen iluminados y disponibles.",
+         "En el enfrentamiento inicial cuenta únicamente el primer equipo registrado por el sistema.",
+         "La respuesta debe decirse en voz alta; no se permite buscarla en internet ni recibir ayuda del público.",
+         "Durante un turno normal, tres respuestas incorrectas conceden una oportunidad de robo al rival.",
+         "Si ambos equipos fallan el enfrentamiento, pasan nuevos participantes y los pulsadores vuelven a habilitarse.",
+         "Cualquier empate o situación no prevista se resuelve con muerte súbita o con la decisión del conductor."
+      ]
    }
 ];
 
