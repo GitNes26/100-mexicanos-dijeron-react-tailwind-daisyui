@@ -1,71 +1,15 @@
-import { useEffect, useState, useRef } from "react";
-import { useParams, useSearchParams, useNavigate } from "react-router-dom";
-import { useJuegoContext } from "../contexts/JuegoContext";
-
-export default function Control() {
-   const { team } = useParams();
-   const [searchParams] = useSearchParams();
-   const navigate = useNavigate();
-   const roomCode = searchParams.get("room");
-   const { send, equipos, unirseaSala, wsReady } = useJuegoContext();
-   const [animando, setAnimando] = useState(false);
-   const animRef = useRef({ interval: null, timeout: null });
-   const teamNum = Number(team);
-
-   useEffect(() => {
-      if (!roomCode || (teamNum !== 1 && teamNum !== 2)) navigate("/", { replace: true });
-      else if (wsReady) unirseaSala(roomCode);
-   }, [roomCode, wsReady]);
-
-   useEffect(() => {
-      return () => {
-         if (animRef.current.interval) clearInterval(animRef.current.interval);
-         if (animRef.current.timeout) clearTimeout(animRef.current.timeout);
-      };
-   }, []);
-
-   const nombreEquipo = equipos[teamNum]?.nombre || "";
-
-   const press = (n) => {
-      if (animando) return;
-      send({ action: "press", team: n });
-      setAnimando(true);
-      transitionColors(() => setAnimando(false));
-   };
-
-   const finalBg = teamNum === 1 ? "bg-red-500 duration-700" : "bg-blue-500 duration-700";
-   const colors = [
-      "bg-primary", "bg-secondary", "bg-accent", "bg-warning", "bg-error",
-      "bg-success", "bg-info", "bg-purple-500", "bg-pink-500", "bg-indigo-500",
-      "bg-blue-500", "bg-cyan-500", "bg-teal-500", "bg-green-500", "bg-lime-500",
-      "bg-yellow-500", "bg-orange-500"
-   ];
-   const [bg, setBg] = useState(finalBg);
-
-   function transitionColors(onEnd) {
-      let idx = 0;
-      setBg(colors[0]);
-      animRef.current.interval = setInterval(() => {
-         idx = (idx + 1) % colors.length;
-         setBg(colors[idx]);
-      }, 100);
-      animRef.current.timeout = setTimeout(() => {
-         clearInterval(animRef.current.interval);
-         setBg(finalBg);
-         if (onEnd) onEnd();
-      }, 1800);
-   }
-
-   return (
-      <div
-         className={`absolute h-screen w-screen top-0 left-0 z-0 transition-colors ${bg} flex justify-center items-center`}
-         onClick={() => press(teamNum)}
-         style={{ cursor: animando ? "not-allowed" : "pointer" }}
-      >
-         <h2 className="card-title font-black flex flex-col text-4xl">
-            {(nombreEquipo || `Equipo ${teamNum}`).toUpperCase()}
-            <div className="-mt-3 text-sm font-medium">Equipo {teamNum}</div>
-         </h2>
-      </div>
-   );
+import {useEffect,useRef,useState} from "react";
+import {useNavigate,useParams,useSearchParams} from "react-router-dom";
+import {FaHandPointer,FaWifi} from "react-icons/fa";
+import {useJuegoContext} from "../contexts/JuegoContext";
+import LoadingScreen from "../components/LoadingScreen";
+export default function Control(){
+ const {team}=useParams();const [params]=useSearchParams();const navigate=useNavigate();const code=params.get("room");
+ const {send,equipos,ronda,equipoActivo,unirseaSala,wsReady,wsError}=useJuegoContext();const teamNum=Number(team);const [celebrating,setCelebrating]=useState(false);const [pressSent,setPressSent]=useState(false);const previousActive=useRef(false);const teamData=equipos[teamNum];const isWinner=equipoActivo===teamNum;const canPress=wsReady&&ronda.activa&&equipoActivo===null&&!teamData?.bloqueado&&!pressSent;
+ useEffect(()=>{if(!code||![1,2].includes(teamNum))navigate("/",{replace:true});else if(wsReady)unirseaSala(code)},[code,teamNum,wsReady,unirseaSala,navigate]);
+ useEffect(()=>{if(isWinner&&!previousActive.current){setCelebrating(true);const timer=setTimeout(()=>setCelebrating(false),2200);previousActive.current=true;return()=>clearTimeout(timer)}if(!equipoActivo){previousActive.current=false;setPressSent(false)}},[equipoActivo,isWinner]);
+ if(wsError)return <LoadingScreen error={wsError} onBack={()=>navigate("/",{replace:true})}/>;if(!wsReady||!teamData)return <LoadingScreen title="Conectando tu pulsador…" detail={`Equipo ${teamNum} · Sala ${code||"—"}`}/>;
+ const status=isWinner?"¡GANASTE EL TURNO!":canPress?"¡PRESIONA AHORA!":ronda.activa&&equipoActivo?"OTRO EQUIPO GANÓ EL TURNO":"ESPERANDO PREGUNTA";const name=teamData.nombre||(teamNum===1?"ROJOS":"AZULES");
+ function press(){if(!canPress)return;setPressSent(true);send({action:"press",team:teamNum})}
+ return <main className={`buzzer-screen buzzer-team-${teamNum} ${canPress?"is-ready":"is-locked"} ${isWinner?"is-winner":""} ${celebrating?"is-celebrating":""}`}><button type="button" className="buzzer" onClick={press} disabled={!canPress} aria-label={`${name}: ${status}`}><span className="buzzer__room"><FaWifi aria-hidden="true"/> SALA {code}</span><FaHandPointer className="buzzer__hand" aria-hidden="true"/><strong className="buzzer__name">{name.toUpperCase()}</strong><span className="buzzer__status" role="status">{status}</span></button></main>
 }

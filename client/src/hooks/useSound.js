@@ -1,18 +1,27 @@
-import { useRef } from "react";
+import { useCallback, useRef } from "react";
 export default function useSound() {
    const audioRef = useRef({});
-   const load = (name, src) => {
-      if (!audioRef.current[name]) audioRef.current[name] = new Audio(src);
-   };
-   const play = (name) => {
+   const load = useCallback((name, src) => {
+      if (!audioRef.current[name]) {
+         const audio = new Audio(src);
+         audio.preload = "auto";
+         audioRef.current[name] = audio;
+      }
+   }, []);
+   const play = useCallback((name) => {
       try {
-         if (!["/", "/tablero"].includes(window.location.hash.replace("#", "") || "/")) return;
-         audioRef.current[name]?.play();
+         const route = (window.location.hash.replace(/^#/, "").split("?")[0] || "/");
+         if (route !== "/tablero") return;
+         const audio = audioRef.current[name];
+         if (!audio) return;
+         audio.currentTime = 0;
+         const playback = audio.play();
+         if (playback?.catch) playback.catch(() => {});
       } catch (e) {
          console.warn("Error reproduciendo sonido:", e);
       }
-   };
-   const stop = (name) => {
+   }, []);
+   const stop = useCallback((name) => {
       try {
          if (audioRef.current[name]) {
             audioRef.current[name].pause();
@@ -21,6 +30,6 @@ export default function useSound() {
       } catch (e) {
          console.error("Error deteniendo sonido:", e);
       }
-   };
+   }, []);
    return { load, play, stop };
 }

@@ -11,23 +11,23 @@ const FormEquipos = ({ equipos, setEquipos, sendSync, setShowNameModal }) => {
    };
 
    return (
-      <form className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
+      <form className="fixed inset-0 bg-black/85 flex items-center justify-center z-50 p-4 backdrop-blur-sm"
          onSubmit={(e) => { e.preventDefault(); if (equipos[1].nombre && equipos[2].nombre) setShowNameModal(false); }}>
-         <div className="card bg-neutral/90 border-neutral-content/90 border-4 p-8 rounded-xl shadow-lg flex flex-col gap-4 min-w-[300px]">
-            <h2 className="text-xl font-bold mb-2">Asignar nombres a los equipos</h2>
-            <fieldset className="fieldset">
-               <legend className="fieldset-legend">Nombre equipo 1</legend>
-               <input type="text" className="input" placeholder="Equipo 1"
+         <div className="card w-full max-w-lg bg-neutral border-warning/70 border-2 p-6 sm:p-8 rounded-2xl shadow-2xl flex flex-col gap-5 text-white">
+            <div className="text-center"><h2 className="text-2xl sm:text-3xl font-black text-warning">Preparemos la partida</h2><p className="mt-2 text-sm text-white/65">Asigna un nombre a cada equipo. El conductor elegirá la pregunta cuando todos estén listos.</p></div>
+            <fieldset className="fieldset rounded-xl bg-red-950/50 p-4">
+               <legend className="fieldset-legend text-red-200 font-bold">Equipo rojo</legend>
+               <input type="text" maxLength={30} autoComplete="off" className="input input-bordered w-full text-lg font-bold uppercase" placeholder="Nombre del equipo rojo"
                   value={equipos[1].nombre} onChange={onChange1} required />
             </fieldset>
-            <fieldset className="fieldset">
-               <legend className="fieldset-legend">Nombre equipo 2</legend>
-               <input type="text" className="input" placeholder="Equipo 2"
+            <fieldset className="fieldset rounded-xl bg-blue-950/50 p-4">
+               <legend className="fieldset-legend text-blue-200 font-bold">Equipo azul</legend>
+               <input type="text" maxLength={30} autoComplete="off" className="input input-bordered w-full text-lg font-bold uppercase" placeholder="Nombre del equipo azul"
                   value={equipos[2].nombre} onChange={onChange2} required />
             </fieldset>
-            <button type="submit" className="btn bg-neutral-content text-neutral font-black"
+            <button type="submit" className="btn btn-warning min-h-12 text-base font-black"
                disabled={!equipos[1].nombre || !equipos[2].nombre}>
-               Confirmar
+               Confirmar equipos
             </button>
          </div>
       </form>

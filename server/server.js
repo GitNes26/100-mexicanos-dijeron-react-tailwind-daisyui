@@ -77,8 +77,19 @@ wss.on("connection", (ws) => {
       if (data.action === "updateAllState") {
          const room = rooms.get(ws.roomCode);
          if (room) {
-            room.state = { teamNames: data.teamNames, puntosEquipo: data.puntosEquipo };
+            room.state = { ...room.state, teamNames: data.teamNames, puntosEquipo: data.puntosEquipo, preguntas: data.preguntas };
          }
+      }
+
+      if (data.action === "updateQuestions") {
+         const room = rooms.get(ws.roomCode);
+         const preguntas = data.preguntas;
+         const validas = Array.isArray(preguntas) && preguntas.length > 0 && preguntas.length <= 1000 && preguntas.every((p) => typeof p?.texto === "string" && Array.isArray(p.respuestas) && p.respuestas.length > 0 && p.respuestas.length <= 10 && p.respuestas.every((r) => typeof r?.texto === "string" && Number.isFinite(Number(r.puntos))));
+         if (!(room && validas)) {
+            if (ws.readyState === 1) ws.send(JSON.stringify({ action: "error", message: "Banco de preguntas inválido" }));
+            return;
+         }
+         room.state = { ...room.state, preguntas };
       }
 
       if (ws.roomCode) {

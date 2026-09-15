@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useJuegoContext } from "../contexts/JuegoContext.jsx";
 import icons from "../const/icons.js";
 import Swal from "sweetalert2";
+import { PREGUNTAS as PREGUNTAS_ANTERIORES } from "../data_v2";
+
+const jsonBanks = import.meta.glob("../data/question-banks/*.json", { eager: true, import: "default" });
 
 export default function Panel() {
    const [searchParams] = useSearchParams();
@@ -16,28 +19,27 @@ export default function Panel() {
       unirseaSala,
       equipos,
       setEquipos,
+      setPreguntas,
       ronda,
       equipoActivo,
       equipoBloqueado,
-      marcarError,
       preguntaPreview,
       setPreguntaPreview,
       preguntasEnviadas,
       setPreguntasEnviadas,
-      mostrarPregunta,
       resetJuego,
-      reproducirRepetida,
-      activarContador,
-      desactivarContador,
       contadorActivo,
       tiempoRestante
    } = useJuegoContext();
 
    const [search, setSearch] = useState("");
+   const [bancoSeleccionado, setBancoSeleccionado] = useState("data-torreon-90-2026");
+   const [bancosExtra, setBancosExtra] = useState([]);
+   const archivoBancoRef = useRef(null);
+   const bancosJson = [...Object.entries(jsonBanks).map(([path, data]) => ({ id: path.split("/").pop().replace(/\.json$/, ""), nombre: data?.nombre || path.split("/").pop(), preguntas: data?.preguntas || [] })), ...bancosExtra];
    const categorias = Array.from(new Set(PREGUNTAS.map((p) => p.categoria).filter(Boolean)));
    const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("");
-   const [searchCategoria, setSearchCategoria] = useState("");
-   const categoriasFiltradas = categorias.filter((cat) => cat.toLowerCase().includes(searchCategoria.toLowerCase()));
+   const categoriasFiltradas = categorias;
    const preguntasFiltradas = PREGUNTAS.filter(
       (p) => (!search || p.texto.toLowerCase().includes(search.toLowerCase())) && (!categoriaSeleccionada || p.categoria === categoriaSeleccionada)
    );
@@ -46,6 +48,46 @@ export default function Panel() {
       if (!roomCode) navigate("/", { replace: true });
       else if (wsReady) unirseaSala(roomCode);
    }, [roomCode, wsReady]);
+
+   function cargarBanco(id) {
+      setBancoSeleccionado(id);
+      if (id === "integrado") { setPreguntas(PREGUNTAS_ANTERIORES); setPreguntasEnviadas([]); setPreguntaPreview(null); send({ action: "updateQuestions", preguntas: PREGUNTAS_ANTERIORES }); return; }
+      const banco = bancosJson.find((item) => item.id === id);
+      if (!banco?.preguntas?.length) return;
+      setPreguntas(banco.preguntas);
+      setPreguntasEnviadas([]);
+      setPreguntaPreview(null);
+      send({ action: "updateQuestions", preguntas: banco.preguntas });
+   }
+
+   function validarBanco(data) {
+      if (!data || !Array.isArray(data.preguntas) || !data.preguntas.length) return "El JSON debe incluir un arreglo preguntas con al menos una pregunta.";
+      const valido = data.preguntas.every((p) => typeof p.texto === "string" && p.texto.trim() && Array.isArray(p.respuestas) && p.respuestas.length > 0 && p.respuestas.every((r) => typeof r.texto === "string" && Number.isFinite(Number(r.puntos))));
+      return valido ? null : "Cada pregunta debe tener texto y respuestas con texto y puntos numéricos.";
+   }
+
+   function importarBanco(event) {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+         try {
+            const data = JSON.parse(reader.result);
+            const error = validarBanco(data);
+            if (error) return Swal.fire({ title: "JSON no válido", text: error, icon: "error" });
+            const id = `archivo-${Date.now()}`;
+            const banco = { id, nombre: data.nombre || file.name, preguntas: data.preguntas };
+            setBancosExtra((prev) => [...prev, banco]);
+            setBancoSeleccionado(id);
+            setPreguntas(banco.preguntas);
+            setPreguntasEnviadas([]);
+            setPreguntaPreview(null);
+            send({ action: "updateQuestions", preguntas: banco.preguntas });
+         } catch { Swal.fire({ title: "No se pudo leer el archivo", text: "Selecciona un JSON válido.", icon: "error" }); }
+      };
+      reader.readAsText(file);
+      event.target.value = "";
+   }
 
    function setPregunta(idx) {
       setPreguntaPreview(idx);
@@ -119,6 +161,16 @@ export default function Panel() {
          <div className="flex-grow flex gap-2 min-h-0">
             {/* VISTA PREVIA */}
             <div className="card bg-gray-800 flex-1 p-4 overflow-y-auto min-h-0">
+               <div className="mb-4 flex flex-wrap items-center gap-3 rounded-lg bg-gray-700 p-3">
+                  <label htmlFor="banco-preguntas" className="font-bold">Banco de preguntas:</label>
+                  <select id="banco-preguntas" className="select select-bordered min-w-56" value={bancoSeleccionado} onChange={(e) => cargarBanco(e.target.value)} disabled={ronda.activa}>
+                     <option value="integrado">Banco anterior (data_v2)</option>
+                     {bancosJson.map((banco) => <option key={banco.id} value={banco.id}>{banco.nombre} ({banco.preguntas.length})</option>)}
+                  </select>
+                  <input ref={archivoBancoRef} type="file" accept="application/json,.json" className="hidden" onChange={importarBanco} />
+                  <button type="button" className="btn btn-sm btn-outline btn-warning" onClick={() => archivoBancoRef.current?.click()} disabled={ronda.activa}>Cargar JSON</button>
+                  <span className="text-xs opacity-70">Selecciona antes de enviar la primera pregunta.</span>
+               </div>
                <div className="bg-gray-700 p-2 rounded-lg mb-4">
                   <div className="text-3xl font-semibold text-center mb-2">{PREGUNTAS[preguntaPreview]?.texto ?? "Selecciona una pregunta"}</div>
                   <ul className="pl-4">

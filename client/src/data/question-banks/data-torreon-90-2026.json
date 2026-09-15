@@ -1,0 +1,5521 @@
+{
+  "id": "data-torreon-90-2026",
+  "nombre": "Torreón 1990–2026",
+  "version": 1,
+  "idioma": "es-MX",
+  "region": "Torreón, Coahuila, México",
+  "periodo": {
+    "desde": 1990,
+    "hasta": 2026
+  },
+  "preguntas": [
+    {
+      "id": "torreon-001",
+      "texto": "Menciona un lugar emblemático de Torreón",
+      "categoria": "cultura local",
+      "respuestas": [
+        {
+          "texto": "Cristo de las Noas",
+          "puntos": 35
+        },
+        {
+          "texto": "Plaza Mayor",
+          "puntos": 25
+        },
+        {
+          "texto": "Canal de la Perla",
+          "puntos": 18
+        },
+        {
+          "texto": "Bosque Venustiano Carranza",
+          "puntos": 13
+        },
+        {
+          "texto": "Teatro Isauro Martínez",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-002",
+      "texto": "Menciona un sitio de La Laguna para pasear en familia",
+      "categoria": "cultura local",
+      "respuestas": [
+        {
+          "texto": "Bosque Venustiano Carranza",
+          "puntos": 40
+        },
+        {
+          "texto": "Plaza Mayor",
+          "puntos": 24
+        },
+        {
+          "texto": "Puerto Noas",
+          "puntos": 16
+        },
+        {
+          "texto": "Alameda Zaragoza",
+          "puntos": 12
+        },
+        {
+          "texto": "Plaza de Armas",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-003",
+      "texto": "Menciona algo que identifica a Torreón",
+      "categoria": "cultura local",
+      "respuestas": [
+        {
+          "texto": "Cristo de las Noas",
+          "puntos": 32
+        },
+        {
+          "texto": "Calor",
+          "puntos": 26
+        },
+        {
+          "texto": "Algodón",
+          "puntos": 20
+        },
+        {
+          "texto": "Santos Laguna",
+          "puntos": 14
+        },
+        {
+          "texto": "Carne asada",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-004",
+      "texto": "Menciona una ciudad de la Comarca Lagunera",
+      "categoria": "cultura local",
+      "respuestas": [
+        {
+          "texto": "Torreón",
+          "puntos": 38
+        },
+        {
+          "texto": "Gómez Palacio",
+          "puntos": 23
+        },
+        {
+          "texto": "Lerdo",
+          "puntos": 17
+        },
+        {
+          "texto": "Matamoros",
+          "puntos": 13
+        },
+        {
+          "texto": "Francisco I. Madero",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-005",
+      "texto": "Menciona una avenida conocida de Torreón",
+      "categoria": "cultura local",
+      "respuestas": [
+        {
+          "texto": "Independencia",
+          "puntos": 34
+        },
+        {
+          "texto": "Morelos",
+          "puntos": 27
+        },
+        {
+          "texto": "Juárez",
+          "puntos": 19
+        },
+        {
+          "texto": "Revolución",
+          "puntos": 12
+        },
+        {
+          "texto": "Colón",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-006",
+      "texto": "Menciona un plan típico de fin de semana en Torreón",
+      "categoria": "cultura local",
+      "respuestas": [
+        {
+          "texto": "Ir a comer",
+          "puntos": 36
+        },
+        {
+          "texto": "Pasear en una plaza",
+          "puntos": 24
+        },
+        {
+          "texto": "Ver jugar al Santos",
+          "puntos": 18
+        },
+        {
+          "texto": "Ir al cine",
+          "puntos": 12
+        },
+        {
+          "texto": "Visitar Puerto Noas",
+          "puntos": 10
+        }
+      ]
+    },
+    {
+      "id": "torreon-007",
+      "texto": "Menciona algo que recuerdas del centro de Torreón",
+      "categoria": "cultura local",
+      "respuestas": [
+        {
+          "texto": "Plaza de Armas",
+          "puntos": 33
+        },
+        {
+          "texto": "Mercado Juárez",
+          "puntos": 25
+        },
+        {
+          "texto": "Canal de la Perla",
+          "puntos": 20
+        },
+        {
+          "texto": "Teatro Isauro Martínez",
+          "puntos": 13
+        },
+        {
+          "texto": "Teleférico",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-008",
+      "texto": "Menciona algo asociado con la historia económica de La Laguna",
+      "categoria": "cultura local",
+      "respuestas": [
+        {
+          "texto": "Algodón",
+          "puntos": 42
+        },
+        {
+          "texto": "Ganadería",
+          "puntos": 22
+        },
+        {
+          "texto": "Industria lechera",
+          "puntos": 15
+        },
+        {
+          "texto": "Ferrocarril",
+          "puntos": 12
+        },
+        {
+          "texto": "Minería",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-009",
+      "texto": "Menciona un lugar lagunero que recomendarías a un visitante",
+      "categoria": "cultura local",
+      "respuestas": [
+        {
+          "texto": "Cristo de las Noas",
+          "puntos": 35
+        },
+        {
+          "texto": "Dunas de Bilbao",
+          "puntos": 25
+        },
+        {
+          "texto": "Puerto Noas",
+          "puntos": 18
+        },
+        {
+          "texto": "Centro de Torreón",
+          "puntos": 13
+        },
+        {
+          "texto": "Parque Raymundo",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-010",
+      "texto": "Menciona algo que hace especial a la gente de Torreón",
+      "categoria": "cultura local",
+      "respuestas": [
+        {
+          "texto": "Hospitalidad",
+          "puntos": 40
+        },
+        {
+          "texto": "Carácter trabajador",
+          "puntos": 24
+        },
+        {
+          "texto": "Sentido del humor",
+          "puntos": 16
+        },
+        {
+          "texto": "Pasión por el Santos",
+          "puntos": 12
+        },
+        {
+          "texto": "Orgullo lagunero",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-011",
+      "texto": "Menciona algo que ves durante un partido del Santos en Torreón",
+      "categoria": "cultura local",
+      "respuestas": [
+        {
+          "texto": "Playeras verdes",
+          "puntos": 32
+        },
+        {
+          "texto": "Porra",
+          "puntos": 26
+        },
+        {
+          "texto": "Guerrero",
+          "puntos": 20
+        },
+        {
+          "texto": "Familias",
+          "puntos": 14
+        },
+        {
+          "texto": "Banderas",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-012",
+      "texto": "Menciona una palabra relacionada con La Laguna",
+      "categoria": "cultura local",
+      "respuestas": [
+        {
+          "texto": "Guerreros",
+          "puntos": 38
+        },
+        {
+          "texto": "Algodón",
+          "puntos": 23
+        },
+        {
+          "texto": "Desierto",
+          "puntos": 17
+        },
+        {
+          "texto": "Comarca",
+          "puntos": 13
+        },
+        {
+          "texto": "Noas",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-013",
+      "texto": "Menciona una comida popular en una carne asada lagunera",
+      "categoria": "comida",
+      "respuestas": [
+        {
+          "texto": "Carne asada",
+          "puntos": 34
+        },
+        {
+          "texto": "Salchicha",
+          "puntos": 27
+        },
+        {
+          "texto": "Cebollitas",
+          "puntos": 19
+        },
+        {
+          "texto": "Quesadillas",
+          "puntos": 12
+        },
+        {
+          "texto": "Guacamole",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-014",
+      "texto": "Menciona algo que acompaña a unas gorditas",
+      "categoria": "comida",
+      "respuestas": [
+        {
+          "texto": "Salsa",
+          "puntos": 36
+        },
+        {
+          "texto": "Frijoles",
+          "puntos": 24
+        },
+        {
+          "texto": "Queso",
+          "puntos": 18
+        },
+        {
+          "texto": "Aguacate",
+          "puntos": 12
+        },
+        {
+          "texto": "Chile",
+          "puntos": 10
+        }
+      ]
+    },
+    {
+      "id": "torreon-015",
+      "texto": "Menciona un relleno popular para gorditas",
+      "categoria": "comida",
+      "respuestas": [
+        {
+          "texto": "Chicharrón",
+          "puntos": 33
+        },
+        {
+          "texto": "Carne con chile",
+          "puntos": 25
+        },
+        {
+          "texto": "Frijoles con queso",
+          "puntos": 20
+        },
+        {
+          "texto": "Deshebrada",
+          "puntos": 13
+        },
+        {
+          "texto": "Picadillo",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-016",
+      "texto": "Menciona una comida que pedirías después de una fiesta",
+      "categoria": "comida",
+      "respuestas": [
+        {
+          "texto": "Tacos",
+          "puntos": 42
+        },
+        {
+          "texto": "Hamburguesa",
+          "puntos": 22
+        },
+        {
+          "texto": "Hot dogs",
+          "puntos": 15
+        },
+        {
+          "texto": "Menudo",
+          "puntos": 12
+        },
+        {
+          "texto": "Gorditas",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-017",
+      "texto": "Menciona una bebida para soportar el calor de Torreón",
+      "categoria": "comida",
+      "respuestas": [
+        {
+          "texto": "Agua fría",
+          "puntos": 35
+        },
+        {
+          "texto": "Refresco",
+          "puntos": 25
+        },
+        {
+          "texto": "Limonada",
+          "puntos": 18
+        },
+        {
+          "texto": "Cerveza",
+          "puntos": 13
+        },
+        {
+          "texto": "Agua de frutas",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-018",
+      "texto": "Menciona un platillo mexicano de domingo",
+      "categoria": "comida",
+      "respuestas": [
+        {
+          "texto": "Carne asada",
+          "puntos": 40
+        },
+        {
+          "texto": "Pozole",
+          "puntos": 24
+        },
+        {
+          "texto": "Barbacoa",
+          "puntos": 16
+        },
+        {
+          "texto": "Mole",
+          "puntos": 12
+        },
+        {
+          "texto": "Menudo",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-019",
+      "texto": "Menciona algo que compras en una nevería",
+      "categoria": "comida",
+      "respuestas": [
+        {
+          "texto": "Nieve",
+          "puntos": 32
+        },
+        {
+          "texto": "Agua fresca",
+          "puntos": 26
+        },
+        {
+          "texto": "Paleta",
+          "puntos": 20
+        },
+        {
+          "texto": "Raspado",
+          "puntos": 14
+        },
+        {
+          "texto": "Elote",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-020",
+      "texto": "Menciona una botana para ver el fútbol",
+      "categoria": "comida",
+      "respuestas": [
+        {
+          "texto": "Papas",
+          "puntos": 38
+        },
+        {
+          "texto": "Nachos",
+          "puntos": 23
+        },
+        {
+          "texto": "Cacahuates",
+          "puntos": 17
+        },
+        {
+          "texto": "Alitas",
+          "puntos": 13
+        },
+        {
+          "texto": "Palomitas",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-021",
+      "texto": "Menciona un desayuno típico antes de ir a trabajar",
+      "categoria": "comida",
+      "respuestas": [
+        {
+          "texto": "Huevos",
+          "puntos": 34
+        },
+        {
+          "texto": "Gorditas",
+          "puntos": 27
+        },
+        {
+          "texto": "Chilaquiles",
+          "puntos": 19
+        },
+        {
+          "texto": "Tacos",
+          "puntos": 12
+        },
+        {
+          "texto": "Avena",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-022",
+      "texto": "Menciona un sabor de agua fresca",
+      "categoria": "comida",
+      "respuestas": [
+        {
+          "texto": "Horchata",
+          "puntos": 36
+        },
+        {
+          "texto": "Jamaica",
+          "puntos": 24
+        },
+        {
+          "texto": "Limón",
+          "puntos": 18
+        },
+        {
+          "texto": "Tamarindo",
+          "puntos": 12
+        },
+        {
+          "texto": "Piña",
+          "puntos": 10
+        }
+      ]
+    },
+    {
+      "id": "torreon-023",
+      "texto": "Menciona algo que no puede faltar en una taquiza",
+      "categoria": "comida",
+      "respuestas": [
+        {
+          "texto": "Tortillas",
+          "puntos": 33
+        },
+        {
+          "texto": "Salsa",
+          "puntos": 25
+        },
+        {
+          "texto": "Cebolla",
+          "puntos": 20
+        },
+        {
+          "texto": "Limón",
+          "puntos": 13
+        },
+        {
+          "texto": "Cilantro",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-024",
+      "texto": "Menciona un postre mexicano conocido",
+      "categoria": "comida",
+      "respuestas": [
+        {
+          "texto": "Pastel de tres leches",
+          "puntos": 42
+        },
+        {
+          "texto": "Flan",
+          "puntos": 22
+        },
+        {
+          "texto": "Arroz con leche",
+          "puntos": 15
+        },
+        {
+          "texto": "Churros",
+          "puntos": 12
+        },
+        {
+          "texto": "Gelatina",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-025",
+      "texto": "Menciona un género escuchado en fiestas laguneras",
+      "categoria": "música",
+      "respuestas": [
+        {
+          "texto": "Banda",
+          "puntos": 35
+        },
+        {
+          "texto": "Cumbia",
+          "puntos": 25
+        },
+        {
+          "texto": "Norteño",
+          "puntos": 18
+        },
+        {
+          "texto": "Reguetón",
+          "puntos": 13
+        },
+        {
+          "texto": "Pop",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-026",
+      "texto": "Menciona un cantante mexicano famoso desde los años noventa",
+      "categoria": "música",
+      "respuestas": [
+        {
+          "texto": "Luis Miguel",
+          "puntos": 40
+        },
+        {
+          "texto": "Juan Gabriel",
+          "puntos": 24
+        },
+        {
+          "texto": "Alejandro Fernández",
+          "puntos": 16
+        },
+        {
+          "texto": "Marco Antonio Solís",
+          "puntos": 12
+        },
+        {
+          "texto": "Thalía",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-027",
+      "texto": "Menciona un grupo de música norteña",
+      "categoria": "música",
+      "respuestas": [
+        {
+          "texto": "Los Tigres del Norte",
+          "puntos": 32
+        },
+        {
+          "texto": "Intocable",
+          "puntos": 26
+        },
+        {
+          "texto": "Pesado",
+          "puntos": 20
+        },
+        {
+          "texto": "Duelo",
+          "puntos": 14
+        },
+        {
+          "texto": "Bronco",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-028",
+      "texto": "Menciona una canción para cantar en karaoke",
+      "categoria": "música",
+      "respuestas": [
+        {
+          "texto": "El Rey",
+          "puntos": 38
+        },
+        {
+          "texto": "Querida",
+          "puntos": 23
+        },
+        {
+          "texto": "La Chona",
+          "puntos": 17
+        },
+        {
+          "texto": "Ahora te puedes marchar",
+          "puntos": 13
+        },
+        {
+          "texto": "Rata de dos patas",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-029",
+      "texto": "Menciona una forma de escuchar música que fue popular desde 1990",
+      "categoria": "música",
+      "respuestas": [
+        {
+          "texto": "Radio",
+          "puntos": 34
+        },
+        {
+          "texto": "CD",
+          "puntos": 27
+        },
+        {
+          "texto": "Casete",
+          "puntos": 19
+        },
+        {
+          "texto": "MP3",
+          "puntos": 12
+        },
+        {
+          "texto": "Streaming",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-030",
+      "texto": "Menciona una artista pop mexicana",
+      "categoria": "música",
+      "respuestas": [
+        {
+          "texto": "Thalía",
+          "puntos": 36
+        },
+        {
+          "texto": "Paulina Rubio",
+          "puntos": 24
+        },
+        {
+          "texto": "Gloria Trevi",
+          "puntos": 18
+        },
+        {
+          "texto": "Belinda",
+          "puntos": 12
+        },
+        {
+          "texto": "Danna",
+          "puntos": 10
+        }
+      ]
+    },
+    {
+      "id": "torreon-031",
+      "texto": "Menciona un instrumento de una agrupación norteña",
+      "categoria": "música",
+      "respuestas": [
+        {
+          "texto": "Acordeón",
+          "puntos": 33
+        },
+        {
+          "texto": "Bajo sexto",
+          "puntos": 25
+        },
+        {
+          "texto": "Batería",
+          "puntos": 20
+        },
+        {
+          "texto": "Bajo",
+          "puntos": 13
+        },
+        {
+          "texto": "Saxofón",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-032",
+      "texto": "Menciona música que se escucha en una boda",
+      "categoria": "música",
+      "respuestas": [
+        {
+          "texto": "Cumbia",
+          "puntos": 42
+        },
+        {
+          "texto": "Banda",
+          "puntos": 22
+        },
+        {
+          "texto": "Balada",
+          "puntos": 15
+        },
+        {
+          "texto": "Norteño",
+          "puntos": 12
+        },
+        {
+          "texto": "Salsa",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-033",
+      "texto": "Menciona un cantante de regional mexicano popular en los años 2020",
+      "categoria": "música",
+      "respuestas": [
+        {
+          "texto": "Christian Nodal",
+          "puntos": 35
+        },
+        {
+          "texto": "Carín León",
+          "puntos": 25
+        },
+        {
+          "texto": "Peso Pluma",
+          "puntos": 18
+        },
+        {
+          "texto": "Ángela Aguilar",
+          "puntos": 13
+        },
+        {
+          "texto": "Natanael Cano",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-034",
+      "texto": "Menciona una banda mexicana de rock o pop",
+      "categoria": "música",
+      "respuestas": [
+        {
+          "texto": "Maná",
+          "puntos": 40
+        },
+        {
+          "texto": "Café Tacvba",
+          "puntos": 24
+        },
+        {
+          "texto": "Molotov",
+          "puntos": 16
+        },
+        {
+          "texto": "Zoé",
+          "puntos": 12
+        },
+        {
+          "texto": "Jaguares",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-035",
+      "texto": "Menciona algo que llevabas para escuchar música en los años 2000",
+      "categoria": "música",
+      "respuestas": [
+        {
+          "texto": "Discman",
+          "puntos": 32
+        },
+        {
+          "texto": "Reproductor MP3",
+          "puntos": 26
+        },
+        {
+          "texto": "CD",
+          "puntos": 20
+        },
+        {
+          "texto": "Audífonos",
+          "puntos": 14
+        },
+        {
+          "texto": "Celular",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-036",
+      "texto": "Menciona una plataforma para escuchar música en los años 2020",
+      "categoria": "música",
+      "respuestas": [
+        {
+          "texto": "Spotify",
+          "puntos": 38
+        },
+        {
+          "texto": "YouTube",
+          "puntos": 23
+        },
+        {
+          "texto": "Apple Music",
+          "puntos": 17
+        },
+        {
+          "texto": "Amazon Music",
+          "puntos": 13
+        },
+        {
+          "texto": "Deezer",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-037",
+      "texto": "Menciona un baile común en una fiesta mexicana",
+      "categoria": "bailes",
+      "respuestas": [
+        {
+          "texto": "Cumbia",
+          "puntos": 34
+        },
+        {
+          "texto": "Quebradita",
+          "puntos": 27
+        },
+        {
+          "texto": "Salsa",
+          "puntos": 19
+        },
+        {
+          "texto": "Banda",
+          "puntos": 12
+        },
+        {
+          "texto": "Reguetón",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-038",
+      "texto": "Menciona un baile que fue muy popular en los años noventa",
+      "categoria": "bailes",
+      "respuestas": [
+        {
+          "texto": "Quebradita",
+          "puntos": 36
+        },
+        {
+          "texto": "Macarena",
+          "puntos": 24
+        },
+        {
+          "texto": "Payaso de rodeo",
+          "puntos": 18
+        },
+        {
+          "texto": "Lambada",
+          "puntos": 12
+        },
+        {
+          "texto": "Merengue",
+          "puntos": 10
+        }
+      ]
+    },
+    {
+      "id": "torreon-039",
+      "texto": "Menciona una canción con coreografía conocida",
+      "categoria": "bailes",
+      "respuestas": [
+        {
+          "texto": "Payaso de rodeo",
+          "puntos": 33
+        },
+        {
+          "texto": "Macarena",
+          "puntos": 25
+        },
+        {
+          "texto": "Caballo dorado",
+          "puntos": 20
+        },
+        {
+          "texto": "Aserejé",
+          "puntos": 13
+        },
+        {
+          "texto": "YMCA",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-040",
+      "texto": "Menciona algo necesario para bailar en una fiesta",
+      "categoria": "bailes",
+      "respuestas": [
+        {
+          "texto": "Música",
+          "puntos": 42
+        },
+        {
+          "texto": "Pareja",
+          "puntos": 22
+        },
+        {
+          "texto": "Espacio",
+          "puntos": 15
+        },
+        {
+          "texto": "Ritmo",
+          "puntos": 12
+        },
+        {
+          "texto": "Ánimo",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-041",
+      "texto": "Menciona un género bailable latino",
+      "categoria": "bailes",
+      "respuestas": [
+        {
+          "texto": "Cumbia",
+          "puntos": 35
+        },
+        {
+          "texto": "Salsa",
+          "puntos": 25
+        },
+        {
+          "texto": "Merengue",
+          "puntos": 18
+        },
+        {
+          "texto": "Bachata",
+          "puntos": 13
+        },
+        {
+          "texto": "Reguetón",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-042",
+      "texto": "Menciona un baile que aprenderías para una boda",
+      "categoria": "bailes",
+      "respuestas": [
+        {
+          "texto": "Vals",
+          "puntos": 40
+        },
+        {
+          "texto": "Cumbia",
+          "puntos": 24
+        },
+        {
+          "texto": "Salsa",
+          "puntos": 16
+        },
+        {
+          "texto": "Bachata",
+          "puntos": 12
+        },
+        {
+          "texto": "Norteño",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-043",
+      "texto": "Menciona una razón por la que alguien no sale a bailar",
+      "categoria": "bailes",
+      "respuestas": [
+        {
+          "texto": "Le da pena",
+          "puntos": 32
+        },
+        {
+          "texto": "No sabe bailar",
+          "puntos": 26
+        },
+        {
+          "texto": "Está cansado",
+          "puntos": 20
+        },
+        {
+          "texto": "No le gusta la canción",
+          "puntos": 14
+        },
+        {
+          "texto": "No tiene pareja",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-044",
+      "texto": "Menciona algo que puede pasar bailando",
+      "categoria": "bailes",
+      "respuestas": [
+        {
+          "texto": "Pisotón",
+          "puntos": 38
+        },
+        {
+          "texto": "Caída",
+          "puntos": 23
+        },
+        {
+          "texto": "Cansancio",
+          "puntos": 17
+        },
+        {
+          "texto": "Risa",
+          "puntos": 13
+        },
+        {
+          "texto": "Perder un zapato",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-045",
+      "texto": "Menciona un lugar donde la gente aprende a bailar",
+      "categoria": "bailes",
+      "respuestas": [
+        {
+          "texto": "Academia",
+          "puntos": 34
+        },
+        {
+          "texto": "Fiesta",
+          "puntos": 27
+        },
+        {
+          "texto": "Escuela",
+          "puntos": 19
+        },
+        {
+          "texto": "Casa",
+          "puntos": 12
+        },
+        {
+          "texto": "Videos de internet",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-046",
+      "texto": "Menciona un accesorio usado al bailar música norteña",
+      "categoria": "bailes",
+      "respuestas": [
+        {
+          "texto": "Sombrero",
+          "puntos": 36
+        },
+        {
+          "texto": "Botas",
+          "puntos": 24
+        },
+        {
+          "texto": "Cinturón",
+          "puntos": 18
+        },
+        {
+          "texto": "Camisa",
+          "puntos": 12
+        },
+        {
+          "texto": "Paliacate",
+          "puntos": 10
+        }
+      ]
+    },
+    {
+      "id": "torreon-047",
+      "texto": "Menciona un baile visto en TikTok en los años 2020",
+      "categoria": "bailes",
+      "respuestas": [
+        {
+          "texto": "Coreografía viral",
+          "puntos": 33
+        },
+        {
+          "texto": "Shuffle",
+          "puntos": 25
+        },
+        {
+          "texto": "Reguetón",
+          "puntos": 20
+        },
+        {
+          "texto": "K-pop",
+          "puntos": 13
+        },
+        {
+          "texto": "Cumbia",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-048",
+      "texto": "Menciona quién inicia el baile en una fiesta familiar",
+      "categoria": "bailes",
+      "respuestas": [
+        {
+          "texto": "Los jóvenes",
+          "puntos": 42
+        },
+        {
+          "texto": "Los novios",
+          "puntos": 22
+        },
+        {
+          "texto": "Los niños",
+          "puntos": 15
+        },
+        {
+          "texto": "Los tíos",
+          "puntos": 12
+        },
+        {
+          "texto": "Los abuelos",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-049",
+      "texto": "Menciona un equipo de fútbol muy apoyado en Torreón",
+      "categoria": "deportes",
+      "respuestas": [
+        {
+          "texto": "Santos Laguna",
+          "puntos": 35
+        },
+        {
+          "texto": "América",
+          "puntos": 25
+        },
+        {
+          "texto": "Chivas",
+          "puntos": 18
+        },
+        {
+          "texto": "Tigres",
+          "puntos": 13
+        },
+        {
+          "texto": "Monterrey",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-050",
+      "texto": "Menciona un deporte practicado en La Laguna",
+      "categoria": "deportes",
+      "respuestas": [
+        {
+          "texto": "Fútbol",
+          "puntos": 40
+        },
+        {
+          "texto": "Béisbol",
+          "puntos": 24
+        },
+        {
+          "texto": "Baloncesto",
+          "puntos": 16
+        },
+        {
+          "texto": "Boxeo",
+          "puntos": 12
+        },
+        {
+          "texto": "Ciclismo",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-051",
+      "texto": "Menciona algo que llevas al estadio",
+      "categoria": "deportes",
+      "respuestas": [
+        {
+          "texto": "Boleto",
+          "puntos": 32
+        },
+        {
+          "texto": "Playera del equipo",
+          "puntos": 26
+        },
+        {
+          "texto": "Dinero",
+          "puntos": 20
+        },
+        {
+          "texto": "Gorra",
+          "puntos": 14
+        },
+        {
+          "texto": "Bandera",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-052",
+      "texto": "Menciona una posición de fútbol",
+      "categoria": "deportes",
+      "respuestas": [
+        {
+          "texto": "Portero",
+          "puntos": 38
+        },
+        {
+          "texto": "Delantero",
+          "puntos": 23
+        },
+        {
+          "texto": "Defensa",
+          "puntos": 17
+        },
+        {
+          "texto": "Mediocampista",
+          "puntos": 13
+        },
+        {
+          "texto": "Extremo",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-053",
+      "texto": "Menciona un futbolista mexicano famoso desde 1990",
+      "categoria": "deportes",
+      "respuestas": [
+        {
+          "texto": "Hugo Sánchez",
+          "puntos": 34
+        },
+        {
+          "texto": "Rafael Márquez",
+          "puntos": 27
+        },
+        {
+          "texto": "Javier Hernández",
+          "puntos": 19
+        },
+        {
+          "texto": "Cuauhtémoc Blanco",
+          "puntos": 12
+        },
+        {
+          "texto": "Jorge Campos",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-054",
+      "texto": "Menciona una competencia deportiva internacional",
+      "categoria": "deportes",
+      "respuestas": [
+        {
+          "texto": "Mundial de fútbol",
+          "puntos": 36
+        },
+        {
+          "texto": "Juegos Olímpicos",
+          "puntos": 24
+        },
+        {
+          "texto": "Champions League",
+          "puntos": 18
+        },
+        {
+          "texto": "Copa América",
+          "puntos": 12
+        },
+        {
+          "texto": "Super Bowl",
+          "puntos": 10
+        }
+      ]
+    },
+    {
+      "id": "torreon-055",
+      "texto": "Menciona algo que grita la afición durante un partido",
+      "categoria": "deportes",
+      "respuestas": [
+        {
+          "texto": "Gol",
+          "puntos": 33
+        },
+        {
+          "texto": "Vamos equipo",
+          "puntos": 25
+        },
+        {
+          "texto": "Árbitro",
+          "puntos": 20
+        },
+        {
+          "texto": "Sí se puede",
+          "puntos": 13
+        },
+        {
+          "texto": "Fuera",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-056",
+      "texto": "Menciona un deporte que se practica bajo techo",
+      "categoria": "deportes",
+      "respuestas": [
+        {
+          "texto": "Baloncesto",
+          "puntos": 42
+        },
+        {
+          "texto": "Voleibol",
+          "puntos": 22
+        },
+        {
+          "texto": "Gimnasia",
+          "puntos": 15
+        },
+        {
+          "texto": "Boxeo",
+          "puntos": 12
+        },
+        {
+          "texto": "Futsal",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-057",
+      "texto": "Menciona una razón para hacer ejercicio",
+      "categoria": "deportes",
+      "respuestas": [
+        {
+          "texto": "Salud",
+          "puntos": 35
+        },
+        {
+          "texto": "Bajar de peso",
+          "puntos": 25
+        },
+        {
+          "texto": "Diversión",
+          "puntos": 18
+        },
+        {
+          "texto": "Competir",
+          "puntos": 13
+        },
+        {
+          "texto": "Convivir",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-058",
+      "texto": "Menciona un artículo deportivo que hay en una casa",
+      "categoria": "deportes",
+      "respuestas": [
+        {
+          "texto": "Balón",
+          "puntos": 40
+        },
+        {
+          "texto": "Bicicleta",
+          "puntos": 24
+        },
+        {
+          "texto": "Pesas",
+          "puntos": 16
+        },
+        {
+          "texto": "Raqueta",
+          "puntos": 12
+        },
+        {
+          "texto": "Guantes",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-059",
+      "texto": "Menciona una lesión común al hacer deporte",
+      "categoria": "deportes",
+      "respuestas": [
+        {
+          "texto": "Esguince",
+          "puntos": 32
+        },
+        {
+          "texto": "Golpe",
+          "puntos": 26
+        },
+        {
+          "texto": "Calambre",
+          "puntos": 20
+        },
+        {
+          "texto": "Fractura",
+          "puntos": 14
+        },
+        {
+          "texto": "Raspón",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-060",
+      "texto": "Menciona un deporte visto mucho por televisión",
+      "categoria": "deportes",
+      "respuestas": [
+        {
+          "texto": "Fútbol",
+          "puntos": 38
+        },
+        {
+          "texto": "Béisbol",
+          "puntos": 23
+        },
+        {
+          "texto": "Boxeo",
+          "puntos": 17
+        },
+        {
+          "texto": "Fútbol americano",
+          "puntos": 13
+        },
+        {
+          "texto": "Baloncesto",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-061",
+      "texto": "Menciona una actividad familiar de entretenimiento",
+      "categoria": "entretenimiento",
+      "respuestas": [
+        {
+          "texto": "Ver televisión",
+          "puntos": 34
+        },
+        {
+          "texto": "Ir al cine",
+          "puntos": 27
+        },
+        {
+          "texto": "Jugar juegos de mesa",
+          "puntos": 19
+        },
+        {
+          "texto": "Salir al parque",
+          "puntos": 12
+        },
+        {
+          "texto": "Escuchar música",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-062",
+      "texto": "Menciona algo que hacían los jóvenes para divertirse en los años noventa",
+      "categoria": "entretenimiento",
+      "respuestas": [
+        {
+          "texto": "Ir a la plaza",
+          "puntos": 36
+        },
+        {
+          "texto": "Jugar maquinitas",
+          "puntos": 24
+        },
+        {
+          "texto": "Escuchar radio",
+          "puntos": 18
+        },
+        {
+          "texto": "Rentar películas",
+          "puntos": 12
+        },
+        {
+          "texto": "Hablar por teléfono",
+          "puntos": 10
+        }
+      ]
+    },
+    {
+      "id": "torreon-063",
+      "texto": "Menciona algo que hacían los jóvenes para divertirse en los años 2000",
+      "categoria": "entretenimiento",
+      "respuestas": [
+        {
+          "texto": "Chatear en Messenger",
+          "puntos": 33
+        },
+        {
+          "texto": "Ir al cine",
+          "puntos": 25
+        },
+        {
+          "texto": "Jugar videojuegos",
+          "puntos": 20
+        },
+        {
+          "texto": "Escuchar MP3",
+          "puntos": 13
+        },
+        {
+          "texto": "Salir con amigos",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-064",
+      "texto": "Menciona una forma de entretenimiento popular en los años 2020",
+      "categoria": "entretenimiento",
+      "respuestas": [
+        {
+          "texto": "Streaming",
+          "puntos": 42
+        },
+        {
+          "texto": "Redes sociales",
+          "puntos": 22
+        },
+        {
+          "texto": "Videojuegos",
+          "puntos": 15
+        },
+        {
+          "texto": "Podcasts",
+          "puntos": 12
+        },
+        {
+          "texto": "Videos cortos",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-065",
+      "texto": "Menciona algo que compras en el cine",
+      "categoria": "entretenimiento",
+      "respuestas": [
+        {
+          "texto": "Palomitas",
+          "puntos": 35
+        },
+        {
+          "texto": "Refresco",
+          "puntos": 25
+        },
+        {
+          "texto": "Nachos",
+          "puntos": 18
+        },
+        {
+          "texto": "Dulces",
+          "puntos": 13
+        },
+        {
+          "texto": "Hot dog",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-066",
+      "texto": "Menciona una razón para dejar de ver una película",
+      "categoria": "entretenimiento",
+      "respuestas": [
+        {
+          "texto": "Aburrimiento",
+          "puntos": 40
+        },
+        {
+          "texto": "Sueño",
+          "puntos": 24
+        },
+        {
+          "texto": "Mala historia",
+          "puntos": 16
+        },
+        {
+          "texto": "Interrupciones",
+          "puntos": 12
+        },
+        {
+          "texto": "Muchos anuncios",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-067",
+      "texto": "Menciona un juego para una reunión familiar",
+      "categoria": "entretenimiento",
+      "respuestas": [
+        {
+          "texto": "Lotería",
+          "puntos": 32
+        },
+        {
+          "texto": "Uno",
+          "puntos": 26
+        },
+        {
+          "texto": "Dominó",
+          "puntos": 20
+        },
+        {
+          "texto": "Mímica",
+          "puntos": 14
+        },
+        {
+          "texto": "Turista",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-068",
+      "texto": "Menciona algo que ves en una feria",
+      "categoria": "entretenimiento",
+      "respuestas": [
+        {
+          "texto": "Juegos mecánicos",
+          "puntos": 38
+        },
+        {
+          "texto": "Puestos de comida",
+          "puntos": 23
+        },
+        {
+          "texto": "Música",
+          "puntos": 17
+        },
+        {
+          "texto": "Premios",
+          "puntos": 13
+        },
+        {
+          "texto": "Luces",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-069",
+      "texto": "Menciona una aplicación usada para ver videos",
+      "categoria": "entretenimiento",
+      "respuestas": [
+        {
+          "texto": "YouTube",
+          "puntos": 34
+        },
+        {
+          "texto": "TikTok",
+          "puntos": 27
+        },
+        {
+          "texto": "Netflix",
+          "puntos": 19
+        },
+        {
+          "texto": "Facebook",
+          "puntos": 12
+        },
+        {
+          "texto": "Instagram",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-070",
+      "texto": "Menciona una actividad para un domingo en casa",
+      "categoria": "entretenimiento",
+      "respuestas": [
+        {
+          "texto": "Ver películas",
+          "puntos": 36
+        },
+        {
+          "texto": "Dormir",
+          "puntos": 24
+        },
+        {
+          "texto": "Cocinar",
+          "puntos": 18
+        },
+        {
+          "texto": "Jugar",
+          "puntos": 12
+        },
+        {
+          "texto": "Limpiar",
+          "puntos": 10
+        }
+      ]
+    },
+    {
+      "id": "torreon-071",
+      "texto": "Menciona algo que provoca risa en una reunión",
+      "categoria": "entretenimiento",
+      "respuestas": [
+        {
+          "texto": "Chistes",
+          "puntos": 33
+        },
+        {
+          "texto": "Anécdotas",
+          "puntos": 25
+        },
+        {
+          "texto": "Memes",
+          "puntos": 20
+        },
+        {
+          "texto": "Imitaciones",
+          "puntos": 13
+        },
+        {
+          "texto": "Caídas",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-072",
+      "texto": "Menciona un premio que quisieras ganar en un concurso",
+      "categoria": "entretenimiento",
+      "respuestas": [
+        {
+          "texto": "Dinero",
+          "puntos": 42
+        },
+        {
+          "texto": "Viaje",
+          "puntos": 22
+        },
+        {
+          "texto": "Auto",
+          "puntos": 15
+        },
+        {
+          "texto": "Electrodoméstico",
+          "puntos": 12
+        },
+        {
+          "texto": "Celular",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-073",
+      "texto": "Menciona una serie mexicana popular desde los años noventa",
+      "categoria": "series",
+      "respuestas": [
+        {
+          "texto": "El Chavo del 8",
+          "puntos": 35
+        },
+        {
+          "texto": "La familia P. Luche",
+          "puntos": 25
+        },
+        {
+          "texto": "Vecinos",
+          "puntos": 18
+        },
+        {
+          "texto": "Mujer casos de la vida real",
+          "puntos": 13
+        },
+        {
+          "texto": "Club de Cuervos",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-074",
+      "texto": "Menciona una serie estadounidense popular en México en los años noventa",
+      "categoria": "series",
+      "respuestas": [
+        {
+          "texto": "Los Simpson",
+          "puntos": 40
+        },
+        {
+          "texto": "Friends",
+          "puntos": 24
+        },
+        {
+          "texto": "Beverly Hills 90210",
+          "puntos": 16
+        },
+        {
+          "texto": "Baywatch",
+          "puntos": 12
+        },
+        {
+          "texto": "El príncipe del rap",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-075",
+      "texto": "Menciona una serie popular de los años 2000",
+      "categoria": "series",
+      "respuestas": [
+        {
+          "texto": "Malcolm el de en medio",
+          "puntos": 32
+        },
+        {
+          "texto": "Drake y Josh",
+          "puntos": 26
+        },
+        {
+          "texto": "Smallville",
+          "puntos": 20
+        },
+        {
+          "texto": "Lost",
+          "puntos": 14
+        },
+        {
+          "texto": "Grey's Anatomy",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-076",
+      "texto": "Menciona una serie popular de los años 2010",
+      "categoria": "series",
+      "respuestas": [
+        {
+          "texto": "Game of Thrones",
+          "puntos": 38
+        },
+        {
+          "texto": "Stranger Things",
+          "puntos": 23
+        },
+        {
+          "texto": "La casa de papel",
+          "puntos": 17
+        },
+        {
+          "texto": "The Walking Dead",
+          "puntos": 13
+        },
+        {
+          "texto": "Black Mirror",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-077",
+      "texto": "Menciona una serie popular en streaming en los años 2020",
+      "categoria": "series",
+      "respuestas": [
+        {
+          "texto": "Wednesday",
+          "puntos": 34
+        },
+        {
+          "texto": "The Last of Us",
+          "puntos": 27
+        },
+        {
+          "texto": "Bridgerton",
+          "puntos": 19
+        },
+        {
+          "texto": "The Boys",
+          "puntos": 12
+        },
+        {
+          "texto": "El juego del calamar",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-078",
+      "texto": "Menciona una serie que podrías ver con la familia",
+      "categoria": "series",
+      "respuestas": [
+        {
+          "texto": "Los Simpson",
+          "puntos": 36
+        },
+        {
+          "texto": "Malcolm el de en medio",
+          "puntos": 24
+        },
+        {
+          "texto": "Una familia de diez",
+          "puntos": 18
+        },
+        {
+          "texto": "Vecinos",
+          "puntos": 12
+        },
+        {
+          "texto": "Modern Family",
+          "puntos": 10
+        }
+      ]
+    },
+    {
+      "id": "torreon-079",
+      "texto": "Menciona un género de series",
+      "categoria": "series",
+      "respuestas": [
+        {
+          "texto": "Comedia",
+          "puntos": 33
+        },
+        {
+          "texto": "Drama",
+          "puntos": 25
+        },
+        {
+          "texto": "Acción",
+          "puntos": 20
+        },
+        {
+          "texto": "Terror",
+          "puntos": 13
+        },
+        {
+          "texto": "Documental",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-080",
+      "texto": "Menciona algo que haces cuando terminas una gran serie",
+      "categoria": "series",
+      "respuestas": [
+        {
+          "texto": "Buscar otra",
+          "puntos": 42
+        },
+        {
+          "texto": "Recomendarla",
+          "puntos": 22
+        },
+        {
+          "texto": "Ver el final otra vez",
+          "puntos": 15
+        },
+        {
+          "texto": "Leer teorías",
+          "puntos": 12
+        },
+        {
+          "texto": "Publicar en redes",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-081",
+      "texto": "Menciona una plataforma de series",
+      "categoria": "series",
+      "respuestas": [
+        {
+          "texto": "Netflix",
+          "puntos": 35
+        },
+        {
+          "texto": "Disney+",
+          "puntos": 25
+        },
+        {
+          "texto": "Prime Video",
+          "puntos": 18
+        },
+        {
+          "texto": "Max",
+          "puntos": 13
+        },
+        {
+          "texto": "ViX",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-082",
+      "texto": "Menciona una serie animada para adultos",
+      "categoria": "series",
+      "respuestas": [
+        {
+          "texto": "Los Simpson",
+          "puntos": 40
+        },
+        {
+          "texto": "South Park",
+          "puntos": 24
+        },
+        {
+          "texto": "Padre de familia",
+          "puntos": 16
+        },
+        {
+          "texto": "Rick y Morty",
+          "puntos": 12
+        },
+        {
+          "texto": "Futurama",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-083",
+      "texto": "Menciona una serie de superhéroes",
+      "categoria": "series",
+      "respuestas": [
+        {
+          "texto": "The Boys",
+          "puntos": 32
+        },
+        {
+          "texto": "Daredevil",
+          "puntos": 26
+        },
+        {
+          "texto": "Smallville",
+          "puntos": 20
+        },
+        {
+          "texto": "Loki",
+          "puntos": 14
+        },
+        {
+          "texto": "The Flash",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-084",
+      "texto": "Menciona algo molesto al ver una serie",
+      "categoria": "series",
+      "respuestas": [
+        {
+          "texto": "Anuncios",
+          "puntos": 38
+        },
+        {
+          "texto": "Internet lento",
+          "puntos": 23
+        },
+        {
+          "texto": "Spoilers",
+          "puntos": 17
+        },
+        {
+          "texto": "Quedarse dormido",
+          "puntos": 13
+        },
+        {
+          "texto": "Final malo",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-085",
+      "texto": "Menciona una película mexicana conocida desde 1990",
+      "categoria": "películas",
+      "respuestas": [
+        {
+          "texto": "Amores perros",
+          "puntos": 34
+        },
+        {
+          "texto": "Nosotros los Nobles",
+          "puntos": 27
+        },
+        {
+          "texto": "No se aceptan devoluciones",
+          "puntos": 19
+        },
+        {
+          "texto": "Y tu mamá también",
+          "puntos": 12
+        },
+        {
+          "texto": "Como agua para chocolate",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-086",
+      "texto": "Menciona una película taquillera de los años noventa",
+      "categoria": "películas",
+      "respuestas": [
+        {
+          "texto": "Titanic",
+          "puntos": 36
+        },
+        {
+          "texto": "Jurassic Park",
+          "puntos": 24
+        },
+        {
+          "texto": "El rey león",
+          "puntos": 18
+        },
+        {
+          "texto": "Mi pobre angelito",
+          "puntos": 12
+        },
+        {
+          "texto": "Hombres de negro",
+          "puntos": 10
+        }
+      ]
+    },
+    {
+      "id": "torreon-087",
+      "texto": "Menciona una película popular de los años 2000",
+      "categoria": "películas",
+      "respuestas": [
+        {
+          "texto": "Harry Potter",
+          "puntos": 33
+        },
+        {
+          "texto": "Shrek",
+          "puntos": 25
+        },
+        {
+          "texto": "El señor de los anillos",
+          "puntos": 20
+        },
+        {
+          "texto": "Avatar",
+          "puntos": 13
+        },
+        {
+          "texto": "Piratas del Caribe",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-088",
+      "texto": "Menciona una película popular de los años 2010",
+      "categoria": "películas",
+      "respuestas": [
+        {
+          "texto": "Avengers Endgame",
+          "puntos": 42
+        },
+        {
+          "texto": "Coco",
+          "puntos": 22
+        },
+        {
+          "texto": "Frozen",
+          "puntos": 15
+        },
+        {
+          "texto": "Joker",
+          "puntos": 12
+        },
+        {
+          "texto": "Rápidos y Furiosos",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-089",
+      "texto": "Menciona un género de película para ver en pareja",
+      "categoria": "películas",
+      "respuestas": [
+        {
+          "texto": "Romance",
+          "puntos": 35
+        },
+        {
+          "texto": "Comedia",
+          "puntos": 25
+        },
+        {
+          "texto": "Terror",
+          "puntos": 18
+        },
+        {
+          "texto": "Drama",
+          "puntos": 13
+        },
+        {
+          "texto": "Acción",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-090",
+      "texto": "Menciona una saga de películas famosa",
+      "categoria": "películas",
+      "respuestas": [
+        {
+          "texto": "Star Wars",
+          "puntos": 40
+        },
+        {
+          "texto": "Harry Potter",
+          "puntos": 24
+        },
+        {
+          "texto": "Rápidos y Furiosos",
+          "puntos": 16
+        },
+        {
+          "texto": "El señor de los anillos",
+          "puntos": 12
+        },
+        {
+          "texto": "Jurassic Park",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-091",
+      "texto": "Menciona algo que arruina una película",
+      "categoria": "películas",
+      "respuestas": [
+        {
+          "texto": "Spoilers",
+          "puntos": 32
+        },
+        {
+          "texto": "Mal final",
+          "puntos": 26
+        },
+        {
+          "texto": "Mala actuación",
+          "puntos": 20
+        },
+        {
+          "texto": "Demasiado larga",
+          "puntos": 14
+        },
+        {
+          "texto": "Interrupciones",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-092",
+      "texto": "Menciona un actor mexicano reconocido",
+      "categoria": "películas",
+      "respuestas": [
+        {
+          "texto": "Eugenio Derbez",
+          "puntos": 38
+        },
+        {
+          "texto": "Diego Luna",
+          "puntos": 23
+        },
+        {
+          "texto": "Gael García Bernal",
+          "puntos": 17
+        },
+        {
+          "texto": "Salma Hayek",
+          "puntos": 13
+        },
+        {
+          "texto": "Damián Alcázar",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-093",
+      "texto": "Menciona una película que suele verse en Navidad",
+      "categoria": "películas",
+      "respuestas": [
+        {
+          "texto": "Mi pobre angelito",
+          "puntos": 34
+        },
+        {
+          "texto": "El Grinch",
+          "puntos": 27
+        },
+        {
+          "texto": "Santa Cláusula",
+          "puntos": 19
+        },
+        {
+          "texto": "El expreso polar",
+          "puntos": 12
+        },
+        {
+          "texto": "Duro de matar",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-094",
+      "texto": "Menciona una película de terror conocida",
+      "categoria": "películas",
+      "respuestas": [
+        {
+          "texto": "El conjuro",
+          "puntos": 36
+        },
+        {
+          "texto": "Eso",
+          "puntos": 24
+        },
+        {
+          "texto": "El exorcista",
+          "puntos": 18
+        },
+        {
+          "texto": "La monja",
+          "puntos": 12
+        },
+        {
+          "texto": "Scream",
+          "puntos": 10
+        }
+      ]
+    },
+    {
+      "id": "torreon-095",
+      "texto": "Menciona algo que haces antes de ver una película",
+      "categoria": "películas",
+      "respuestas": [
+        {
+          "texto": "Comprar botana",
+          "puntos": 33
+        },
+        {
+          "texto": "Elegir asiento",
+          "puntos": 25
+        },
+        {
+          "texto": "Ver el tráiler",
+          "puntos": 20
+        },
+        {
+          "texto": "Apagar el celular",
+          "puntos": 13
+        },
+        {
+          "texto": "Ir al baño",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-096",
+      "texto": "Menciona dónde ves películas actualmente",
+      "categoria": "películas",
+      "respuestas": [
+        {
+          "texto": "Streaming",
+          "puntos": 42
+        },
+        {
+          "texto": "Cine",
+          "puntos": 22
+        },
+        {
+          "texto": "Televisión",
+          "puntos": 15
+        },
+        {
+          "texto": "Celular",
+          "puntos": 12
+        },
+        {
+          "texto": "Computadora",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-097",
+      "texto": "Menciona una princesa de Disney",
+      "categoria": "disney",
+      "respuestas": [
+        {
+          "texto": "Cenicienta",
+          "puntos": 35
+        },
+        {
+          "texto": "Blancanieves",
+          "puntos": 25
+        },
+        {
+          "texto": "Bella",
+          "puntos": 18
+        },
+        {
+          "texto": "Ariel",
+          "puntos": 13
+        },
+        {
+          "texto": "Jazmín",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-098",
+      "texto": "Menciona una película animada de Disney de los años noventa",
+      "categoria": "disney",
+      "respuestas": [
+        {
+          "texto": "El rey león",
+          "puntos": 40
+        },
+        {
+          "texto": "Aladdín",
+          "puntos": 24
+        },
+        {
+          "texto": "La bella y la bestia",
+          "puntos": 16
+        },
+        {
+          "texto": "Mulán",
+          "puntos": 12
+        },
+        {
+          "texto": "Tarzán",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-099",
+      "texto": "Menciona un personaje de Mickey Mouse",
+      "categoria": "disney",
+      "respuestas": [
+        {
+          "texto": "Mickey",
+          "puntos": 32
+        },
+        {
+          "texto": "Minnie",
+          "puntos": 26
+        },
+        {
+          "texto": "Donald",
+          "puntos": 20
+        },
+        {
+          "texto": "Goofy",
+          "puntos": 14
+        },
+        {
+          "texto": "Pluto",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-100",
+      "texto": "Menciona una película de Pixar",
+      "categoria": "disney",
+      "respuestas": [
+        {
+          "texto": "Toy Story",
+          "puntos": 38
+        },
+        {
+          "texto": "Coco",
+          "puntos": 23
+        },
+        {
+          "texto": "Cars",
+          "puntos": 17
+        },
+        {
+          "texto": "Los Increíbles",
+          "puntos": 13
+        },
+        {
+          "texto": "Buscando a Nemo",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-101",
+      "texto": "Menciona una canción famosa de una película Disney",
+      "categoria": "disney",
+      "respuestas": [
+        {
+          "texto": "Libre soy",
+          "puntos": 34
+        },
+        {
+          "texto": "Hakuna Matata",
+          "puntos": 27
+        },
+        {
+          "texto": "No se habla de Bruno",
+          "puntos": 19
+        },
+        {
+          "texto": "Un mundo ideal",
+          "puntos": 12
+        },
+        {
+          "texto": "Recuérdame",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-102",
+      "texto": "Menciona un villano de Disney",
+      "categoria": "disney",
+      "respuestas": [
+        {
+          "texto": "Maléfica",
+          "puntos": 36
+        },
+        {
+          "texto": "Úrsula",
+          "puntos": 24
+        },
+        {
+          "texto": "Scar",
+          "puntos": 18
+        },
+        {
+          "texto": "Jafar",
+          "puntos": 12
+        },
+        {
+          "texto": "Cruella",
+          "puntos": 10
+        }
+      ]
+    },
+    {
+      "id": "torreon-103",
+      "texto": "Menciona un compañero animal de una película Disney",
+      "categoria": "disney",
+      "respuestas": [
+        {
+          "texto": "Simba",
+          "puntos": 33
+        },
+        {
+          "texto": "Mushu",
+          "puntos": 25
+        },
+        {
+          "texto": "Sebastián",
+          "puntos": 20
+        },
+        {
+          "texto": "Abu",
+          "puntos": 13
+        },
+        {
+          "texto": "Pascal",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-104",
+      "texto": "Menciona una película Disney para ver en familia",
+      "categoria": "disney",
+      "respuestas": [
+        {
+          "texto": "El rey león",
+          "puntos": 42
+        },
+        {
+          "texto": "Coco",
+          "puntos": 22
+        },
+        {
+          "texto": "Encanto",
+          "puntos": 15
+        },
+        {
+          "texto": "Frozen",
+          "puntos": 12
+        },
+        {
+          "texto": "Lilo y Stitch",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-105",
+      "texto": "Menciona algo que comprarías en un parque Disney",
+      "categoria": "disney",
+      "respuestas": [
+        {
+          "texto": "Orejas de Mickey",
+          "puntos": 35
+        },
+        {
+          "texto": "Playera",
+          "puntos": 25
+        },
+        {
+          "texto": "Peluche",
+          "puntos": 18
+        },
+        {
+          "texto": "Foto",
+          "puntos": 13
+        },
+        {
+          "texto": "Taza",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-106",
+      "texto": "Menciona un personaje de Toy Story",
+      "categoria": "disney",
+      "respuestas": [
+        {
+          "texto": "Woody",
+          "puntos": 40
+        },
+        {
+          "texto": "Buzz Lightyear",
+          "puntos": 24
+        },
+        {
+          "texto": "Jessie",
+          "puntos": 16
+        },
+        {
+          "texto": "Señor Cara de Papa",
+          "puntos": 12
+        },
+        {
+          "texto": "Rex",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-107",
+      "texto": "Menciona una película Disney con una familia como tema central",
+      "categoria": "disney",
+      "respuestas": [
+        {
+          "texto": "Encanto",
+          "puntos": 32
+        },
+        {
+          "texto": "Los Increíbles",
+          "puntos": 26
+        },
+        {
+          "texto": "Coco",
+          "puntos": 20
+        },
+        {
+          "texto": "Lilo y Stitch",
+          "puntos": 14
+        },
+        {
+          "texto": "Red",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-108",
+      "texto": "Menciona algo mágico en una película de Disney",
+      "categoria": "disney",
+      "respuestas": [
+        {
+          "texto": "Hada madrina",
+          "puntos": 38
+        },
+        {
+          "texto": "Varita",
+          "puntos": 23
+        },
+        {
+          "texto": "Genio",
+          "puntos": 17
+        },
+        {
+          "texto": "Castillo",
+          "puntos": 13
+        },
+        {
+          "texto": "Hechizo",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-109",
+      "texto": "Menciona un héroe de los Avengers",
+      "categoria": "marvel",
+      "respuestas": [
+        {
+          "texto": "Iron Man",
+          "puntos": 34
+        },
+        {
+          "texto": "Capitán América",
+          "puntos": 27
+        },
+        {
+          "texto": "Thor",
+          "puntos": 19
+        },
+        {
+          "texto": "Hulk",
+          "puntos": 12
+        },
+        {
+          "texto": "Black Widow",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-110",
+      "texto": "Menciona una película del universo Marvel",
+      "categoria": "marvel",
+      "respuestas": [
+        {
+          "texto": "Avengers Endgame",
+          "puntos": 36
+        },
+        {
+          "texto": "Spider-Man No Way Home",
+          "puntos": 24
+        },
+        {
+          "texto": "Iron Man",
+          "puntos": 18
+        },
+        {
+          "texto": "Black Panther",
+          "puntos": 12
+        },
+        {
+          "texto": "Guardianes de la Galaxia",
+          "puntos": 10
+        }
+      ]
+    },
+    {
+      "id": "torreon-111",
+      "texto": "Menciona un villano de Marvel",
+      "categoria": "marvel",
+      "respuestas": [
+        {
+          "texto": "Thanos",
+          "puntos": 33
+        },
+        {
+          "texto": "Loki",
+          "puntos": 25
+        },
+        {
+          "texto": "Duende Verde",
+          "puntos": 20
+        },
+        {
+          "texto": "Ultron",
+          "puntos": 13
+        },
+        {
+          "texto": "Magneto",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-112",
+      "texto": "Menciona un personaje relacionado con Spider-Man",
+      "categoria": "marvel",
+      "respuestas": [
+        {
+          "texto": "Peter Parker",
+          "puntos": 42
+        },
+        {
+          "texto": "Mary Jane",
+          "puntos": 22
+        },
+        {
+          "texto": "Venom",
+          "puntos": 15
+        },
+        {
+          "texto": "Tía May",
+          "puntos": 12
+        },
+        {
+          "texto": "Doctor Octopus",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-113",
+      "texto": "Menciona una gema del infinito",
+      "categoria": "marvel",
+      "respuestas": [
+        {
+          "texto": "Tiempo",
+          "puntos": 35
+        },
+        {
+          "texto": "Espacio",
+          "puntos": 25
+        },
+        {
+          "texto": "Poder",
+          "puntos": 18
+        },
+        {
+          "texto": "Realidad",
+          "puntos": 13
+        },
+        {
+          "texto": "Mente",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-114",
+      "texto": "Menciona un miembro de Guardianes de la Galaxia",
+      "categoria": "marvel",
+      "respuestas": [
+        {
+          "texto": "Star-Lord",
+          "puntos": 40
+        },
+        {
+          "texto": "Groot",
+          "puntos": 24
+        },
+        {
+          "texto": "Rocket",
+          "puntos": 16
+        },
+        {
+          "texto": "Gamora",
+          "puntos": 12
+        },
+        {
+          "texto": "Drax",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-115",
+      "texto": "Menciona algo asociado con Iron Man",
+      "categoria": "marvel",
+      "respuestas": [
+        {
+          "texto": "Armadura",
+          "puntos": 32
+        },
+        {
+          "texto": "Tony Stark",
+          "puntos": 26
+        },
+        {
+          "texto": "Reactor arc",
+          "puntos": 20
+        },
+        {
+          "texto": "Jarvis",
+          "puntos": 14
+        },
+        {
+          "texto": "Industrias Stark",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-116",
+      "texto": "Menciona un personaje de los X-Men",
+      "categoria": "marvel",
+      "respuestas": [
+        {
+          "texto": "Wolverine",
+          "puntos": 38
+        },
+        {
+          "texto": "Profesor X",
+          "puntos": 23
+        },
+        {
+          "texto": "Magneto",
+          "puntos": 17
+        },
+        {
+          "texto": "Cíclope",
+          "puntos": 13
+        },
+        {
+          "texto": "Tormenta",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-117",
+      "texto": "Menciona un héroe Marvel con película propia",
+      "categoria": "marvel",
+      "respuestas": [
+        {
+          "texto": "Spider-Man",
+          "puntos": 34
+        },
+        {
+          "texto": "Iron Man",
+          "puntos": 27
+        },
+        {
+          "texto": "Thor",
+          "puntos": 19
+        },
+        {
+          "texto": "Doctor Strange",
+          "puntos": 12
+        },
+        {
+          "texto": "Capitana Marvel",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-118",
+      "texto": "Menciona un objeto poderoso de Marvel",
+      "categoria": "marvel",
+      "respuestas": [
+        {
+          "texto": "Gemas del infinito",
+          "puntos": 36
+        },
+        {
+          "texto": "Mjolnir",
+          "puntos": 24
+        },
+        {
+          "texto": "Escudo del Capitán",
+          "puntos": 18
+        },
+        {
+          "texto": "Guantelete",
+          "puntos": 12
+        },
+        {
+          "texto": "Ojo de Agamotto",
+          "puntos": 10
+        }
+      ]
+    },
+    {
+      "id": "torreon-119",
+      "texto": "Menciona una serie de Marvel",
+      "categoria": "marvel",
+      "respuestas": [
+        {
+          "texto": "Loki",
+          "puntos": 33
+        },
+        {
+          "texto": "WandaVision",
+          "puntos": 25
+        },
+        {
+          "texto": "Daredevil",
+          "puntos": 20
+        },
+        {
+          "texto": "Moon Knight",
+          "puntos": 13
+        },
+        {
+          "texto": "Hawkeye",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-120",
+      "texto": "Menciona algo que hacen los fans después de una película Marvel",
+      "categoria": "marvel",
+      "respuestas": [
+        {
+          "texto": "Esperar escena poscréditos",
+          "puntos": 42
+        },
+        {
+          "texto": "Comentar teorías",
+          "puntos": 22
+        },
+        {
+          "texto": "Buscar referencias",
+          "puntos": 15
+        },
+        {
+          "texto": "Comprar mercancía",
+          "puntos": 12
+        },
+        {
+          "texto": "Volver a verla",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-121",
+      "texto": "Menciona un superhéroe conocido por todos",
+      "categoria": "superhéroes",
+      "respuestas": [
+        {
+          "texto": "Superman",
+          "puntos": 35
+        },
+        {
+          "texto": "Batman",
+          "puntos": 25
+        },
+        {
+          "texto": "Spider-Man",
+          "puntos": 18
+        },
+        {
+          "texto": "Wonder Woman",
+          "puntos": 13
+        },
+        {
+          "texto": "Hulk",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-122",
+      "texto": "Menciona un poder que te gustaría tener",
+      "categoria": "superhéroes",
+      "respuestas": [
+        {
+          "texto": "Volar",
+          "puntos": 40
+        },
+        {
+          "texto": "Invisibilidad",
+          "puntos": 24
+        },
+        {
+          "texto": "Superfuerza",
+          "puntos": 16
+        },
+        {
+          "texto": "Teletransportación",
+          "puntos": 12
+        },
+        {
+          "texto": "Leer mentes",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-123",
+      "texto": "Menciona un héroe de DC Comics",
+      "categoria": "superhéroes",
+      "respuestas": [
+        {
+          "texto": "Batman",
+          "puntos": 32
+        },
+        {
+          "texto": "Superman",
+          "puntos": 26
+        },
+        {
+          "texto": "Wonder Woman",
+          "puntos": 20
+        },
+        {
+          "texto": "Flash",
+          "puntos": 14
+        },
+        {
+          "texto": "Aquaman",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-124",
+      "texto": "Menciona un villano de Batman",
+      "categoria": "superhéroes",
+      "respuestas": [
+        {
+          "texto": "Joker",
+          "puntos": 38
+        },
+        {
+          "texto": "Pingüino",
+          "puntos": 23
+        },
+        {
+          "texto": "Dos Caras",
+          "puntos": 17
+        },
+        {
+          "texto": "Acertijo",
+          "puntos": 13
+        },
+        {
+          "texto": "Bane",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-125",
+      "texto": "Menciona algo que usa un superhéroe",
+      "categoria": "superhéroes",
+      "respuestas": [
+        {
+          "texto": "Traje",
+          "puntos": 34
+        },
+        {
+          "texto": "Capa",
+          "puntos": 27
+        },
+        {
+          "texto": "Máscara",
+          "puntos": 19
+        },
+        {
+          "texto": "Arma",
+          "puntos": 12
+        },
+        {
+          "texto": "Vehículo",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-126",
+      "texto": "Menciona una identidad secreta famosa",
+      "categoria": "superhéroes",
+      "respuestas": [
+        {
+          "texto": "Clark Kent",
+          "puntos": 36
+        },
+        {
+          "texto": "Bruce Wayne",
+          "puntos": 24
+        },
+        {
+          "texto": "Peter Parker",
+          "puntos": 18
+        },
+        {
+          "texto": "Diana Prince",
+          "puntos": 12
+        },
+        {
+          "texto": "Barry Allen",
+          "puntos": 10
+        }
+      ]
+    },
+    {
+      "id": "torreon-127",
+      "texto": "Menciona una ciudad ficticia de superhéroes",
+      "categoria": "superhéroes",
+      "respuestas": [
+        {
+          "texto": "Gotham",
+          "puntos": 33
+        },
+        {
+          "texto": "Metrópolis",
+          "puntos": 25
+        },
+        {
+          "texto": "Wakanda",
+          "puntos": 20
+        },
+        {
+          "texto": "Central City",
+          "puntos": 13
+        },
+        {
+          "texto": "Ciudad Esmeralda",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-128",
+      "texto": "Menciona un equipo de superhéroes",
+      "categoria": "superhéroes",
+      "respuestas": [
+        {
+          "texto": "Avengers",
+          "puntos": 42
+        },
+        {
+          "texto": "Liga de la Justicia",
+          "puntos": 22
+        },
+        {
+          "texto": "X-Men",
+          "puntos": 15
+        },
+        {
+          "texto": "Cuatro Fantásticos",
+          "puntos": 12
+        },
+        {
+          "texto": "Teen Titans",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-129",
+      "texto": "Menciona una debilidad de un superhéroe",
+      "categoria": "superhéroes",
+      "respuestas": [
+        {
+          "texto": "Kriptonita",
+          "puntos": 35
+        },
+        {
+          "texto": "Familia",
+          "puntos": 25
+        },
+        {
+          "texto": "Magia",
+          "puntos": 18
+        },
+        {
+          "texto": "Ego",
+          "puntos": 13
+        },
+        {
+          "texto": "Miedo",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-130",
+      "texto": "Menciona un superhéroe que no vuela",
+      "categoria": "superhéroes",
+      "respuestas": [
+        {
+          "texto": "Batman",
+          "puntos": 40
+        },
+        {
+          "texto": "Spider-Man",
+          "puntos": 24
+        },
+        {
+          "texto": "Hulk",
+          "puntos": 16
+        },
+        {
+          "texto": "Black Widow",
+          "puntos": 12
+        },
+        {
+          "texto": "Daredevil",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-131",
+      "texto": "Menciona un vehículo de superhéroe",
+      "categoria": "superhéroes",
+      "respuestas": [
+        {
+          "texto": "Batimóvil",
+          "puntos": 32
+        },
+        {
+          "texto": "Jet invisible",
+          "puntos": 26
+        },
+        {
+          "texto": "Quinjet",
+          "puntos": 20
+        },
+        {
+          "texto": "Batimoto",
+          "puntos": 14
+        },
+        {
+          "texto": "Helicarrier",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-132",
+      "texto": "Menciona algo que ocurre al final de una batalla de superhéroes",
+      "categoria": "superhéroes",
+      "respuestas": [
+        {
+          "texto": "Gana el héroe",
+          "puntos": 38
+        },
+        {
+          "texto": "Destruyen la ciudad",
+          "puntos": 23
+        },
+        {
+          "texto": "Atrapan al villano",
+          "puntos": 17
+        },
+        {
+          "texto": "Salvan civiles",
+          "puntos": 13
+        },
+        {
+          "texto": "Aparece otro enemigo",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-133",
+      "texto": "Menciona un aparato tecnológico común en una casa en 1990",
+      "categoria": "tecnología",
+      "respuestas": [
+        {
+          "texto": "Televisión",
+          "puntos": 34
+        },
+        {
+          "texto": "Videocasetera",
+          "puntos": 27
+        },
+        {
+          "texto": "Teléfono fijo",
+          "puntos": 19
+        },
+        {
+          "texto": "Radio",
+          "puntos": 12
+        },
+        {
+          "texto": "Consola",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-134",
+      "texto": "Menciona un aparato que se volvió común en los años 2000",
+      "categoria": "tecnología",
+      "respuestas": [
+        {
+          "texto": "Computadora",
+          "puntos": 36
+        },
+        {
+          "texto": "Celular",
+          "puntos": 24
+        },
+        {
+          "texto": "Reproductor DVD",
+          "puntos": 18
+        },
+        {
+          "texto": "Cámara digital",
+          "puntos": 12
+        },
+        {
+          "texto": "MP3",
+          "puntos": 10
+        }
+      ]
+    },
+    {
+      "id": "torreon-135",
+      "texto": "Menciona una tecnología indispensable en los años 2020",
+      "categoria": "tecnología",
+      "respuestas": [
+        {
+          "texto": "Teléfono inteligente",
+          "puntos": 33
+        },
+        {
+          "texto": "Internet",
+          "puntos": 25
+        },
+        {
+          "texto": "Wi-Fi",
+          "puntos": 20
+        },
+        {
+          "texto": "Computadora",
+          "puntos": 13
+        },
+        {
+          "texto": "Nube",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-136",
+      "texto": "Menciona una marca de teléfonos celulares",
+      "categoria": "tecnología",
+      "respuestas": [
+        {
+          "texto": "Samsung",
+          "puntos": 42
+        },
+        {
+          "texto": "Apple",
+          "puntos": 22
+        },
+        {
+          "texto": "Motorola",
+          "puntos": 15
+        },
+        {
+          "texto": "Xiaomi",
+          "puntos": 12
+        },
+        {
+          "texto": "Huawei",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-137",
+      "texto": "Menciona algo que haces cuando el internet falla",
+      "categoria": "tecnología",
+      "respuestas": [
+        {
+          "texto": "Reiniciar módem",
+          "puntos": 35
+        },
+        {
+          "texto": "Revisar cables",
+          "puntos": 25
+        },
+        {
+          "texto": "Usar datos móviles",
+          "puntos": 18
+        },
+        {
+          "texto": "Llamar al proveedor",
+          "puntos": 13
+        },
+        {
+          "texto": "Esperar",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-138",
+      "texto": "Menciona una aplicación de mensajería",
+      "categoria": "tecnología",
+      "respuestas": [
+        {
+          "texto": "WhatsApp",
+          "puntos": 40
+        },
+        {
+          "texto": "Messenger",
+          "puntos": 24
+        },
+        {
+          "texto": "Telegram",
+          "puntos": 16
+        },
+        {
+          "texto": "Instagram",
+          "puntos": 12
+        },
+        {
+          "texto": "Mensajes",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-139",
+      "texto": "Menciona algo que guardas en la nube",
+      "categoria": "tecnología",
+      "respuestas": [
+        {
+          "texto": "Fotos",
+          "puntos": 32
+        },
+        {
+          "texto": "Documentos",
+          "puntos": 26
+        },
+        {
+          "texto": "Videos",
+          "puntos": 20
+        },
+        {
+          "texto": "Respaldos",
+          "puntos": 14
+        },
+        {
+          "texto": "Contactos",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-140",
+      "texto": "Menciona un riesgo de usar internet",
+      "categoria": "tecnología",
+      "respuestas": [
+        {
+          "texto": "Fraude",
+          "puntos": 38
+        },
+        {
+          "texto": "Virus",
+          "puntos": 23
+        },
+        {
+          "texto": "Robo de identidad",
+          "puntos": 17
+        },
+        {
+          "texto": "Acoso",
+          "puntos": 13
+        },
+        {
+          "texto": "Noticias falsas",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-141",
+      "texto": "Menciona un accesorio para celular",
+      "categoria": "tecnología",
+      "respuestas": [
+        {
+          "texto": "Cargador",
+          "puntos": 34
+        },
+        {
+          "texto": "Funda",
+          "puntos": 27
+        },
+        {
+          "texto": "Audífonos",
+          "puntos": 19
+        },
+        {
+          "texto": "Protector de pantalla",
+          "puntos": 12
+        },
+        {
+          "texto": "Batería portátil",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-142",
+      "texto": "Menciona algo que la inteligencia artificial puede ayudar a hacer en 2026",
+      "categoria": "tecnología",
+      "respuestas": [
+        {
+          "texto": "Escribir",
+          "puntos": 36
+        },
+        {
+          "texto": "Buscar información",
+          "puntos": 24
+        },
+        {
+          "texto": "Crear imágenes",
+          "puntos": 18
+        },
+        {
+          "texto": "Traducir",
+          "puntos": 12
+        },
+        {
+          "texto": "Programar",
+          "puntos": 10
+        }
+      ]
+    },
+    {
+      "id": "torreon-143",
+      "texto": "Menciona una razón para cambiar de celular",
+      "categoria": "tecnología",
+      "respuestas": [
+        {
+          "texto": "Se descompuso",
+          "puntos": 33
+        },
+        {
+          "texto": "Batería mala",
+          "puntos": 25
+        },
+        {
+          "texto": "Poco espacio",
+          "puntos": 20
+        },
+        {
+          "texto": "Mejor cámara",
+          "puntos": 13
+        },
+        {
+          "texto": "Está lento",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-144",
+      "texto": "Menciona un dispositivo inteligente para el hogar",
+      "categoria": "tecnología",
+      "respuestas": [
+        {
+          "texto": "Bocina",
+          "puntos": 42
+        },
+        {
+          "texto": "Televisión",
+          "puntos": 22
+        },
+        {
+          "texto": "Foco",
+          "puntos": 15
+        },
+        {
+          "texto": "Cámara",
+          "puntos": 12
+        },
+        {
+          "texto": "Aspiradora",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-145",
+      "texto": "Menciona una materia escolar",
+      "categoria": "educación",
+      "respuestas": [
+        {
+          "texto": "Matemáticas",
+          "puntos": 35
+        },
+        {
+          "texto": "Español",
+          "puntos": 25
+        },
+        {
+          "texto": "Historia",
+          "puntos": 18
+        },
+        {
+          "texto": "Ciencias",
+          "puntos": 13
+        },
+        {
+          "texto": "Inglés",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-146",
+      "texto": "Menciona algo que llevabas en la mochila en los años noventa",
+      "categoria": "educación",
+      "respuestas": [
+        {
+          "texto": "Cuadernos",
+          "puntos": 40
+        },
+        {
+          "texto": "Lápices",
+          "puntos": 24
+        },
+        {
+          "texto": "Libros",
+          "puntos": 16
+        },
+        {
+          "texto": "Lonche",
+          "puntos": 12
+        },
+        {
+          "texto": "Colores",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-147",
+      "texto": "Menciona algo que usa un estudiante en los años 2020",
+      "categoria": "educación",
+      "respuestas": [
+        {
+          "texto": "Laptop",
+          "puntos": 32
+        },
+        {
+          "texto": "Celular",
+          "puntos": 26
+        },
+        {
+          "texto": "Cuaderno",
+          "puntos": 20
+        },
+        {
+          "texto": "Plataforma digital",
+          "puntos": 14
+        },
+        {
+          "texto": "Audífonos",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-148",
+      "texto": "Menciona una universidad conocida en La Laguna",
+      "categoria": "educación",
+      "respuestas": [
+        {
+          "texto": "Universidad Autónoma de Coahuila",
+          "puntos": 38
+        },
+        {
+          "texto": "Tecnológico de La Laguna",
+          "puntos": 23
+        },
+        {
+          "texto": "Universidad Iberoamericana",
+          "puntos": 17
+        },
+        {
+          "texto": "Universidad Autónoma de La Laguna",
+          "puntos": 13
+        },
+        {
+          "texto": "Universidad Tecnológica de Torreón",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-149",
+      "texto": "Menciona una razón para faltar a clases",
+      "categoria": "educación",
+      "respuestas": [
+        {
+          "texto": "Enfermedad",
+          "puntos": 34
+        },
+        {
+          "texto": "Quedarse dormido",
+          "puntos": 27
+        },
+        {
+          "texto": "Transporte",
+          "puntos": 19
+        },
+        {
+          "texto": "Clima",
+          "puntos": 12
+        },
+        {
+          "texto": "Compromiso familiar",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-150",
+      "texto": "Menciona algo que hace un buen maestro",
+      "categoria": "educación",
+      "respuestas": [
+        {
+          "texto": "Explica bien",
+          "puntos": 36
+        },
+        {
+          "texto": "Tiene paciencia",
+          "puntos": 24
+        },
+        {
+          "texto": "Escucha",
+          "puntos": 18
+        },
+        {
+          "texto": "Motiva",
+          "puntos": 12
+        },
+        {
+          "texto": "Da ejemplos",
+          "puntos": 10
+        }
+      ]
+    },
+    {
+      "id": "torreon-151",
+      "texto": "Menciona un útil escolar",
+      "categoria": "educación",
+      "respuestas": [
+        {
+          "texto": "Lápiz",
+          "puntos": 33
+        },
+        {
+          "texto": "Cuaderno",
+          "puntos": 25
+        },
+        {
+          "texto": "Pluma",
+          "puntos": 20
+        },
+        {
+          "texto": "Borrador",
+          "puntos": 13
+        },
+        {
+          "texto": "Regla",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-152",
+      "texto": "Menciona una actividad durante el recreo",
+      "categoria": "educación",
+      "respuestas": [
+        {
+          "texto": "Comer",
+          "puntos": 42
+        },
+        {
+          "texto": "Jugar fútbol",
+          "puntos": 22
+        },
+        {
+          "texto": "Platicar",
+          "puntos": 15
+        },
+        {
+          "texto": "Correr",
+          "puntos": 12
+        },
+        {
+          "texto": "Comprar en la cooperativa",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-153",
+      "texto": "Menciona una forma de estudiar para un examen",
+      "categoria": "educación",
+      "respuestas": [
+        {
+          "texto": "Leer apuntes",
+          "puntos": 35
+        },
+        {
+          "texto": "Hacer resúmenes",
+          "puntos": 25
+        },
+        {
+          "texto": "Resolver ejercicios",
+          "puntos": 18
+        },
+        {
+          "texto": "Estudiar en grupo",
+          "puntos": 13
+        },
+        {
+          "texto": "Ver videos",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-154",
+      "texto": "Menciona algo que puede distraer a un alumno",
+      "categoria": "educación",
+      "respuestas": [
+        {
+          "texto": "Celular",
+          "puntos": 40
+        },
+        {
+          "texto": "Compañeros",
+          "puntos": 24
+        },
+        {
+          "texto": "Sueño",
+          "puntos": 16
+        },
+        {
+          "texto": "Ruido",
+          "puntos": 12
+        },
+        {
+          "texto": "Hambre",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-155",
+      "texto": "Menciona una carrera universitaria popular",
+      "categoria": "educación",
+      "respuestas": [
+        {
+          "texto": "Medicina",
+          "puntos": 32
+        },
+        {
+          "texto": "Derecho",
+          "puntos": 26
+        },
+        {
+          "texto": "Ingeniería",
+          "puntos": 20
+        },
+        {
+          "texto": "Administración",
+          "puntos": 14
+        },
+        {
+          "texto": "Psicología",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-156",
+      "texto": "Menciona algo que aprendiste fuera de la escuela",
+      "categoria": "educación",
+      "respuestas": [
+        {
+          "texto": "Cocinar",
+          "puntos": 38
+        },
+        {
+          "texto": "Manejar",
+          "puntos": 23
+        },
+        {
+          "texto": "Usar tecnología",
+          "puntos": 17
+        },
+        {
+          "texto": "Ahorrar",
+          "puntos": 13
+        },
+        {
+          "texto": "Trabajar en equipo",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-157",
+      "texto": "Menciona un personaje de la Independencia de México",
+      "categoria": "historia",
+      "respuestas": [
+        {
+          "texto": "Miguel Hidalgo",
+          "puntos": 34
+        },
+        {
+          "texto": "José María Morelos",
+          "puntos": 27
+        },
+        {
+          "texto": "Josefa Ortiz",
+          "puntos": 19
+        },
+        {
+          "texto": "Vicente Guerrero",
+          "puntos": 12
+        },
+        {
+          "texto": "Ignacio Allende",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-158",
+      "texto": "Menciona un personaje de la Revolución Mexicana",
+      "categoria": "historia",
+      "respuestas": [
+        {
+          "texto": "Pancho Villa",
+          "puntos": 36
+        },
+        {
+          "texto": "Emiliano Zapata",
+          "puntos": 24
+        },
+        {
+          "texto": "Francisco I. Madero",
+          "puntos": 18
+        },
+        {
+          "texto": "Venustiano Carranza",
+          "puntos": 12
+        },
+        {
+          "texto": "Porfirio Díaz",
+          "puntos": 10
+        }
+      ]
+    },
+    {
+      "id": "torreon-159",
+      "texto": "Menciona una civilización prehispánica",
+      "categoria": "historia",
+      "respuestas": [
+        {
+          "texto": "Azteca",
+          "puntos": 33
+        },
+        {
+          "texto": "Maya",
+          "puntos": 25
+        },
+        {
+          "texto": "Olmeca",
+          "puntos": 20
+        },
+        {
+          "texto": "Tolteca",
+          "puntos": 13
+        },
+        {
+          "texto": "Teotihuacana",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-160",
+      "texto": "Menciona un acontecimiento mexicano que se conmemora en septiembre",
+      "categoria": "historia",
+      "respuestas": [
+        {
+          "texto": "Independencia",
+          "puntos": 42
+        },
+        {
+          "texto": "Grito de Dolores",
+          "puntos": 22
+        },
+        {
+          "texto": "Niños Héroes",
+          "puntos": 15
+        },
+        {
+          "texto": "Consumación de la Independencia",
+          "puntos": 12
+        },
+        {
+          "texto": "Terremoto de 1985",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-161",
+      "texto": "Menciona algo asociado con Pancho Villa",
+      "categoria": "historia",
+      "respuestas": [
+        {
+          "texto": "Revolución",
+          "puntos": 35
+        },
+        {
+          "texto": "División del Norte",
+          "puntos": 25
+        },
+        {
+          "texto": "Caballo",
+          "puntos": 18
+        },
+        {
+          "texto": "Dorados",
+          "puntos": 13
+        },
+        {
+          "texto": "Chihuahua",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-162",
+      "texto": "Menciona un invento que cambió la vida entre 1990 y 2026",
+      "categoria": "historia",
+      "respuestas": [
+        {
+          "texto": "Internet",
+          "puntos": 40
+        },
+        {
+          "texto": "Teléfono inteligente",
+          "puntos": 24
+        },
+        {
+          "texto": "Redes sociales",
+          "puntos": 16
+        },
+        {
+          "texto": "GPS",
+          "puntos": 12
+        },
+        {
+          "texto": "Streaming",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-163",
+      "texto": "Menciona algo que recuerdas del cambio al año 2000",
+      "categoria": "historia",
+      "respuestas": [
+        {
+          "texto": "Computadoras",
+          "puntos": 32
+        },
+        {
+          "texto": "Fiestas",
+          "puntos": 26
+        },
+        {
+          "texto": "Temor al Y2K",
+          "puntos": 20
+        },
+        {
+          "texto": "Cuenta regresiva",
+          "puntos": 14
+        },
+        {
+          "texto": "Fuegos artificiales",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-164",
+      "texto": "Menciona un presidente de México entre 1990 y 2026",
+      "categoria": "historia",
+      "respuestas": [
+        {
+          "texto": "Vicente Fox",
+          "puntos": 38
+        },
+        {
+          "texto": "Andrés Manuel López Obrador",
+          "puntos": 23
+        },
+        {
+          "texto": "Enrique Peña Nieto",
+          "puntos": 17
+        },
+        {
+          "texto": "Felipe Calderón",
+          "puntos": 13
+        },
+        {
+          "texto": "Carlos Salinas",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-165",
+      "texto": "Menciona un símbolo patrio de México",
+      "categoria": "historia",
+      "respuestas": [
+        {
+          "texto": "Bandera",
+          "puntos": 34
+        },
+        {
+          "texto": "Escudo",
+          "puntos": 27
+        },
+        {
+          "texto": "Himno",
+          "puntos": 19
+        },
+        {
+          "texto": "Águila",
+          "puntos": 12
+        },
+        {
+          "texto": "Campana de Dolores",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-166",
+      "texto": "Menciona una fuente para aprender historia",
+      "categoria": "historia",
+      "respuestas": [
+        {
+          "texto": "Libros",
+          "puntos": 36
+        },
+        {
+          "texto": "Museos",
+          "puntos": 24
+        },
+        {
+          "texto": "Documentales",
+          "puntos": 18
+        },
+        {
+          "texto": "Escuela",
+          "puntos": 12
+        },
+        {
+          "texto": "Internet",
+          "puntos": 10
+        }
+      ]
+    },
+    {
+      "id": "torreon-167",
+      "texto": "Menciona un objeto que se encuentra en un museo histórico",
+      "categoria": "historia",
+      "respuestas": [
+        {
+          "texto": "Fotografías",
+          "puntos": 33
+        },
+        {
+          "texto": "Armas",
+          "puntos": 25
+        },
+        {
+          "texto": "Documentos",
+          "puntos": 20
+        },
+        {
+          "texto": "Ropa",
+          "puntos": 13
+        },
+        {
+          "texto": "Monedas",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-168",
+      "texto": "Menciona algo que cambió en Torreón desde los años noventa",
+      "categoria": "historia",
+      "respuestas": [
+        {
+          "texto": "Crecimiento urbano",
+          "puntos": 42
+        },
+        {
+          "texto": "Centros comerciales",
+          "puntos": 22
+        },
+        {
+          "texto": "Carreteras",
+          "puntos": 15
+        },
+        {
+          "texto": "Tecnología",
+          "puntos": 12
+        },
+        {
+          "texto": "Transporte",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-169",
+      "texto": "Menciona un estado del norte de México",
+      "categoria": "cultura general",
+      "respuestas": [
+        {
+          "texto": "Coahuila",
+          "puntos": 35
+        },
+        {
+          "texto": "Nuevo León",
+          "puntos": 25
+        },
+        {
+          "texto": "Chihuahua",
+          "puntos": 18
+        },
+        {
+          "texto": "Sonora",
+          "puntos": 13
+        },
+        {
+          "texto": "Durango",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-170",
+      "texto": "Menciona una ciudad importante del norte de México",
+      "categoria": "cultura general",
+      "respuestas": [
+        {
+          "texto": "Monterrey",
+          "puntos": 40
+        },
+        {
+          "texto": "Torreón",
+          "puntos": 24
+        },
+        {
+          "texto": "Saltillo",
+          "puntos": 16
+        },
+        {
+          "texto": "Chihuahua",
+          "puntos": 12
+        },
+        {
+          "texto": "Hermosillo",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-171",
+      "texto": "Menciona un desierto famoso",
+      "categoria": "cultura general",
+      "respuestas": [
+        {
+          "texto": "Sahara",
+          "puntos": 32
+        },
+        {
+          "texto": "Chihuahua",
+          "puntos": 26
+        },
+        {
+          "texto": "Sonora",
+          "puntos": 20
+        },
+        {
+          "texto": "Atacama",
+          "puntos": 14
+        },
+        {
+          "texto": "Gobi",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-172",
+      "texto": "Menciona un planeta del sistema solar",
+      "categoria": "cultura general",
+      "respuestas": [
+        {
+          "texto": "Marte",
+          "puntos": 38
+        },
+        {
+          "texto": "Júpiter",
+          "puntos": 23
+        },
+        {
+          "texto": "Venus",
+          "puntos": 17
+        },
+        {
+          "texto": "Saturno",
+          "puntos": 13
+        },
+        {
+          "texto": "Mercurio",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-173",
+      "texto": "Menciona un océano",
+      "categoria": "cultura general",
+      "respuestas": [
+        {
+          "texto": "Pacífico",
+          "puntos": 34
+        },
+        {
+          "texto": "Atlántico",
+          "puntos": 27
+        },
+        {
+          "texto": "Índico",
+          "puntos": 19
+        },
+        {
+          "texto": "Ártico",
+          "puntos": 12
+        },
+        {
+          "texto": "Antártico",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-174",
+      "texto": "Menciona un idioma hablado en América",
+      "categoria": "cultura general",
+      "respuestas": [
+        {
+          "texto": "Español",
+          "puntos": 36
+        },
+        {
+          "texto": "Inglés",
+          "puntos": 24
+        },
+        {
+          "texto": "Portugués",
+          "puntos": 18
+        },
+        {
+          "texto": "Francés",
+          "puntos": 12
+        },
+        {
+          "texto": "Quechua",
+          "puntos": 10
+        }
+      ]
+    },
+    {
+      "id": "torreon-175",
+      "texto": "Menciona un animal que vive en el desierto",
+      "categoria": "cultura general",
+      "respuestas": [
+        {
+          "texto": "Serpiente",
+          "puntos": 33
+        },
+        {
+          "texto": "Coyote",
+          "puntos": 25
+        },
+        {
+          "texto": "Lagartija",
+          "puntos": 20
+        },
+        {
+          "texto": "Camello",
+          "puntos": 13
+        },
+        {
+          "texto": "Escorpión",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-176",
+      "texto": "Menciona una profesión relacionada con la salud",
+      "categoria": "cultura general",
+      "respuestas": [
+        {
+          "texto": "Médico",
+          "puntos": 42
+        },
+        {
+          "texto": "Enfermera",
+          "puntos": 22
+        },
+        {
+          "texto": "Dentista",
+          "puntos": 15
+        },
+        {
+          "texto": "Psicólogo",
+          "puntos": 12
+        },
+        {
+          "texto": "Paramédico",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-177",
+      "texto": "Menciona una fuente de energía",
+      "categoria": "cultura general",
+      "respuestas": [
+        {
+          "texto": "Solar",
+          "puntos": 35
+        },
+        {
+          "texto": "Eléctrica",
+          "puntos": 25
+        },
+        {
+          "texto": "Eólica",
+          "puntos": 18
+        },
+        {
+          "texto": "Gas",
+          "puntos": 13
+        },
+        {
+          "texto": "Hidroeléctrica",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-178",
+      "texto": "Menciona algo que mide el clima",
+      "categoria": "cultura general",
+      "respuestas": [
+        {
+          "texto": "Termómetro",
+          "puntos": 40
+        },
+        {
+          "texto": "Pluviómetro",
+          "puntos": 24
+        },
+        {
+          "texto": "Barómetro",
+          "puntos": 16
+        },
+        {
+          "texto": "Anemómetro",
+          "puntos": 12
+        },
+        {
+          "texto": "Satélite",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-179",
+      "texto": "Menciona un medio de transporte público",
+      "categoria": "cultura general",
+      "respuestas": [
+        {
+          "texto": "Autobús",
+          "puntos": 32
+        },
+        {
+          "texto": "Metro",
+          "puntos": 26
+        },
+        {
+          "texto": "Taxi",
+          "puntos": 20
+        },
+        {
+          "texto": "Tren",
+          "puntos": 14
+        },
+        {
+          "texto": "Tranvía",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-180",
+      "texto": "Menciona algo por lo que México es conocido en el mundo",
+      "categoria": "cultura general",
+      "respuestas": [
+        {
+          "texto": "Comida",
+          "puntos": 38
+        },
+        {
+          "texto": "Playas",
+          "puntos": 23
+        },
+        {
+          "texto": "Música",
+          "puntos": 17
+        },
+        {
+          "texto": "Historia",
+          "puntos": 13
+        },
+        {
+          "texto": "Fútbol",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-181",
+      "texto": "Menciona una consola popular en los años noventa",
+      "categoria": "videojuegos",
+      "respuestas": [
+        {
+          "texto": "Super Nintendo",
+          "puntos": 34
+        },
+        {
+          "texto": "PlayStation",
+          "puntos": 27
+        },
+        {
+          "texto": "Nintendo 64",
+          "puntos": 19
+        },
+        {
+          "texto": "Game Boy",
+          "puntos": 12
+        },
+        {
+          "texto": "Sega Genesis",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-182",
+      "texto": "Menciona una consola popular en los años 2000",
+      "categoria": "videojuegos",
+      "respuestas": [
+        {
+          "texto": "PlayStation 2",
+          "puntos": 36
+        },
+        {
+          "texto": "Xbox",
+          "puntos": 24
+        },
+        {
+          "texto": "Nintendo Wii",
+          "puntos": 18
+        },
+        {
+          "texto": "GameCube",
+          "puntos": 12
+        },
+        {
+          "texto": "PSP",
+          "puntos": 10
+        }
+      ]
+    },
+    {
+      "id": "torreon-183",
+      "texto": "Menciona una consola o plataforma popular en los años 2020",
+      "categoria": "videojuegos",
+      "respuestas": [
+        {
+          "texto": "PlayStation 5",
+          "puntos": 33
+        },
+        {
+          "texto": "Xbox Series",
+          "puntos": 25
+        },
+        {
+          "texto": "Nintendo Switch",
+          "puntos": 20
+        },
+        {
+          "texto": "PC",
+          "puntos": 13
+        },
+        {
+          "texto": "Celular",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-184",
+      "texto": "Menciona un personaje de videojuegos",
+      "categoria": "videojuegos",
+      "respuestas": [
+        {
+          "texto": "Mario",
+          "puntos": 42
+        },
+        {
+          "texto": "Sonic",
+          "puntos": 22
+        },
+        {
+          "texto": "Pikachu",
+          "puntos": 15
+        },
+        {
+          "texto": "Link",
+          "puntos": 12
+        },
+        {
+          "texto": "Lara Croft",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-185",
+      "texto": "Menciona un videojuego de fútbol",
+      "categoria": "videojuegos",
+      "respuestas": [
+        {
+          "texto": "FIFA",
+          "puntos": 35
+        },
+        {
+          "texto": "eFootball",
+          "puntos": 25
+        },
+        {
+          "texto": "Mario Strikers",
+          "puntos": 18
+        },
+        {
+          "texto": "Rocket League",
+          "puntos": 13
+        },
+        {
+          "texto": "Football Manager",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-186",
+      "texto": "Menciona un juego para convivir con amigos",
+      "categoria": "videojuegos",
+      "respuestas": [
+        {
+          "texto": "Mario Kart",
+          "puntos": 40
+        },
+        {
+          "texto": "FIFA",
+          "puntos": 24
+        },
+        {
+          "texto": "Minecraft",
+          "puntos": 16
+        },
+        {
+          "texto": "Fortnite",
+          "puntos": 12
+        },
+        {
+          "texto": "Super Smash Bros.",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-187",
+      "texto": "Menciona algo que molesta al jugar en línea",
+      "categoria": "videojuegos",
+      "respuestas": [
+        {
+          "texto": "Internet lento",
+          "puntos": 32
+        },
+        {
+          "texto": "Jugadores tóxicos",
+          "puntos": 26
+        },
+        {
+          "texto": "Perder",
+          "puntos": 20
+        },
+        {
+          "texto": "Trampas",
+          "puntos": 14
+        },
+        {
+          "texto": "Actualizaciones",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-188",
+      "texto": "Menciona un accesorio para videojuegos",
+      "categoria": "videojuegos",
+      "respuestas": [
+        {
+          "texto": "Control",
+          "puntos": 38
+        },
+        {
+          "texto": "Audífonos",
+          "puntos": 23
+        },
+        {
+          "texto": "Teclado",
+          "puntos": 17
+        },
+        {
+          "texto": "Volante",
+          "puntos": 13
+        },
+        {
+          "texto": "Silla gamer",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-189",
+      "texto": "Menciona un videojuego popular en celular",
+      "categoria": "videojuegos",
+      "respuestas": [
+        {
+          "texto": "Candy Crush",
+          "puntos": 34
+        },
+        {
+          "texto": "Free Fire",
+          "puntos": 27
+        },
+        {
+          "texto": "Clash Royale",
+          "puntos": 19
+        },
+        {
+          "texto": "Pokémon GO",
+          "puntos": 12
+        },
+        {
+          "texto": "Among Us",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-190",
+      "texto": "Menciona un juego de Nintendo",
+      "categoria": "videojuegos",
+      "respuestas": [
+        {
+          "texto": "Super Mario",
+          "puntos": 36
+        },
+        {
+          "texto": "Zelda",
+          "puntos": 24
+        },
+        {
+          "texto": "Mario Kart",
+          "puntos": 18
+        },
+        {
+          "texto": "Pokémon",
+          "puntos": 12
+        },
+        {
+          "texto": "Animal Crossing",
+          "puntos": 10
+        }
+      ]
+    },
+    {
+      "id": "torreon-191",
+      "texto": "Menciona algo que haces después de perder una partida",
+      "categoria": "videojuegos",
+      "respuestas": [
+        {
+          "texto": "Intentar otra vez",
+          "puntos": 33
+        },
+        {
+          "texto": "Enojarse",
+          "puntos": 25
+        },
+        {
+          "texto": "Cambiar de juego",
+          "puntos": 20
+        },
+        {
+          "texto": "Culpar al equipo",
+          "puntos": 13
+        },
+        {
+          "texto": "Descansar",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-192",
+      "texto": "Menciona un género de videojuegos",
+      "categoria": "videojuegos",
+      "respuestas": [
+        {
+          "texto": "Acción",
+          "puntos": 42
+        },
+        {
+          "texto": "Deportes",
+          "puntos": 22
+        },
+        {
+          "texto": "Aventura",
+          "puntos": 15
+        },
+        {
+          "texto": "Carreras",
+          "puntos": 12
+        },
+        {
+          "texto": "Estrategia",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-193",
+      "texto": "Menciona una tradición mexicana de diciembre",
+      "categoria": "costumbres",
+      "respuestas": [
+        {
+          "texto": "Posadas",
+          "puntos": 35
+        },
+        {
+          "texto": "Cena de Navidad",
+          "puntos": 25
+        },
+        {
+          "texto": "Pedir posada",
+          "puntos": 18
+        },
+        {
+          "texto": "Intercambio",
+          "puntos": 13
+        },
+        {
+          "texto": "Pastorela",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-194",
+      "texto": "Menciona algo que se hace el Día de Muertos",
+      "categoria": "costumbres",
+      "respuestas": [
+        {
+          "texto": "Poner altar",
+          "puntos": 40
+        },
+        {
+          "texto": "Visitar el panteón",
+          "puntos": 24
+        },
+        {
+          "texto": "Comer pan de muerto",
+          "puntos": 16
+        },
+        {
+          "texto": "Usar flores",
+          "puntos": 12
+        },
+        {
+          "texto": "Recordar familiares",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-195",
+      "texto": "Menciona algo que ocurre en una fiesta de quince años",
+      "categoria": "costumbres",
+      "respuestas": [
+        {
+          "texto": "Vals",
+          "puntos": 32
+        },
+        {
+          "texto": "Pastel",
+          "puntos": 26
+        },
+        {
+          "texto": "Baile",
+          "puntos": 20
+        },
+        {
+          "texto": "Brindis",
+          "puntos": 14
+        },
+        {
+          "texto": "Cambio de zapatillas",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-196",
+      "texto": "Menciona algo que una familia lagunera hace los domingos",
+      "categoria": "costumbres",
+      "respuestas": [
+        {
+          "texto": "Comer junta",
+          "puntos": 38
+        },
+        {
+          "texto": "Visitar familiares",
+          "puntos": 23
+        },
+        {
+          "texto": "Ver fútbol",
+          "puntos": 17
+        },
+        {
+          "texto": "Descansar",
+          "puntos": 13
+        },
+        {
+          "texto": "Ir a misa",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-197",
+      "texto": "Menciona algo que se lleva a una posada",
+      "categoria": "costumbres",
+      "respuestas": [
+        {
+          "texto": "Piñata",
+          "puntos": 34
+        },
+        {
+          "texto": "Ponche",
+          "puntos": 27
+        },
+        {
+          "texto": "Aguinaldos",
+          "puntos": 19
+        },
+        {
+          "texto": "Tamales",
+          "puntos": 12
+        },
+        {
+          "texto": "Velas",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-198",
+      "texto": "Menciona una celebración común en México",
+      "categoria": "costumbres",
+      "respuestas": [
+        {
+          "texto": "Cumpleaños",
+          "puntos": 36
+        },
+        {
+          "texto": "Navidad",
+          "puntos": 24
+        },
+        {
+          "texto": "Día de las Madres",
+          "puntos": 18
+        },
+        {
+          "texto": "Independencia",
+          "puntos": 12
+        },
+        {
+          "texto": "Año Nuevo",
+          "puntos": 10
+        }
+      ]
+    },
+    {
+      "id": "torreon-199",
+      "texto": "Menciona algo que dices al contestar el teléfono",
+      "categoria": "costumbres",
+      "respuestas": [
+        {
+          "texto": "Bueno",
+          "puntos": 33
+        },
+        {
+          "texto": "Hola",
+          "puntos": 25
+        },
+        {
+          "texto": "Diga",
+          "puntos": 20
+        },
+        {
+          "texto": "¿Quién habla?",
+          "puntos": 13
+        },
+        {
+          "texto": "¿Qué pasó?",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-200",
+      "texto": "Menciona algo que se ofrece a una visita",
+      "categoria": "costumbres",
+      "respuestas": [
+        {
+          "texto": "Agua",
+          "puntos": 42
+        },
+        {
+          "texto": "Café",
+          "puntos": 22
+        },
+        {
+          "texto": "Refresco",
+          "puntos": 15
+        },
+        {
+          "texto": "Comida",
+          "puntos": 12
+        },
+        {
+          "texto": "Botana",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-201",
+      "texto": "Menciona una forma de saludar a un conocido",
+      "categoria": "costumbres",
+      "respuestas": [
+        {
+          "texto": "Dar la mano",
+          "puntos": 35
+        },
+        {
+          "texto": "Decir hola",
+          "puntos": 25
+        },
+        {
+          "texto": "Abrazo",
+          "puntos": 18
+        },
+        {
+          "texto": "Beso en la mejilla",
+          "puntos": 13
+        },
+        {
+          "texto": "Levantar la mano",
+          "puntos": 9
+        }
+      ]
+    },
+    {
+      "id": "torreon-202",
+      "texto": "Menciona algo que haces antes de salir de casa",
+      "categoria": "costumbres",
+      "respuestas": [
+        {
+          "texto": "Revisar el celular",
+          "puntos": 40
+        },
+        {
+          "texto": "Cerrar puertas",
+          "puntos": 24
+        },
+        {
+          "texto": "Tomar llaves",
+          "puntos": 16
+        },
+        {
+          "texto": "Apagar luces",
+          "puntos": 12
+        },
+        {
+          "texto": "Mirarse al espejo",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-203",
+      "texto": "Menciona un regalo común para el Día de las Madres",
+      "categoria": "costumbres",
+      "respuestas": [
+        {
+          "texto": "Flores",
+          "puntos": 32
+        },
+        {
+          "texto": "Ropa",
+          "puntos": 26
+        },
+        {
+          "texto": "Perfume",
+          "puntos": 20
+        },
+        {
+          "texto": "Comida",
+          "puntos": 14
+        },
+        {
+          "texto": "Electrodoméstico",
+          "puntos": 8
+        }
+      ]
+    },
+    {
+      "id": "torreon-204",
+      "texto": "Menciona algo típico de una reunión familiar",
+      "categoria": "costumbres",
+      "respuestas": [
+        {
+          "texto": "Comida",
+          "puntos": 38
+        },
+        {
+          "texto": "Música",
+          "puntos": 23
+        },
+        {
+          "texto": "Plática",
+          "puntos": 17
+        },
+        {
+          "texto": "Fotos",
+          "puntos": 13
+        },
+        {
+          "texto": "Juegos",
+          "puntos": 9
+        }
+      ]
+    }
+  ]
+}

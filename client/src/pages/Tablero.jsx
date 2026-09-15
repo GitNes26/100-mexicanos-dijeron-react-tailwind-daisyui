@@ -7,6 +7,7 @@ import { useJuegoContext } from "../contexts/JuegoContext";
 import Celebration from "../components/Celebracion";
 import FormEquipos from "../components/FormEquipos";
 import Letrero from "../components/Letrero";
+import LoadingScreen from "../components/LoadingScreen";
 
 export default function Tablero() {
    const [searchParams] = useSearchParams();
@@ -28,6 +29,7 @@ export default function Tablero() {
       showCelebration,
       setShowCelebration,
       showLetrero,
+      setShowLetrero,
       contadorActivo,
       tiempoRestante,
       s,
@@ -68,14 +70,7 @@ export default function Tablero() {
    const onCloseCelebration = () => setShowCelebration(false);
 
    if (!wsReady) {
-      return (
-         <div className="h-screen flex items-center justify-center bg-slate-200">
-            <div className="text-center">
-               <span className="loading loading-spinner loading-lg text-warning"></span>
-               <p className="text-xl font-semibold mt-4">Conectando al servidor...</p>
-            </div>
-         </div>
-      );
+      return <LoadingScreen title="Encendiendo el tablero…" detail={`Preparando la sala ${roomCode || "—"}`} />;
    }
 
    return (

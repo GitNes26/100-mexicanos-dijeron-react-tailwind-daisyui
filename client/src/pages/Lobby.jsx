@@ -4,6 +4,7 @@ import { useJuegoContext } from "../contexts/JuegoContext";
 import images from "../const/images";
 import icons from "../const/icons";
 import Toast from "../utils/Toast";
+import LoadingScreen from "../components/LoadingScreen";
 
 export default function Lobby() {
    const { wsReady, crearSala, unirseaSala, roomCode, wsError, resetJuego } = useJuegoContext();
@@ -72,41 +73,12 @@ export default function Lobby() {
 
    // ─── ESTADO: esperando / error ───────────────────────────────────────────
    if ((modo === "crear" || modo === "unirse") && !roomCode && !wsError) {
-      return (
-         <div className="min-h-screen w-full flex items-center justify-center overflow-hidden" style={bgStyle}>
-            <Confetti />
-            <div style={glassCard} className="text-center px-16 py-14">
-               <div className="mb-6">
-                  <span className="loading loading-spinner" style={{ width: 56, height: 56, color: "#FFD700" }}></span>
-               </div>
-               <p style={{ ...titleFont, fontSize: 22, color: "#FFD700", letterSpacing: "0.05em" }}>
-                  {modo === "crear" ? "Creando tu sala…" : "Uniéndote a la sala…"}
-               </p>
-               <p style={{ color: "rgba(255,255,255,0.5)", marginTop: 8, fontSize: 14 }}>Un momento, por favor</p>
-            </div>
-         </div>
-      );
+      return <LoadingScreen title={modo === "crear" ? "Creando tu sala…" : "Buscando la sala…"} detail="Sincronizando todos los dispositivos" />;
    }
 
    // ─── ESTADO: error ───────────────────────────────────────────────────────
    if ((modo === "crear" || modo === "unirse") && wsError) {
-      return (
-         <div className="min-h-screen w-full flex items-center justify-center overflow-hidden" style={bgStyle}>
-            <Confetti />
-            <div style={glassCard} className="text-center px-16 py-14">
-               <div style={{ fontSize: 52, marginBottom: 16 }}>⚠️</div>
-               <p style={{ ...titleFont, fontSize: 20, color: "#FF6B6B", marginBottom: 24 }}>{wsError}</p>
-               <button
-                  style={btnSecondary}
-                  onClick={() => setModo(null)}
-                  onMouseEnter={(e) => Object.assign(e.currentTarget.style, btnSecondaryHover)}
-                  onMouseLeave={(e) => Object.assign(e.currentTarget.style, btnSecondary)}
-               >
-                  ← Volver al inicio
-               </button>
-            </div>
-         </div>
-      );
+      return <LoadingScreen error={wsError} onBack={() => setModo(null)} />;
    }
 
    // ─── ESTADO: sala creada ─────────────────────────────────────────────────
@@ -299,7 +271,7 @@ export default function Lobby() {
             {/* Logo / título */}
             <div style={{ textAlign: "center", marginBottom: 36 }}>
                <div style={{ display: "flex", justifyContent: "center", alignItems: "baseline", gap: 4, marginBottom: 2 }}>
-                  <span style={{ ...titleFont, fontSize: 88, color: "#FFD700", lineHeight: 1, animation: "popIn 0.6s cubic-bezier(0.175,0.885,0.32,1.275)" }}>
+                  <span style={{ ...titleFont, fontSize: 88, color: "#FFD700", lineHeight: 1, animation: "popIn 0.6s cubic-bezier(0.22,1,0.36,1)" }}>
                      100
                   </span>
                </div>

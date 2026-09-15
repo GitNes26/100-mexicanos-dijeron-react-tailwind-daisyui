@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useRef, useEffect, useMemo } from "react";
 import useSound from "../hooks/useSound";
 import sounds from "../const/sounds";
-import { PREGUNTAS } from "../data_v2";
+import bancoPredeterminado from "../data/question-banks/data-torreon-90-2026.json";
 import { sleep } from "../utils/helpers";
 import env from "../const/env";
 
@@ -46,6 +46,7 @@ export function JuegoContextProvider({ children }) {
    // --- UI / Admin ---
    const [preguntaPreview, setPreguntaPreview] = useState(null);
    const [preguntasEnviadas, setPreguntasEnviadas] = useState([]);
+   const [preguntas, setPreguntas] = useState(bancoPredeterminado.preguntas);
    const [allowKeyboard, setAllowKeyboard] = useState(true);
    const [animX, setAnimX] = useState({ e1: false, e2: false });
    const [showCelebration, setShowCelebration] = useState(false);
@@ -54,7 +55,6 @@ export function JuegoContextProvider({ children }) {
    const [contadorActivo, setContadorActivo] = useState(false);
    const [tiempoRestante, setTiempoRestante] = useState(10);
    const contadorRef = useRef(null);
-   const [log, setLog] = useState([]);
 
    // --- Sonidos ---
    const s = useSound();
@@ -94,6 +94,10 @@ export function JuegoContextProvider({ children }) {
                setEquipos((prev) => ({ ...prev, 1: { ...prev[1], nombre: data.teamNames.e1 || "" }, 2: { ...prev[2], nombre: data.teamNames.e2 || "" } }));
             if (data.puntosEquipo)
                setEquipos((prev) => ({ ...prev, 1: { ...prev[1], puntos: data.puntosEquipo.e1 ?? 0 }, 2: { ...prev[2], puntos: data.puntosEquipo.e2 ?? 0 } }));
+            if (Array.isArray(data.preguntas)) setPreguntas(data.preguntas);
+            break;
+         case "updateQuestions":
+            if (Array.isArray(data.preguntas)) { setPreguntas(data.preguntas); setPreguntasEnviadas([]); setPreguntaPreview(null); }
             break;
          case "error":
             setWsError(data.message);
@@ -159,7 +163,6 @@ export function JuegoContextProvider({ children }) {
          };
          socket.onmessage = (msg) => {
             const data = JSON.parse(msg.data);
-            setLog((prev) => [...prev, JSON.stringify(data)]);
             handleWSMessageRef.current(data);
          };
          socket.onclose = () => {
@@ -253,7 +256,7 @@ export function JuegoContextProvider({ children }) {
       const idxDestapadas = Object.keys(respuestasReveladas).map((k) => Number(k.split(`${ronda.preguntaIdx}-`).reverse()[0]));
       setRonda((prev) => ({ ...prev, reveladas: respuestasReveladas }));
       let puntosAcumulados = 0;
-      PREGUNTAS[ronda.preguntaIdx]?.respuestas.forEach((r, i) => {
+      preguntas[ronda.preguntaIdx]?.respuestas.forEach((r, i) => {
          if (idxDestapadas.includes(i)) puntosAcumulados += r.puntos;
       });
       return { destapadas, puntosAcumulados };
@@ -282,18 +285,18 @@ export function JuegoContextProvider({ children }) {
       const key = `${ronda.preguntaIdx}-${i}`;
       if (ronda.reveladas[key]) return;
       const { destapadas, puntosAcumulados } = await actualizarPuntaje(key);
-      const puntos = PREGUNTAS[ronda.preguntaIdx].respuestas[i].puntos || 0;
+      const puntos = preguntas[ronda.preguntaIdx].respuestas[i].puntos || 0;
       s.play("correcto");
       await sleep(3000);
       setRonda((prev) => ({ ...prev, acumulado: puntosAcumulados }));
       if (!ronda.activa) return;
       if (eqActivo) {
-         const totalRespuestas = PREGUNTAS[ronda.preguntaIdx].respuestas.length;
+         const totalRespuestas = preguntas[ronda.preguntaIdx].respuestas.length;
          if (destapadas === totalRespuestas) {
             await ganaRonda(puntosAcumulados);
             return;
          }
-         const maxPuntos = Math.max(...PREGUNTAS[ronda.preguntaIdx].respuestas.map((r) => r.puntos || 0));
+         const maxPuntos = Math.max(...preguntas[ronda.preguntaIdx].respuestas.map((r) => r.puntos || 0));
          if (ronda.unoVsUno || ronda.muerteSubita) {
             if (ronda.enRobo) {
                if (puntos < puntosAcumulados - puntos)
@@ -423,7 +426,7 @@ export function JuegoContextProvider({ children }) {
 
    const contextValue = useMemo(
       () => ({
-         PREGUNTAS,
+         PREGUNTAS: preguntas,
          MAX_ERRORES,
          BLOQUEO_MS,
          META_PUNTOS,
@@ -435,6 +438,7 @@ export function JuegoContextProvider({ children }) {
          unirseaSala,
          send,
          equipos,
+         setPreguntas,
          setEquipos,
          ronda,
          setRonda,
@@ -471,7 +475,7 @@ export function JuegoContextProvider({ children }) {
          teamVictoria
       }),
       [
-         PREGUNTAS,
+         preguntas,
          MAX_ERRORES,
          BLOQUEO_MS,
          META_PUNTOS,
@@ -483,6 +487,7 @@ export function JuegoContextProvider({ children }) {
          unirseaSala,
          send,
          equipos,
+         setPreguntas,
          setEquipos,
          ronda,
          setRonda,

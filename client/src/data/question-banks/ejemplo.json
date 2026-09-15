@@ -1,0 +1,19 @@
+{
+  "id": "ejemplo",
+  "nombre": "Ejemplo",
+  "version": 1,
+  "idioma": "es-MX",
+  "preguntas": [
+    {
+      "id": "ejemplo-001",
+      "texto": "Menciona algo que llevas a una fiesta",
+      "categoria": "general",
+      "respuestas": [
+        { "texto": "Comida", "puntos": 40 },
+        { "texto": "Refresco", "puntos": 30 },
+        { "texto": "Regalo", "puntos": 20 },
+        { "texto": "Música", "puntos": 10 }
+      ]
+    }
+  ]
+}
